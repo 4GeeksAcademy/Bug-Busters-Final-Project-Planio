@@ -22,14 +22,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -46,6 +46,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			signupFunction: async (form) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ name: form.name, last_name: form.last_name, username: form.username, email: form.email, password: form.password })
+					});
+
+					if (!response.ok) {
+						throw new Error("There was a problem with Sign up process, please try again.")
+					}
+
+					const data = await response.json();
+					localStorage.setItem("jwt-token", data.token);
+					console.log(data);
+
+					return data;
+
+				} catch (error) {
+					console.error(error);
+					alert("Please make sure your inputs are ok.");
+
+				}
 			}
 		}
 	};
