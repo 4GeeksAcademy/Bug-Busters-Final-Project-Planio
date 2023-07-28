@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -106,3 +106,37 @@ def delete_user(user_id):
         return jsonify({"msg": "User successfully deleted."}), 200
     else:
         return jsonify({"msg": "User not found."}), 404
+
+
+# FORGOT PASSWORD ENDPOINT
+
+@api.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    #Verificamos que el usuario existe
+    if request.method == 'POST':
+        email = request.form['email']
+        return redirect(url_for('reset_password'))
+
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        return jsonify({'msg': 'User not found'})
+
+    #Creamos el token
+    token = create_access_token(identity=user.id)
+        
+        # Si está registrado, generar un token JWT y enviar email con el enlace de recuperación de contraseña
+        # Guardar el token en la base de datos junto con email
+
+    #return jsonify({"token":token, "msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico."}), 200
+    return render_template('forgot-password.js')
+
+# RESET PASSWORD ENDPOINT
+@api.route('/reset_password', methods=['GET', 'POST'])
+def reset_password(token):
+    
+        # Decodificar el token para obtener el correo electrónico asociado
+        # Verificar si el token es válido y no ha expirado
+        # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
+        # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
+
+    return render_template('reset_password.html')
