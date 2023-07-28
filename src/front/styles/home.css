@@ -1,7 +1,77 @@
-/*
-    home.css: This website contains selectors only used in home.css
+:root {
+  --primary-color: #FF7C33;
+  --secondary-color: #FFECE8;
+  --light-text-color: white;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* SIGN UP STYLES */
+
+.sign-up-form {
+  width: 458.6px;
+
+}
+
+.form-input {
+  height: 40px;
+  margin-bottom: 20px;
+  background-color: var(--secondary-color);
+  border-radius: 8px;
+  border: none;
+  padding: 5px 25px;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  border: none;
+
+  -webkit-text-fill-color: black;
+  -webkit-box-shadow: 0 0 0px 1000px var(--secondary-color) inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+.form-input:focus {
+  outline: 2px solid var(--primary-color);
+
+}
+
+.form-button {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+
+  margin-top: 20px;
+  border-radius: 8px;
+  border: none;
+  height: 50px;
+}
+
+.form-button:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  outline: 2px solid var(--primary-color);
+}
+
+.text-emphasis {
+  font-weight: bolder;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.text-emphasis:hover {
+  font-weight: bolder;
+  color: var(--primary-color);
+  text-decoration: underline;
+
+}
+
+
+
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100;1,200&display=swap');
