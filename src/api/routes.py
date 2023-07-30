@@ -9,6 +9,9 @@ from sqlalchemy import or_
 import bcrypt
 import re
 import random
+from flask_mail import Mail, Message
+import os
+from app import mail, app
 
 
 api = Blueprint('api', __name__)
@@ -111,7 +114,7 @@ def delete_user(user_id):
 
 # FORGOT PASSWORD ENDPOINT
 
-@api.route('/forgot-password', methods=['GET', 'POST'])
+@api.route('/forgot-password', methods=['POST'])
 def forgot_password():
     #Verificamos que el usuario existe
     if request.method == 'POST':
@@ -128,16 +131,30 @@ def forgot_password():
     def generar_numero_aleatorio():
         return str(random.randint(100000, 999999))
 
-    recovery_code = generar_numero_aleatorio()
+    recovery_token = generar_numero_aleatorio()
     
-    encrypted_code = bcrypt.hashpw(recovery_code.encode("UTF-8"), bcrypt.gensalt())
+    encrypted_token = bcrypt.hashpw(recovery_token.encode("UTF-8"), bcrypt.gensalt())
 
-    user.recovery_code = encrypted_code.decode("UTF-8"),
+    user.recovery_token = encrypted_token.decode("UTF-8")
 
     db.session.commit()
+
+    def enviar_correo():
+        msg = Message(
+        subject  = ("Your recovery code"), 
+        sender = "planio.notification@gmail.com", 
+        recipients = user.email, 
+        body= (f" Tu código es: {encrypted_token}."),
+        )  
+        try:
+            mail.send(msg)
+            return 'Correo electrónico enviado correctamente.'
+        except Exception as e:
+            return f'Error al enviar el correo electrónico: {str(e)}'
     
-        
-    return jsonify({"token":token, "msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico."}), 200
+    enviar_correo() 
+
+    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico."}), 200
 
 
 # # RESET PASSWORD ENDPOINT
