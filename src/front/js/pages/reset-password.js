@@ -6,19 +6,20 @@ export const ResetPassword = () => {
 
     const { store, actions } = useContext(Context);
 
-    const [form, setForm] = useState(
+    const [passForm, setPassForm] = useState(
         {
-            password: ""
+            password: "",
+            recovery_code: "",
         }
     );
 
     const handleInputChange = (e) => {
         const { password, value } = e.target;
-        setForm({ ...form, [password]: value });
+        setPassForm({ ...passForm, [password]: value });
     };
 
     const handleSubmit = (e) => {
-        actions.signupFunction(form);
+        actions.pass_recovery(passForm);
     };
 
     return <>
@@ -26,9 +27,9 @@ export const ResetPassword = () => {
             <h1>Reestablecer contraseña</h1>
             <div className="sign-up-form container">
                 <form className="d-flex flex-column" onSubmit={handleSubmit}>
-                    <input className="form-input" type="password" name="password" value={form.password} onChange={handleInputChange} placeholder="Nueva contraseña" required />
-                    <input className="form-input" type="password" name="password" value={form.password} onChange={handleInputChange} placeholder="Repite nueva contraseña" required />
-                    <button className="form-button" type="submit">Aceptar</button>
+                    <input className="form-input" type="password" name="password" onChange={handleInputChange} placeholder="Nueva contraseña" required />
+                    <input className="form-input" type="text" name="code" onChange={handleInputChange} placeholder="Código de verificación" required />
+                    <button className="form-button" type="submit">Actualizar contraseña</button>
                 </form>
             </div>
 

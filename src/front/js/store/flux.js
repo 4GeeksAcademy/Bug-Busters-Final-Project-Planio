@@ -24,7 +24,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getMessage: async () => {
 				try {
 					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+					const resp = await fetch(process.env.BACKEND_URL + "api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
@@ -70,7 +70,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					alert("Please make sure your inputs are ok.");
 
 				}
+			},
+			guardar_email: async (emailForm) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/forgot-password`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ email: emailForm.email, })
+					});
+
+					if (!response.ok) {
+						throw new Error("There was a problem saving the email, please try again.")
+					}
+
+					const data = await response.json();
+					localStorage.setItem("email", data.email);
+					console.log(data);
+
+					return data;
+
+				} catch (error) {
+					console.error(error);
+					alert("Please make sure your inputs are ok.");
+
+				}
+			},
+			pass_recovery: async (passForm) => {
+				return redirect(url_for('signup'))
 			}
+
 		}
 	};
 };
