@@ -20,6 +20,7 @@ class User(db.Model):
     password = db.Column(db.String(80), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    recovery_token = db.Column(db.String, unique=True, nullable=True)
 
     projects = db.relationship('Project', back_populates='user')
 
