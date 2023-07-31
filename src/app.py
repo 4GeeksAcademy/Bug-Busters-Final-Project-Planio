@@ -14,6 +14,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from api.mail import mail
 
+
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -51,6 +52,7 @@ db.init_app(app)
 
 # Allow CORS requests to this API
 CORS(app)
+
 
 # add the admin
 setup_admin(app)
