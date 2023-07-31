@@ -88,6 +88,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json();
 					localStorage.setItem("email", data.email);
 					swal.fire({ title: "Email sent successfully!", text: "Check your email for the verification code.", icon: "success", cancelButtonColor: '#fa9643' });
+					console.log(data)
 
 
 					return data;
