@@ -49,6 +49,7 @@ class User(db.Model):
             "last_name": self.last_name,
             "username": self.username,
             "email": self.email,
+            "recovery_token": self.recovery_token,
         }
         if self.created_at:
             serialized_user["created_at"] = self.created_at.strftime(
