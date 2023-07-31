@@ -11,7 +11,7 @@ import re
 import random
 from flask_mail import Mail, Message
 import os
-from app import mail, app
+from api.mail import mail
 
 
 api = Blueprint('api', __name__)
@@ -116,7 +116,7 @@ def delete_user(user_id):
 
 @api.route('/forgot-password', methods=['POST'])
 def forgot_password():
-    #Verificamos que el usuario existe
+    # Verificamos que el usuario existe
     if request.method == 'POST':
         email = request.form['email']
 
@@ -127,32 +127,32 @@ def forgot_password():
     # #Creamos el token
     # token = create_access_token(identity=user.id)
 
-    #Crear número aleatorio
+    # Crear número aleatorio
     def generar_numero_aleatorio():
         return str(random.randint(100000, 999999))
 
     recovery_token = generar_numero_aleatorio()
-    
-    encrypted_token = bcrypt.hashpw(recovery_token.encode("UTF-8"), bcrypt.gensalt())
+
+    encrypted_token = bcrypt.hashpw(
+        recovery_token.encode("UTF-8"), bcrypt.gensalt())
 
     user.recovery_token = encrypted_token.decode("UTF-8")
 
-    db.session.commit()
-
     def enviar_correo():
         msg = Message(
-        subject  = ("Your recovery code"), 
-        sender = "planio.notification@gmail.com", 
-        recipients = user.email, 
-        body= (f" Tu código es: {encrypted_token}."),
-        )  
+            subject=("Your recovery code"),
+            sender="planio.notification@gmail.com",
+            recipients=[user.email],
+            body=(f" Hi {user.name}! your recovery code is: {recovery_token}."),
+        )
         try:
             mail.send(msg)
             return 'Correo electrónico enviado correctamente.'
         except Exception as e:
             return f'Error al enviar el correo electrónico: {str(e)}'
-    
-    enviar_correo() 
+
+    enviar_correo()
+    db.session.commit()
 
     return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico."}), 200
 
@@ -160,10 +160,8 @@ def forgot_password():
 # # RESET PASSWORD ENDPOINT
 # @api.route('/reset-password', methods=['GET', 'POST'])
 # def reset_password(token):
-    
+
 #         # Decodificar el token para obtener el correo electrónico asociado
 #         # Verificar si el token es válido y no ha expirado
 #         # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
 #         # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
-
-    

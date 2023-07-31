@@ -12,7 +12,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
-from flask_mail import Mail, Message
+from api.mail import mail
 
 # from models import Person
 
@@ -35,9 +35,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'planio.notification@gmail.com'
 app.config['MAIL_PASSWORD'] = 'zhoqnsyhguyvpmgb'
-mail = Mail(app)
-
-
+mail.init_app(app)
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -52,8 +50,7 @@ MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
 
 # Allow CORS requests to this API
-CORS(app, origins=[
-     "https://pedroalvaradoh-musical-zebra-ggx797px9p4fwr6j-3000.preview.app.github.dev"])
+CORS(app)
 
 # add the admin
 setup_admin(app)
