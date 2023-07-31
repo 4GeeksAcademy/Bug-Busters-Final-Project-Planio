@@ -17,7 +17,7 @@ class User(db.Model):
     last_name = db.Column(db.String(80), nullable=False)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(128), unique=False, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     recovery_token = db.Column(db.String, unique=True, nullable=True)
@@ -29,6 +29,9 @@ class User(db.Model):
 
     def check_password(self, password):
         return bcrypt.checkpw(password.encode("UTF-8"), self.password.encode("UTF-8"))
+
+    def check_recovery_token(self, recovery_token):
+        return bcrypt.checkpw(recovery_token.encode("UTF-8"), self.recovery_token.encode("UTF-8"))
 
     def validate_password(self, password):
         return len(password) >= 8

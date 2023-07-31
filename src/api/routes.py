@@ -142,7 +142,8 @@ def forgot_password():
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
             recipients=[user.email],
-            body=(f" Hi {user.name}! your recovery code is: {recovery_token}."),
+            body=(
+                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}/reset-password")
         )
         try:
             mail.send(msg)
@@ -153,13 +154,35 @@ def forgot_password():
     enviar_correo()
     db.session.commit()
 
-    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico.", "email": user.email}), 200
+    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico.", "user_id": user.id}), 200
 
 
 # RESET PASSWORD ENDPOINT
-@api.route('/reset-password', methods=['POST'])
-def reset_password(token):
-    email = request.json.get('email')
+@api.route('/reset-password/<int:id>', methods=['POST'])
+def reset_password(id):
+    user = User.query.filter_by(id=id).first()
+
+    new_password = request.json.get('new_password')
+    recovery_token = request.json.get('recovery_token')
+
+    recovery_token_validated = user.check_recovery_token(
+        recovery_token)
+
+    if user is None:
+        return abort(404, description='User not found')
+
+    if recovery_token_validated is None:
+        return abort(404, description='Something went wrong')
+
+    user.password = bcrypt.hashpw(
+        new_password.encode("UTF-8"), bcrypt.gensalt())
+
+    print(user.password)
+
+    db.session.commit()
+
+    return jsonify({"msg": "Password successfully updated"})
+
     # Decodificar el token para obtener el correo electrónico asociado
     # Verificar si el token es válido y no ha expirado
     # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
