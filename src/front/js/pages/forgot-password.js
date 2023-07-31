@@ -9,16 +9,17 @@ export const ForgotPassword = () => {
 
   const [emailForm, setEmailForm] = useState(
     {
-      email: "",
+      email: ""
     }
   );
 
   const handleInputChange = (e) => {
-    const { email, value } = e.target;
-    setEmailForm({ ...emailForm, [email]: value });
+    const { name, value } = e.target;
+    setEmailForm({ ...emailForm, [name]: value });
   };
 
   const handleSubmit = (e) => {
+    e.preventDefault()
     actions.guardar_email(emailForm);
   };
 
@@ -28,7 +29,7 @@ export const ForgotPassword = () => {
       <p>Introduce tu email y te enviaremos un código de verificación para reestablecer tu contraseña.</p>
       <div className="sign-up-form container">
         <form className="d-flex flex-column" onSubmit={handleSubmit}>
-          <input className="form-input" type="email" name="email" onChange={handleInputChange} placeholder="Introduce tu email" required />
+          <input className="form-input" type="email" name="email" onChange={handleInputChange} value={emailForm.email} placeholder="Introduce tu email" required />
           <button className="form-button" type="submit">Enviar código de verificación</button>
         </form>
       </div>

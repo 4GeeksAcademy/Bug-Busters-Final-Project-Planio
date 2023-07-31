@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -12,7 +12,6 @@ import random
 from flask_mail import Mail, Message
 import os
 from api.mail import mail
-
 
 api = Blueprint('api', __name__)
 
@@ -118,11 +117,11 @@ def delete_user(user_id):
 def forgot_password():
     # Verificamos que el usuario existe
     if request.method == 'POST':
-        email = request.form['email']
+        email = request.json.get('email')
 
     user = User.query.filter_by(email=email).first()
     if user is None:
-        return jsonify({'msg': 'User not found'})
+        abort(404, description='User not found')
 
     # #Creamos el token
     # token = create_access_token(identity=user.id)
@@ -142,7 +141,7 @@ def forgot_password():
         msg = Message(
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
-            recipients=[user.email],
+            recipients=[user.email, 'pedroalvaradoh@gmail.com'],
             body=(f" Hi {user.name}! your recovery code is: {recovery_token}."),
         )
         try:

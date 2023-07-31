@@ -1,3 +1,5 @@
+import swal from 'sweetalert2';
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -67,7 +69,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.error(error);
-					alert("Please make sure your inputs are ok.");
+					// swal("Please make sure your inputs are ok.");
 
 				}
 			},
@@ -85,13 +87,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					localStorage.setItem("email", data.email);
-					console.log(data);
+					swal.fire({ title: "Email sent successfully!", text: "Check your email for the verification code.", icon: "success", cancelButtonColor: '#fa9643' });
+
 
 					return data;
 
 				} catch (error) {
 					console.error(error);
-					alert("Please make sure your inputs are ok.");
+					swal.fire({ title: "There was an error!", text: "Make sure your email is correct or registered.", icon: "error", confirmButtonColor: '#fa9643' });
 
 				}
 			},
