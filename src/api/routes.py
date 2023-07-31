@@ -141,7 +141,7 @@ def forgot_password():
         msg = Message(
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
-            recipients=[user.email, 'pedroalvaradoh@gmail.com'],
+            recipients=[user.email],
             body=(f" Hi {user.name}! your recovery code is: {recovery_token}."),
         )
         try:
@@ -153,14 +153,14 @@ def forgot_password():
     enviar_correo()
     db.session.commit()
 
-    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico."}), 200
+    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico.", "email": user.email}), 200
 
 
-# # RESET PASSWORD ENDPOINT
-# @api.route('/reset-password', methods=['GET', 'POST'])
-# def reset_password(token):
-
-#         # Decodificar el token para obtener el correo electrónico asociado
-#         # Verificar si el token es válido y no ha expirado
-#         # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
-#         # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
+# RESET PASSWORD ENDPOINT
+@api.route('/reset-password', methods=['POST'])
+def reset_password(token):
+    email = request.json.get('email')
+    # Decodificar el token para obtener el correo electrónico asociado
+    # Verificar si el token es válido y no ha expirado
+    # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
+    # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
