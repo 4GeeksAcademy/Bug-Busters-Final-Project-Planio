@@ -100,9 +100,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			pass_recovery: async (passForm) => {
-				return redirect(url_for('signup'))
-			}
+				let user_id = localStorage.getItem("user_id")
 
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/reset-password/${user_id}`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ new_password: passForm.new_password, recovery_token: passForm.recovery_token })
+					});
+
+					if (!response.ok) {
+						throw new Error("Something went wrong, please try again.")
+					}
+
+					const data = await response.json();
+					swal.fire({ title: "Password successfully updated!", text: "You can login now.", icon: "success", confirmButtonColor: '#fa9643' });
+
+
+					return data;
+
+				} catch (error) {
+					console.error(error);
+					swal.fire({ title: "There was an error!", text: "Make sure you are typing a valid recovery token.", icon: "error", confirmButtonColor: '#fa9643' });
+
+
+				}
+
+			},
 		}
 	};
 };

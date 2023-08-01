@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext"; 1
 import "../../styles/home.css";
+import swal from 'sweetalert2';
 
 export const ResetPassword = () => {
 
@@ -8,7 +9,8 @@ export const ResetPassword = () => {
 
     const [passForm, setPassForm] = useState(
         {
-            password: "",
+            new_password: "",
+            new_password2: "",
             recovery_token: "",
         }
     );
@@ -19,7 +21,24 @@ export const ResetPassword = () => {
     };
 
     const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const { new_password, new_password2, recovery_token } = passForm;
+
+
+        if (new_password !== new_password2) {
+            // Mostrar mensaje de error o realizar alguna acción
+            swal.fire({ title: "Passwords doesn't match!", text: "Make sure both password fields are the same.", icon: "warning", confirmButtonColor: '#fa9643' });
+            return;
+        }
+
+        // Si las contraseñas son iguales, continuar con la acción de recuperación de contraseña
         actions.pass_recovery(passForm);
+        setPassForm({
+            password1: "",
+            password2: "",
+            recovery_token: "",
+        });
     };
 
     return <>
@@ -27,8 +46,10 @@ export const ResetPassword = () => {
             <h1>Reestablecer contraseña</h1>
             <div className="sign-up-form container">
                 <form className="d-flex flex-column" onSubmit={handleSubmit}>
-                    <input className="form-input" type="password" name="password" value={passForm.password} onChange={handleInputChange} placeholder="Nueva contraseña" required />
-                    <input className="form-input" type="text" name="recovery_token" value={passForm.recovery_token} onChange={handleInputChange} placeholder="Código de verificación" required />
+                    <input className="form-input" type="password" name="new_password" value={passForm.new_password} onChange={handleInputChange} placeholder="New password" required />
+                    <input className="form-input" type="password" name="new_password2" value={passForm.new_password2} onChange={handleInputChange} placeholder="Confirm password" required />
+
+                    <input className="form-input" type="text" name="recovery_token" value={passForm.recovery_token} onChange={handleInputChange} placeholder="Recovery token" required />
                     <button className="form-button" type="submit">Actualizar contraseña</button>
                 </form>
             </div>
