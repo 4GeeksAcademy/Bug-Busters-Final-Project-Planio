@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
-from api.models import db, User
+from api.models import db, User, Project
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
@@ -216,7 +216,24 @@ def reset_password(id):
 
     return jsonify({"msg": "Password successfully updated"})
 
-    # Decodificar el token para obtener el correo electrónico asociado
-    # Verificar si el token es válido y no ha expirado
-    # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
-    # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
+
+#    PROJECTS ENDPOINTS
+
+# Create new Project endpoint
+@api.route('/create-new-project', methods=['POST'])
+def create_new_project():
+
+    title = request.json.get('title')
+    description = request.json.get('description')
+    user_id = request.json.get('user_id')
+
+    project = Project(
+        title=title.title(),
+        description=description.capitalize(),
+        user_id=user_id
+    )
+
+    db.session.add(project)
+    db.session.commit()
+
+    return jsonify({"msg": f" {project.title} has been successfully created"})
