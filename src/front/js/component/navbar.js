@@ -12,6 +12,9 @@ export const Navbar = () => {
 					<Link to="/signup">
 						<button className="btn btn-primary">Sign Up</button>
 					</Link>
+					<Link to="/forgot-password">
+						<button className="btn btn-primary">Recuperar contraseña</button>
+					</Link>
 				</div>
 			</div>
 		</nav>

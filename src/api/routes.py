@@ -1,14 +1,17 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
 import bcrypt
 import re
-
+import random
+from flask_mail import Mail, Message
+import os
+from api.mail import mail
 
 api = Blueprint('api', __name__)
 
@@ -120,3 +123,81 @@ def delete_user(user_id):
         return jsonify({"msg": "User successfully deleted."}), 200
     else:
         return jsonify({"msg": "User not found."}), 404
+
+
+# FORGOT PASSWORD ENDPOINT
+
+@api.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    # Verificamos que el usuario existe
+    if request.method == 'POST':
+        email = request.json.get('email')
+
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        abort(404, description='User not found')
+
+    # #Creamos el token
+    # token = create_access_token(identity=user.id)
+
+    # Crear número aleatorio
+    def generar_numero_aleatorio():
+        return str(random.randint(100000, 999999))
+
+    recovery_token = generar_numero_aleatorio()
+
+    encrypted_token = bcrypt.hashpw(
+        recovery_token.encode("UTF-8"), bcrypt.gensalt())
+
+    user.recovery_token = encrypted_token.decode("UTF-8")
+
+    def enviar_correo():
+        msg = Message(
+            subject=("Your recovery code"),
+            sender="planio.notification@gmail.com",
+            recipients=[user.email],
+            body=(
+                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}/reset-password/{user.id}")
+        )
+        try:
+            mail.send(msg)
+            return 'Correo electrónico enviado correctamente.'
+        except Exception as e:
+            return f'Error al enviar el correo electrónico: {str(e)}'
+
+    enviar_correo()
+    db.session.commit()
+
+    return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico.", "user_id": user.id}), 200
+
+
+# RESET PASSWORD ENDPOINT
+@api.route('/reset-password/<int:id>', methods=['POST'])
+def reset_password(id):
+    user = User.query.filter_by(id=id).first()
+
+    new_password = request.json.get('new_password')
+    recovery_token = request.json.get('recovery_token')
+
+    recovery_token_validated = user.check_recovery_token(
+        recovery_token)
+
+    if user is None:
+        return abort(404, description='User not found')
+
+    if not recovery_token_validated:
+        return abort(404, description='Something went wrong')
+
+    user.password = bcrypt.hashpw(
+        new_password.encode("UTF-8"), bcrypt.gensalt())
+
+    print(user.password)
+
+    db.session.commit()
+
+    return jsonify({"msg": "Password successfully updated"})
+
+    # Decodificar el token para obtener el correo electrónico asociado
+    # Verificar si el token es válido y no ha expirado
+    # Si el token es válido, mostrar el formulario para escribir una nueva contraseña
+    # Actualizar la contraseña del usuario en la base de datos utilizando el correo electrónico
