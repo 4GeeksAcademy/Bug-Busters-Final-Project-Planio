@@ -205,8 +205,10 @@ def reset_password(id):
     if not recovery_token_validated:
         return abort(404, description='Something went wrong')
 
-    user.password = bcrypt.hashpw(
-        new_password.encode("UTF-8"), bcrypt.gensalt())
+    hashed_password = bcrypt.hashpw(
+        new_password.encode('utf-8'), bcrypt.gensalt())
+
+    user.password = hashed_password.decode('utf-8')
 
     print(user.password)
 
