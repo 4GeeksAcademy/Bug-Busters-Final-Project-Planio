@@ -236,4 +236,4 @@ def create_new_project():
     db.session.add(project)
     db.session.commit()
 
-    return jsonify({"msg": f" {title} has been successfully created"})
+    return jsonify({"msg": f" {project.title} has been successfully created"})

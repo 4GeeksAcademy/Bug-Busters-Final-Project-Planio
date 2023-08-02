@@ -9,6 +9,56 @@ body {
 }
 
 
+/* HOME STYLES */
+
+.fade-in-image img {
+  animation: fadeInAnimation 2s ease-in 1.5s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-img2 {
+  animation: fadeInAnimation 2s ease-in 2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-title h1 {
+  animation: fadeInAnimation 2s ease-in;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* SIGN UP STYLES */
 
 .sign-up-form {
