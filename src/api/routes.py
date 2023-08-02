@@ -18,6 +18,37 @@ api = Blueprint('api', __name__)
 # SIGN UP ENDPOINT
 
 
+@api.route('/login', methods=['POST'])
+def login():
+
+    email = request.json.get('email')
+    password = request.json.get('password')
+
+    user = User.query.filter_by(email=email).first()
+
+    validated_password = user.check_password(
+        password)
+
+    if user is None:
+        return abort(404, description='User does not exist')
+
+    if not validated_password:
+        return abort(404, description='Something went wrong')
+
+    token = create_access_token(identity=user.id)
+    return jsonify({"token": token, "user_id": user.id}), 200
+
+
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    return jsonify({"id": user.id, "email": user.email, "name": user.name}), 200
+
+
 @api.route('/signup', methods=['POST'])
 def sign_up_user():
     name = request.json.get('name')
@@ -34,10 +65,10 @@ def sign_up_user():
         return jsonify({"msg": "Invalid email address."}), 400
 
     user = User(
-        name=name,
-        last_name=last_name,
-        username=username,
-        email=email,
+        name=name.title(),
+        last_name=last_name.title(),
+        username=username.lower(),
+        email=email.lower(),
         password=password_hash.decode("UTF-8"),
         created_at=created_at,
         updated_at=updated_at

@@ -1,47 +1,46 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 
-export const Signup = () => {
+export const Login = () => {
 
     const { store, actions } = useContext(Context);
 
     const [form, setForm] = useState(
         {
-            name: "",
-            last_name: "",
-            username: "",
             email: "",
             password: ""
         }
     );
 
+    const navigate = useNavigate();
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+
     };
 
     const handleSubmit = (e) => {
-        actions.signupFunction(form);
+        e.preventDefault();
+        actions.loginFunction(form);
+        // navigate(`/private-view`);
     };
 
 
     return <>
         <div className="text-center mt-5">
-            <h1>Sign up</h1>
+            <h1>Login</h1>
             <div className="sign-up-form container">
                 <form className="d-flex flex-column" onSubmit={handleSubmit}>
-                    <input className="form-input" type="text" name="name" value={form.name} onChange={handleInputChange} placeholder="Name" required />
-                    <input className="form-input" type="text" name="last_name" value={form.last_name} onChange={handleInputChange} placeholder="Last name" required />
-                    <input className="form-input" type="text" name="username" value={form.username} onChange={handleInputChange} placeholder="Username" required />
                     <input className="form-input" type="email" name="email" value={form.email} onChange={handleInputChange} placeholder="Email" required />
                     <input className="form-input" type="password" name="password" value={form.password} onChange={handleInputChange} placeholder="Password" required />
-                    <button className="form-button" type="submit">Sign Up</button>
+                    <button className="form-button" type="submit">Login</button>
                 </form>
                 <div className="d-flex text-center justify-content-around mt-5">
-                    <p>Already have an account?</p> <Link className="text-emphasis" to="/login"><p className="text-emphasis">Login here!</p></Link>
+                    <p>Are you not registered?</p> <Link className="text-emphasis" to="/private-view"><p className="text-emphasis">Sign up here!</p></Link>
                 </div>
             </div>
 

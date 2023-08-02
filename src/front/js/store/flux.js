@@ -1,4 +1,5 @@
 import swal from 'sweetalert2';
+import jwtDecode from 'jwt-decode';
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -15,7 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			user_info: [{ name: "test user name", email: "test user email" }],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -126,6 +128,67 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}
 
+			},
+			loginFunction: async (form) => {
+				const store = getStore();
+
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ email: form.email, password: form.password })
+					});
+
+					if (!resp.ok) {
+						throw new Error("There was a problem in the login request");
+					}
+
+					const data = await resp.json();
+					localStorage.setItem("jwt-token", data.token);
+					console.log([store.user, "This is user"]);
+
+					return data;
+				} catch (error) {
+					console.error(error);
+					alert("Invalid email or password");
+				}
+			},
+			is_token_valid: () => {
+				const token = localStorage.getItem('jwt-token');
+				if (token) {
+					const decodedToken = jwtDecode(token);
+					const currentTime = Date.now() / 1000;
+					console.log({ msg: "valid token", token: token })
+					return decodedToken.exp > currentTime;
+				}
+				return false;
+			},
+			getUserInfo: async () => {
+				const token = localStorage.getItem("jwt-token");
+				const store = getStore();
+
+				const current_user_id = jwtDecode(token).sub;
+
+				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						console.log(data);
+						setStore({ user_info: [data] })
+
+
+						return data;
+					})
+					.catch((error) => {
+						console.error(error);
+						// Maneja el error si lo deseas
+						throw new Error("Error al obtener la información del usuario");
+					});
 			},
 		}
 	};
