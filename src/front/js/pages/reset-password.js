@@ -27,7 +27,6 @@ export const ResetPassword = () => {
 
 
         if (new_password !== new_password2) {
-            // Mostrar mensaje de error o realizar alguna acción
             swal.fire({ title: "Passwords doesn't match!", text: "Make sure both password fields are the same.", icon: "warning", confirmButtonColor: '#fa9643' });
             return;
         }

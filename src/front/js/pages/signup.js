@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import swal from 'sweetalert2'
 import "../../styles/home.css";
 
 
@@ -18,12 +19,22 @@ export const Signup = () => {
         }
     );
 
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
 
     const handleSubmit = (e) => {
+        const { name, last_name, username, email, password } = form;
+        const regex = /[!@#$%^&*]/;
+
+        if (password.length < 8 && !regex.test(password)) {
+            swal.fire({ title: "Passwords is not valid!", text: "Make sure your password meets the requirements.", icon: "warning", confirmButtonColor: '#fa9643' });
+            return;
+        }
+
+
         actions.signupFunction(form);
     };
 
