@@ -27,12 +27,10 @@ export const ResetPassword = () => {
 
 
         if (new_password !== new_password2) {
-            // Mostrar mensaje de error o realizar alguna acción
             swal.fire({ title: "Passwords doesn't match!", text: "Make sure both password fields are the same.", icon: "warning", confirmButtonColor: '#fa9643' });
             return;
         }
 
-        // Si las contraseñas son iguales, continuar con la acción de recuperación de contraseña
         actions.pass_recovery(passForm);
         setPassForm({
             password1: "",
@@ -43,11 +41,11 @@ export const ResetPassword = () => {
 
     return <>
         <div className="text-center mt-5">
-            <h1>Reestablecer contraseña</h1>
+            <h1>Restore your password</h1>
             <div className="sign-up-form container">
                 <form className="d-flex flex-column" onSubmit={handleSubmit}>
                     <input className="form-input" type="password" name="new_password" value={passForm.new_password} onChange={handleInputChange} placeholder="New password" required />
-                    <input className="form-input" type="password" name="new_password2" value={passForm.new_password2} onChange={handleInputChange} placeholder="Confirm password" required />
+                    <input className="form-input" type="password" name="new_password2" value={passForm.new_password2} onChange={handleInputChange} placeholder="Confirm new password" required />
 
                     <input className="form-input" type="text" name="recovery_token" value={passForm.recovery_token} onChange={handleInputChange} placeholder="Recovery token" required />
                     <button className="form-button" type="submit">Actualizar contraseña</button>
