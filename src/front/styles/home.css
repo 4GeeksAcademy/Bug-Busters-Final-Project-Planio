@@ -9,6 +9,56 @@ body {
 }
 
 
+/* HOME STYLES */
+
+.fade-in-image img {
+  animation: fadeInAnimation 1s ease-in 1.5s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-img2 {
+  animation: fadeInAnimation 1s ease-in 1.5s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in-title h1 {
+  animation: fadeInAnimation 1s ease-in;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 /* SIGN UP STYLES */
 
 .sign-up-form {
@@ -68,6 +118,29 @@ input:-webkit-autofill:focus {
   color: var(--primary-color);
   text-decoration: underline;
 
+}
+
+.text-link-black {
+  font-weight: bolder;
+  color: black;
+  text-decoration: none;
+}
+
+.text-link-black:hover {
+  font-weight: bolder;
+  color: var(--primary-color);
+  text-decoration: underline;
+
+}
+
+.password-label {
+  color: rgb(145, 145, 145);
+  font-size: small;
+  padding-left: 4px;
+  margin-top: -20px;
+  margin-right: auto;
+  margin-bottom: 20px;
+  /* Puedes ajustar este valor según tu preferencia */
 }
 
 

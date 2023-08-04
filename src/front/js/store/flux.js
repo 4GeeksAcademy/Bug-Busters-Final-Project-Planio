@@ -1,6 +1,8 @@
 import swal from 'sweetalert2';
 import jwtDecode from 'jwt-decode';
 
+
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -25,18 +27,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
-			getMessage: async () => {
-				try {
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				} catch (error) {
-					console.log("Error loading message from backend", error)
-				}
-			},
+
 			changeColor: (index, color) => {
 				//get the store
 				const store = getStore();
@@ -71,7 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.error(error);
-					// swal("Please make sure your inputs are ok.");
+
 
 				}
 			},
@@ -89,8 +80,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					localStorage.setItem("user_id", data.user_id);
-					swal.fire({ title: "Email sent successfully!", text: "Check your email for the verification code.", icon: "success", cancelButtonColor: '#fa9643' });
-					console.log(data)
+					swal.fire({ title: "Email sent successfully!", text: "Check your email for the verification code.", icon: "success", confirmButtonColor: '#fa9643' });
+
 
 
 					return data;
@@ -145,12 +136,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await resp.json();
 					localStorage.setItem("jwt-token", data.token);
-					console.log([store.user, "This is user"]);
+
+
 
 					return data;
 				} catch (error) {
 					console.error(error);
-					alert("Invalid email or password");
+					swal.fire({ title: "Invalid user or password", text: "Make sure you are typing a valid user or password.", icon: "error", confirmButtonColor: '#fa9643' });
 				}
 			},
 			is_token_valid: () => {
@@ -178,7 +170,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				})
 					.then((response) => response.json())
 					.then((data) => {
-						console.log(data);
 						setStore({ user_info: [data] })
 
 

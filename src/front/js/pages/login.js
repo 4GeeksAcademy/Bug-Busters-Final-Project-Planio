@@ -7,7 +7,6 @@ import "../../styles/home.css";
 export const Login = () => {
 
     const { store, actions } = useContext(Context);
-
     const [form, setForm] = useState(
         {
             email: "",
@@ -25,9 +24,13 @@ export const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        actions.loginFunction(form);
-        // navigate(`/private-view`);
+
+        actions.loginFunction(form)
+            .then((data) => {
+                if (data) { navigate("/private-view"); }
+            });
     };
+
 
 
     return <>
@@ -38,14 +41,13 @@ export const Login = () => {
                     <input className="form-input" type="email" name="email" value={form.email} onChange={handleInputChange} placeholder="Email" required />
                     <input className="form-input" type="password" name="password" value={form.password} onChange={handleInputChange} placeholder="Password" required />
                     <button className="form-button" type="submit">Login</button>
+                    <Link className="mt-3 text-link-black" to="/forgot-password"><p>Forgot your password?</p></Link>
                 </form>
                 <div className="d-flex text-center justify-content-around mt-5">
-                    <p>Are you not registered?</p> <Link className="text-emphasis" to="/private-view"><p className="text-emphasis">Sign up here!</p></Link>
+                    <p>Are you not registered?</p> <Link className="text-emphasis" to="/signup"><p className="text-emphasis">Sign up here!</p></Link>
                 </div>
             </div>
 
         </div>
     </>
-
-}
-
+};
