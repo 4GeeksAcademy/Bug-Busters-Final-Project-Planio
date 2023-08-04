@@ -174,7 +174,7 @@ def forgot_password():
             sender="planio.notification@gmail.com",
             recipients=[user.email],
             body=(
-                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}/reset-password/{user.id}")
+                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}reset-password/{user.id}")
         )
         try:
             mail.send(msg)

@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext"; 1
 import "../../styles/home.css";
 import swal from 'sweetalert2';
@@ -6,6 +7,7 @@ import swal from 'sweetalert2';
 export const ResetPassword = () => {
 
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
     const [passForm, setPassForm] = useState(
         {
@@ -37,6 +39,7 @@ export const ResetPassword = () => {
             password2: "",
             recovery_token: "",
         });
+        navigate("/login");
     };
 
     return <>
@@ -48,7 +51,7 @@ export const ResetPassword = () => {
                     <input className="form-input" type="password" name="new_password2" value={passForm.new_password2} onChange={handleInputChange} placeholder="Confirm new password" required />
 
                     <input className="form-input" type="text" name="recovery_token" value={passForm.recovery_token} onChange={handleInputChange} placeholder="Recovery token" required />
-                    <button className="form-button" type="submit">Actualizar contraseña</button>
+                    <button className="form-button" type="submit">Update password</button>
                 </form>
             </div>
 
