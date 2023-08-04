@@ -25,13 +25,16 @@ export const ForgotPassword = () => {
 
   return <>
     <div className="text-center mt-5">
-      <h1>Recuperar contraseña</h1>
-      <p>Introduce tu email y te enviaremos un código de verificación para reestablecer tu contraseña.</p>
+      <h1>Change or reset your password</h1>
+      <p>Enter your email and we'll send you a link to reset your password</p>
       <div className="sign-up-form container">
         <form className="d-flex flex-column" onSubmit={handleSubmit}>
-          <input className="form-input" type="email" name="email" onChange={handleInputChange} value={emailForm.email} placeholder="Introduce tu email" required />
-          <button className="form-button" type="submit">Enviar código de verificación</button>
+          <input className="form-input" type="email" name="email" onChange={handleInputChange} value={emailForm.email} placeholder="email" required />
+          <button className="form-button" type="submit">Send recovery token</button>
         </form>
+        <div className="d-flex text-center justify-content-center gap-1 mt-5">
+          <p>Or</p> <Link className="text-emphasis" to="/"><p className="text-link-black">go back.</p></Link>
+        </div>
       </div>
 
     </div>
