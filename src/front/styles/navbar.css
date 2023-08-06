@@ -1,0 +1,52 @@
+.navbar {
+    padding: 15px;
+}
+
+.navbar-brand img {
+    width: 120px;
+}
+
+.searchBar {}
+
+.projectSelector .btn {
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--light-grey-color);
+    border-radius: 14px;
+    color: black;
+    font-weight: 800;
+}
+
+.projectSelector .btn:focus {
+    border: 1px solid var(--dark-grey-color);
+    box-shadow: none;
+}
+
+.projectSelector .dropdown-toggle::after {
+    display: none;
+}
+
+.projectSelector .btnIcon {
+    margin-left: 2.2em;
+    padding: 6px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+}
+
+.projectSelector .dropdown-menu {
+    border-radius: 14px;
+    width: 100%;
+}
+
+.notificationsIcon {
+    padding: 20px;
+}
+
+.notificationsIcon .fas {
+    font-size: 22px;
+    padding: 2px;
+}
+
+.userName p {
+    margin: 0px;
+    padding: 10px 20px;
+}

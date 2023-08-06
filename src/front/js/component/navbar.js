@@ -1,10 +1,15 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import planioLogo from "../../img/planio-logo.png";
-import { Avatar } from "@prismane/core";
+import { Avatar, Badge } from "@prismane/core";
+import "../../styles/navbar.css";
 
 
-export const Navbar = () => {
+export const Navbar = (
+
+	isPrivate = false,
+
+) => {
 
 	const location = useLocation();
 	const navigate = useNavigate()
@@ -26,43 +31,47 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
 				<a className="navbar-brand" href="#">
-					<img src={planioLogo} alt="Planio" width="30" height="24" />
+					<img src={planioLogo} alt="Planio" />
 				</a>
-				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-					<span className="navbar-toggler-icon"></span>
-				</button>
-				<div className="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
-						<li className="nav-item">
-							<a className="nav-link active" aria-current="page" href="/login">Log in</a>
-						</li>
-						<li className="nav-item">
+				<div className="collapse navbar-collapse justify-content-end">
+					{
+						!isPrivate &&
+						<div className="loginOptions navbar-nav me-auto mb-2 mb-lg-0">
+							<a className="nav-link" href="/login">Log in</a>
 							<a className="nav-link" href="/signup">Sign up</a>
-						</li>
-
-						<li className="nav-item dropdown">
-							<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Choose a project
-							</a>
-							<ul className="dropdown-menu">
-								<li><a className="dropdown-item" href="#">Project 1</a></li>
-								<li><a className="dropdown-item" href="#">Project 2</a></li>
-								<li><a className="dropdown-item" href="#">Project 3</a></li>
+						</div>
+					}
+					<div className="searchBar">
+						<form className="d-flex" role="search">
+							<div className="input-group">
+								<input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" />
+								<span className="input-group-text" id="basic-addon1"><i className="fas fa-search" ></i></span>
+							</div>
+						</form>
+					</div>
+					<div className="projectSelector">
+						<div class="btn-group">
+							<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+								Proyecto
+								<i class="btnIcon fas fa-chevron-down"></i>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="#">Proyecto 1</a></li>
+								<li><a class="dropdown-item" href="#">Proyecto 2</a></li>
+								<li><a class="dropdown-item" href="#">Proyecto 3</a></li>
 							</ul>
-						</li>
-
-					</ul>
-
-					<form className="d-flex" role="search">
-						<input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-						<button className="btn btn-outline-success" type="submit">Search</button>
-					</form>
-					<div className="d-flex align-items-center">
-						Nombre usuario
+						</div>
+					</div>
+					<div className="notificationsIcon">
+						<Badge label="4" color="ruby" size="xs">
+							<i class="fas fa-bell"></i>
+						</Badge>
+					</div>
+					<div className="userName d-flex align-items-center">
+						<p>Nombre usuario</p>
 						<Avatar color="copper" size="sm" src="https://img.freepik.com/psd-premium/avatar-personaje-dibujos-animados-lindo-masculino-3d-aislado-renderizado-3d_235528-1290.jpg">MP</Avatar>
 					</div>
-
 				</div>
 			</div>
 			<div className="p-2">{getButtonContent()}</div>
