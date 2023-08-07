@@ -150,7 +150,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (token) {
 					const decodedToken = jwtDecode(token);
 					const currentTime = Date.now() / 1000;
-					console.log({ msg: "valid token", token: token })
+					console.log('%cToken is valid!', 'color: cyan; background: black; font-size: 20px');
 					return decodedToken.exp > currentTime;
 				}
 				return false;
@@ -158,8 +158,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getUserInfo: async () => {
 				const token = localStorage.getItem("jwt-token");
 				const store = getStore();
-
-				const current_user_id = jwtDecode(token).sub;
 
 				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
 					method: "GET",
@@ -171,7 +169,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then((response) => response.json())
 					.then((data) => {
 						setStore({ user_info: [data] })
-
 
 						return data;
 					})

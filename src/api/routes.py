@@ -45,8 +45,18 @@ def protected():
 
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
+    projects = user.projects
 
-    return jsonify({"id": user.id, "email": user.email, "name": user.name}), 200
+    serialized_projects = [project.serialize() for project in projects]
+
+    response = {
+        "id": user.id,
+        "email": user.email,
+        "name": user.name,
+        "projects": serialized_projects
+    }
+
+    return jsonify(response), 200
 
 
 @api.route('/signup', methods=['POST'])
@@ -222,18 +232,19 @@ def reset_password(id):
 # Create new Project endpoint
 @api.route('/create-new-project', methods=['POST'])
 def create_new_project():
-
     title = request.json.get('title')
     description = request.json.get('description')
-    user_id = request.json.get('user_id')
+    # Convert single user ID to a list
+    users = request.json.get('users', [])
 
     project = Project(
         title=title.title(),
-        description=description.capitalize(),
-        user_id=user_id
+        description=description.capitalize()
     )
-
     db.session.add(project)
+
+    users = User.query.filter(User.id.in_(users)).all()
+    project.users.extend(users)
     db.session.commit()
 
-    return jsonify({"msg": f" {project.title} has been successfully created"})
+    return jsonify({"message": "Project created successfully", "project": project.serialize()}), 201

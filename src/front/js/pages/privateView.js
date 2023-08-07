@@ -25,7 +25,7 @@ export const PrivateView = () => {
         } else {
             actions.getUserInfo()
                 .then((userInfo) => {
-                    console.log(userInfo);
+                    console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
                 })
                 .catch((error) => {
                     console.error(error);
@@ -37,13 +37,20 @@ export const PrivateView = () => {
         return null;
     }
 
-
     if (validated_token) {
         return (
             <div className="text-center mt-5">
-                <h1>PRIVATE VIEW!!!!</h1>
-                <h2>{userInfo.name}</h2>
-                <h2>{userInfo.email}</h2>
+                <h1>DASHBOARD</h1>
+                <h2>Hi, {userInfo.name}</h2>
+
+                <h1>Your projects below:</h1>
+                {userInfo.projects && userInfo.projects.map((project) => (
+                    <div key={project.id} className="mt-5">
+                        <h2>{project.title}</h2>
+                        <h5>{project.description}</h5>
+                    </div>
+
+                ))}
             </div>
         );
     }
