@@ -151,6 +151,19 @@ def delete_user(user_id):
         return jsonify({"msg": "User successfully deleted."}), 200
     else:
         return jsonify({"msg": "User not found."}), 404
+    
+# CREATE GET ALL PROYECT
+
+@api.route('/projects', methods=['GET'])
+def get_all_projects():
+    projects = Project.query.all()
+
+    all_projects = [project.serialize() for project in projects]
+
+    return jsonify(all_projects), 200
+   
+
+
 
 
 # FORGOT PASSWORD ENDPOINT
