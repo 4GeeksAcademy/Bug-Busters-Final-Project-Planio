@@ -51,7 +51,10 @@ export const PrivateView = () => {
                     </div>
 
                 ))}
+                <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/Captura+de+pantalla+2023-07-27+a+las+23.15.45.png" />
+                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/4Geeks.pdf">YOUT PDF FILE</a></div>
             </div>
+
         );
     }
 };

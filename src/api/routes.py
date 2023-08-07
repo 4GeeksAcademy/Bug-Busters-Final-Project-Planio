@@ -12,6 +12,7 @@ import random
 from flask_mail import Mail, Message
 import os
 from api.mail import mail
+import boto3
 
 api = Blueprint('api', __name__)
 
@@ -248,3 +249,26 @@ def create_new_project():
     db.session.commit()
 
     return jsonify({"message": "Project created successfully", "project": project.serialize()}), 201
+
+
+# AWS ROUTES ------------------------------------------------------------------------------------------------------AWS ROUTES #
+
+@api.route('/upload', methods=['POST'])
+def upload_file():
+
+    s3 = boto3.client('s3', aws_access_key_id=os.getenv(
+        "ACCESS_KEY"), aws_secret_access_key=os.getenv("SECRET_KEY"))
+
+    if 'file' not in request.files:
+        return jsonify({"error": "No se ha enviado ningún archivo"}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "Nombre de archivo no válido"}), 400
+
+    try:
+        # Subir el archivo al bucket de S3
+        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file.filename)
+        return jsonify({"message": "Archivo subido exitosamente"}), 200
+    except Exception as exception:
+        return jsonify({"error": str(exception)}), 500
