@@ -2,12 +2,13 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Project
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
 import bcrypt
 import re
+import json 
 
 
 api = Blueprint('api', __name__)
@@ -120,3 +121,16 @@ def delete_user(user_id):
         return jsonify({"msg": "User successfully deleted."}), 200
     else:
         return jsonify({"msg": "User not found."}), 404
+    
+# CREATE GET ALL PROYECT
+
+@api.route('/projects', methods=['GET'])
+def get_all_projects():
+    projects = Project.query.all()
+
+    all_projects = [project.serialize() for project in projects]
+
+    return jsonify(all_projects), 200
+   
+
+
