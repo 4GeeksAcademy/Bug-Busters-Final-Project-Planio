@@ -14,8 +14,8 @@ body {
 
 /* HOME STYLES */
 
-.fade-in-image img {
-  animation: fadeInAnimation 1s ease-in 1.5s;
+.fade-in-img {
+  animation: fadeInAnimation 0.3s ease-in 0.5s;
   opacity: 0;
   animation-fill-mode: forwards;
 }
@@ -30,120 +30,40 @@ body {
   }
 }
 
-.fade-in-img2 {
-  animation: fadeInAnimation 1s ease-in 1.5s;
-  opacity: 0;
-  animation-fill-mode: forwards;
+.home-title h1 {
+  font-size: 70px;
+  max-width: 800px;
+  font-weight: 800;
+  margin: 0 auto;
 }
 
-@keyframes fadeInAnimation {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+.home-title p {
+  font-size: 22px;
+  font-weight: 500;
+  max-width: 470px;
+  margin: 30px auto;
 }
 
-.fade-in-title h1 {
-  animation: fadeInAnimation 1s ease-in;
-  opacity: 0;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeInAnimation {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* SIGN UP STYLES */
-
-.sign-up-form {
-  width: 458.6px;
-
-}
-
-.form-input {
-  height: 40px;
-  margin-bottom: 20px;
-  background-color: var(--secondary-color);
-  border-radius: 8px;
-  border: none;
-  padding: 5px 25px;
-}
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  border: none;
-
-  -webkit-text-fill-color: black;
-  -webkit-box-shadow: 0 0 0px 1000px var(--secondary-color) inset;
-  transition: background-color 5000s ease-in-out 0s;
-}
-
-
-.form-input:focus {
-  outline: 2px solid var(--primary-color);
-
-}
-
-.form-button {
+.home .home-button {
   background-color: var(--primary-color);
-  color: var(--light-text-color);
-
-  margin-top: 20px;
-  border-radius: 8px;
-  border: none;
+  text-decoration: none;
+  color: #fff;
   height: 50px;
+  align-items: center;
+  display: inline-flex;
+  width: 250px;
+  margin: 0 auto;
+  border-radius: 8px;
 }
 
-.form-button:hover {
+.home .home-button span {
+  margin: 0 auto
+}
+
+.home .home-button:hover {
   color: var(--primary-color);
   background-color: var(--secondary-color);
   outline: 2px solid var(--primary-color);
-}
-
-.text-emphasis {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-.text-emphasis:hover {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: underline;
-
-}
-
-.text-link-black {
-  font-weight: bolder;
-  color: black;
-  text-decoration: none;
-}
-
-.text-link-black:hover {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: underline;
-
-}
-
-.password-label {
-  color: rgb(145, 145, 145);
-  font-size: small;
-  padding-left: 4px;
-  margin-top: -20px;
-  margin-right: auto;
-  margin-bottom: 20px;
-  /* Puedes ajustar este valor según tu preferencia */
 }
 
 
