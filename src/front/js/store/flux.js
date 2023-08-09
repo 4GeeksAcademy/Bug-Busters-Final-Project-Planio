@@ -6,42 +6,9 @@ import jwtDecode from 'jwt-decode';
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
 			user_info: [{ name: "test user name", email: "test user email" }],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-
-
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			},
 			signupFunction: async (form) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, {
@@ -178,6 +145,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Error al obtener la información del usuario");
 					});
 			},
+			uploadFile: async (file, projectId) => {
+				const formData = new FormData();
+				formData.append("file", file);
+
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/upload/${projectId}`, {
+						method: "POST",
+						body: formData
+					});
+
+					if (!resp.ok) {
+						throw new Error("There was a prolem while uploading the file.")
+					};
+
+					return "Success"
+				} catch (error) {
+					console.error(error);
+					console.log("there was an error this is catch block")
+				};
+
+			}
 		}
 	};
 };
