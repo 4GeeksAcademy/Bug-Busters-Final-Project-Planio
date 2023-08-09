@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import planioLogo from "../../img/planio-logo-png.png";
-import { Link } from "react-router-dom";
+import planioImg1 from "../../img/planio-home-1.png";
+import planioImg2 from "../../img/planio-home-2.png";
+import planioImg3 from "../../img/planio-home-3.png";
+import planioImg4 from "../../img/planio-home-4.png";
+import planioImg5 from "../../img/planio-home-5.png";
+import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
 export const Home = () => {
@@ -9,19 +13,34 @@ export const Home = () => {
 
 
 	return (
-		<div className="text-center mt-5 fade-in-title">
-			<h1>Welcome to</h1>
-			<p className="fade-in-image">
-				<img src={planioLogo} />
+		<div className="text-center mt-5 home">
+			<div className="home-title">
+				<h1>Easy way to get full control of your tasks</h1>
+				<p>
+					The joyful productivity app. Schedule time for todos, events and contacts.
+				</p>
 
-			</p>
-			<iframe src="https://giphy.com/embed/l0MYSqNU3hr8MUq0o" width="480" height="161" className="giphy-embed fade-in-img2" allowFullScreen></iframe>
-			<div className="fade-in-img2">
-				<div className="d-flex container gap-3 justify-content-center mt-5">
-					<p>Already have an account?</p> <Link className="text-emphasis" to="/login"><p className="text-emphasis">Login here!</p></Link>
-				</div>
-				<div className="d-flex container gap-3 justify-content-center">
-					<p>Are you not registered?</p> <Link className="text-emphasis" to="/signup"><p className="text-emphasis">Sign up here!</p></Link>
+			</div>
+			<Link className="home-button" to="/signup">
+				<span>Sign up here!</span>
+			</Link>
+			<div className="container fade-in-img">
+				<div className="row align-items-end mt-4">
+					<div className="col">
+						<img src={planioImg1} className="img-fluid" alt="..." />
+					</div>
+					<div className="col">
+						<img src={planioImg2} className="img-fluid" alt="..." />
+					</div>
+					<div className="col">
+						<img src={planioImg3} className="img-fluid" alt="..." />
+					</div>
+					<div className="col">
+						<img src={planioImg4} className="img-fluid" alt="..." />
+					</div>
+					<div className="col">
+						<img src={planioImg5} className="img-fluid" alt="..." />
+					</div>
 				</div>
 			</div>
 

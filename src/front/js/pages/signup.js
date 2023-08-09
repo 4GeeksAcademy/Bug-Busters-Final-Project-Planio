@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import swal from 'sweetalert2'
-import "../../styles/home.css";
+import "../../styles/signup-forms.css";
 
 
 export const Signup = () => {

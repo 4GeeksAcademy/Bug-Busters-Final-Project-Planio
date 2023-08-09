@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user_info: [{ name: "test user name", email: "test user email" }],
+			user_info: [{ name: "", email: "" }],
 		},
 		actions: {
 			signupFunction: async (form) => {
