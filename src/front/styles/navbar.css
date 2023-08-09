@@ -2,12 +2,18 @@
     padding: 15px;
 }
 
+
+
 .navbar-brand {
     width: 300px;
 }
 
 .navbar-brand img {
     width: 120px;
+}
+
+.loginOptions {
+    justify-content: flex-end !important
 }
 
 .searchBar {

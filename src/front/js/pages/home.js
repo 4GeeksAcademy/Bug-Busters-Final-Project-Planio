@@ -1,6 +1,10 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import planioLogo from "../../img/planio-logo-png.png";
+import planioImg1 from "../../img/planio-home-1.jpg";
+import planioImg2 from "../../img/planio-home-2.jpg";
+import planioImg3 from "../../img/planio-home-3.jpg";
+import planioImg4 from "../../img/planio-home-4.jpg";
+import planioImg5 from "../../img/planio-home-5.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 
@@ -19,22 +23,22 @@ export const Home = () => {
 			<Link className="home-button" to="/signup">
 				<span>Sign up here!</span>
 			</Link>
-			<div class="container fade-in-img">
-				<div class="row align-items-end">
-					<div class="col">
-						<img src="../../planio-home-1.png"  alt="..." />
+			<div className="container fade-in-img">
+				<div className="row align-items-end">
+					<div className="col">
+						<img src={planioImg1} alt="..." />
 					</div>
-					<div class="col">
-						<img src="../../img/planio-home-1.png" className="img-fluid" alt="..." />
+					<div className="col">
+						<img src={planioImg2} alt="..." />
 					</div>
-					<div class="col">
-						<img src="../../img/planio-home-1.png" className="img-fluid" alt="..." />
+					<div className="col">
+						<img src={planioImg3} className="img-fluid" alt="..." />
 					</div>
-					<div class="col">
-						<img src="../../img/planio-home-1.png" className="img-fluid" alt="..." />
+					<div className="col">
+						<img src={planioImg4} className="img-fluid" alt="..." />
 					</div>
-					<div class="col">
-						<img src="../../img/planio-home-1.png" className="img-fluid" alt="..." />
+					<div className="col">
+						<img src={planioImg5} className="img-fluid" alt="..." />
 					</div>
 				</div>
 			</div>

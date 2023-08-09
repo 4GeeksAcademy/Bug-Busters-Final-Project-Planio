@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import planioLogo from "../../img/planio-logo.png";
 import { Avatar, Badge } from "@prismane/core";
 import "../../styles/navbar.css";
+import { Context } from "../store/appContext";
 
 
 export const Navbar = (
@@ -13,9 +14,24 @@ export const Navbar = (
 
 	const location = useLocation();
 	const navigate = useNavigate()
+	const { store, actions } = useContext(Context);
+
+	const userInfo = store.user_info[0];
+
+	useEffect(() => {
+
+		actions.getUserInfo()
+			.then((userInfo) => {
+				console.log(userInfo);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+
+	}, []);
 
 	const getButtonContent = () => {
-		if (location.pathname === '/login') {
+		if (location.pathname === '/private-view') {
 			return <>
 
 				<div className="searchBar">
@@ -27,25 +43,25 @@ export const Navbar = (
 					</form>
 				</div>
 				<div className="projectSelector">
-					<div class="btn-group">
-						<button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+					<div className="btn-group">
+						<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
 							<p>Proyecto</p>
-							<i class="btnIcon fas fa-chevron-down"></i>
+							<i className="btnIcon fas fa-chevron-down"></i>
 						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li><a class="dropdown-item" href="#">Proyecto 1</a></li>
-							<li><a class="dropdown-item" href="#">Proyecto 2</a></li>
-							<li><a class="dropdown-item" href="#">Proyecto 3</a></li>
+						<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<li><a className="dropdown-item" href="#">Proyecto 1</a></li>
+							<li><a className="dropdown-item" href="#">Proyecto 2</a></li>
+							<li><a className="dropdown-item" href="#">Proyecto 3</a></li>
 						</ul>
 					</div>
 				</div>
 				<div className="notificationsIcon">
 					<Badge label="4" color="ruby" size="xs">
-						<i class="fas fa-bell"></i>
+						<i className="fas fa-bell"></i>
 					</Badge>
 				</div>
 				<div className="userName d-flex align-items-center">
-					<p>Nombre usuario</p>
+					<p>{userInfo.name}</p>
 					<Avatar color="copper" size="sm" src="https://img.freepik.com/psd-premium/avatar-personaje-dibujos-animados-lindo-masculino-3d-aislado-renderizado-3d_235528-1290.jpg">MP</Avatar>
 				</div>
 				<div className="logoutIcon">
@@ -72,12 +88,12 @@ export const Navbar = (
 	};
 
 	return (
-		<nav className="navbar navbar-expand-lg bg-body-tertiary">
+		<nav className="navbar justify-content-end navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
 				<a className="navbar-brand" href="#">
 					<img src={planioLogo} alt="Planio" />
 				</a>
-				<div className="collapse navbar-collapse justify-content-end">
+				<div className="collapse navbar-collapse ">
 					{getButtonContent()}
 				</div>
 			</div>

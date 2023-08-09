@@ -19,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			user_info: [{ name: "test user name", email: "test user email" }],
+			user_info: [{ name: "", email: "" }],
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
