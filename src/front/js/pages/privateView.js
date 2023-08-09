@@ -51,8 +51,8 @@ export const PrivateView = () => {
                     </div>
 
                 ))}
-                <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/Captura+de+pantalla+2023-07-27+a+las+23.15.45.png" />
-                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/4Geeks.pdf">YOUT PDF FILE</a></div>
+                <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" />
+                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161209Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=81358ba3cbc60be9aa24c685030d0a637b2dfae620a008f70bd9ad03ec39506e" target="_blank">YOUR PDF FILE</a></div>
             </div>
 
         );

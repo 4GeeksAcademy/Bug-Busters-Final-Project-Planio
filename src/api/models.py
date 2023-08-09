@@ -98,6 +98,7 @@ class Project(db.Model):
     state = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+    files = db.relationship('File', backref='project', lazy=True)
     users = db.relationship(
         'User', secondary=projectCollaborator, lazy='subquery')
 
@@ -110,6 +111,7 @@ class Project(db.Model):
             "title": self.title,
             "description": self.description,
             "user_ids": [user.id for user in self.users],
+            "files": [file.name for file in self.files],
             "state": self.state
         }
         if self.created_at:
@@ -121,6 +123,15 @@ class Project(db.Model):
                 '%d-%m-%Y %H:%M:%S')
 
         return serialized_project
+
+
+class File(db.Model):
+    __tablename__ = 'files'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    project_id = db.Column(db.Integer, db.ForeignKey(
+        'projects.id'), nullable=False)
 
 
 class Task(db.Model):
