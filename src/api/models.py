@@ -9,6 +9,23 @@ from datetime import datetime, timedelta
 db = SQLAlchemy()
 
 
+# class ProjectCollaborator(db.Model):
+#     __tablename__ = 'projects_Collaborators'
+#     id = db.Column(db.Integer, primary_key=True)
+
+#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     project_id = db.Column(db.Integer, db.ForeignKey(
+#         'projects.id'), nullable=False)
+
+
+projectCollaborator = db.Table('projects_collaborators',
+                               db.Column('users_id', db.Integer, db.ForeignKey(
+                                   'users.id'), primary_key=True),
+                               db.Column('projects_id', db.Integer, db.ForeignKey(
+                                   'projects.id'), primary_key=True)
+                               )
+
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -22,7 +39,8 @@ class User(db.Model):
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
     recovery_token = db.Column(db.String, unique=True, nullable=True)
 
-    projects = db.relationship('Project', back_populates='user')
+    projects = db.relationship(
+        'Project', secondary=projectCollaborator, lazy='subquery')
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -62,10 +80,14 @@ class User(db.Model):
             serialized_user["updated_at"] = self.updated_at.strftime(
                 '%d-%m-%Y %H:%M:%S')
 
+        serialized_user["projects"] = [project.serialize()
+                                       for project in self.projects]
+
         return serialized_user
 
 
 #  PROJECT MODEL
+
 
 class Project(db.Model):
     __tablename__ = 'projects'
@@ -76,9 +98,9 @@ class Project(db.Model):
     state = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
-
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user = db.relationship('User', back_populates='projects')
+    files = db.relationship('File', backref='project', lazy=True)
+    users = db.relationship(
+        'User', secondary=projectCollaborator, lazy='subquery')
 
     def __repr__(self):
         return f'<Project {self.title}>'
@@ -88,36 +110,28 @@ class Project(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "state": self.state,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "user_ids": [user.id for user in self.users],
+            "files": [file.name for file in self.files],
+            "state": self.state
         }
+        if self.created_at:
+            serialized_project["created_at"] = self.created_at.strftime(
+                '%d-%m-%Y %H:%M:%S')
+
+        if self.updated_at:
+            serialized_project["updated_at"] = self.updated_at.strftime(
+                '%d-%m-%Y %H:%M:%S')
 
         return serialized_project
 
 
-class ProjectCollaborator(db.Model):
-    __tablename__ = 'projects_Collaborators'
-    id = db.Column(db.Integer, primary_key=True)
+class File(db.Model):
+    __tablename__ = 'files'
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    user_username = db.Column(db.String, db.ForeignKey(
-        'users.username'), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey(
         'projects.id'), nullable=False)
-    project_title = db.Column(db.String, db.ForeignKey(
-        'projects.title'), nullable=False)
-
-    def serialize(self):
-        serialized_project_collaborator = {
-            "id": self.id,
-            "user_id": self.user_id,
-            "user_name": self.user_name,
-            "project_id": self.project_id,
-            "project_title": self.project_title
-        }
-
-        return serialized_project_collaborator
 
 
 class Task(db.Model):
