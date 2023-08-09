@@ -143,7 +143,35 @@ input:-webkit-autofill:focus {
   /* Puedes ajustar este valor según tu preferencia */
 }
 
+/* -------------------------------------------------------------------------------uploadFile */
 
+.upload-file-button-container {
+  max-width: 150px;
+
+}
+
+.upload-file-button {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border-radius: 8px;
+  border: none;
+}
+
+.upload-file-button:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  outline: 2px solid var(--primary-color);
+
+}
+
+.upload-file-button-label {
+  color: rgb(145, 145, 145);
+  font-size: small;
+  padding-left: 4px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
 
 /* FONTS */
 

@@ -167,7 +167,7 @@ def protected():
         "id": user.id,
         "email": user.email,
         "name": user.name,
-        "projects": serialized_projects
+        "projects": serialized_projects,
     }
 
     return jsonify(response), 200
