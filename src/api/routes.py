@@ -284,7 +284,7 @@ def upload_file(project_id):
         content_disposition = 'inline; filename="{}"'.format(file.filename)
         folder_name = 'images'
         file_key = folder_name + '/' + file.filename
-        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file_key, ExtraArgs={
+        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file.filename, ExtraArgs={
             'ContentType': file.content_type,
             'ContentDisposition': content_disposition
         })

@@ -126,7 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem("jwt-token");
 				const store = getStore();
 
-				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
+				return fetch(`${process.env.BACKEND_URL}api/protected`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",

@@ -97,6 +97,28 @@ body {
 }
 
 
+/* ---------------------------------------------------DELETE FILE BUTTON */
+.delete-button {
+  background: #c63a3a;
+  border-radius: 5px;
+  box-shadow: #c63a3a 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 15px;
+  display: none;
+}
+
+.list-body:hover .delete-button {
+  display: inline;
+
+}
+
 /* FONTS */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100;1,200&display=swap');
