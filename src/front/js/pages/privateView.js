@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import "../../styles/home.css";
 import { UploadFile } from "../component/uploadFile";
+import { DateTime } from "../component/dateTime";
 
 export const PrivateView = () => {
     const { store, actions } = useContext(Context);
@@ -50,6 +51,7 @@ export const PrivateView = () => {
             <div className="text-center mt-5">
                 <h1>DASHBOARD</h1>
                 <h2>Hi, {userInfo.name}</h2>
+                <h6><DateTime /></h6>
 
                 <h1>Your projects below:</h1>
                 {userInfo.projects && userInfo.projects.map((project) => (
