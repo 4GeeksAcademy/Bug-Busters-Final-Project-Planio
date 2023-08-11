@@ -15,6 +15,9 @@ import { ForgotPassword } from "./pages/forgot-password";
 import { ResetPassword } from "./pages/reset-password";
 import { Login } from "./pages/login";
 import { PrivateView } from "./pages/privateView";
+import { Sidebar } from "./component/sidebar";
+
+import "../styles/sidebar.css";
 
 
 //create your first component
@@ -30,17 +33,25 @@ const Layout = () => {
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    <Routes>
-                        <Route element={<Home />} path="/" />
-                        <Route element={<Signup />} path="/signup" />
-                        <Route element={<Login />} path="/login" />
-                        <Route element={<Demo />} path="/demo" />
-                        <Route element={<ForgotPassword />} path="/forgot-password" />
-                        <Route element={<ResetPassword />} path="/reset-password/:user_id" />
-                        <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<PrivateView />} path="/private-view" />
-                        <Route element={<h1>Not found!</h1>} />
-                    </Routes>
+                    <div className="d-flex">
+
+                        <Sidebar />
+
+                        <div className="container-fluid p-0">
+
+                            <Routes>
+                                <Route element={<Home />} path="/" />
+                                <Route element={<Signup />} path="/signup" />
+                                <Route element={<Login />} path="/login" />
+                                <Route element={<Demo />} path="/demo" />
+                                <Route element={<ForgotPassword />} path="/forgot-password" />
+                                <Route element={<ResetPassword />} path="/reset-password/:user_id" />
+                                <Route element={<Single />} path="/single/:theid" />
+                                <Route element={<PrivateView />} path="/private-view" />
+                                <Route element={<h1>Not found!</h1>} />
+                            </Routes>
+                        </div>
+                    </div>
                     {/* <Footer /> */}
                 </ScrollToTop>
             </BrowserRouter>

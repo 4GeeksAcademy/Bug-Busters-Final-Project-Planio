@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import "../../styles/home.css";
+import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 
 export const PrivateView = () => {
@@ -39,11 +40,47 @@ export const PrivateView = () => {
 
     if (validated_token) {
         return (
-            <div className="text-center mt-5">
-                <h1>DASHBOARD</h1>
-                <h2>Hi, {userInfo.name}</h2>
+            <div className="dashboard p-4">
 
-                <h1>Your projects below:</h1>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-8">
+                            <div className="row">
+                                <h1>Hi, {userInfo.name}</h1>
+                                <p className="date">Friday August 11</p>
+                            </div>
+                            <div className="row justify-content-between">
+                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
+                                    <div className="card-info">
+                                        <h5 className="card-title">Proyectos</h5>
+                                        <p className="card-text">4</p>
+                                    </div>
+                                    <div className="card-icon d-flex">
+                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
+                                    </div>
+                                </div>
+                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
+                                    <div className="card-info">
+                                        <h5 className="card-title">Proyectos</h5>
+                                        <p className="card-text">4</p>
+                                    </div>
+                                    <div className="card-icon d-flex">
+                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-4 d-flex">
+                            <div className="calendar p-4">
+                                Calendario
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/* <h1>Your projects below:</h1>
                 {userInfo.projects && userInfo.projects.map((project) => (
                     <div key={project.id} className="mt-5">
                         <h2>{project.title}</h2>
@@ -61,9 +98,9 @@ export const PrivateView = () => {
                         <UploadFile projectId={project.id} />
                     </div>
 
-                ))}
-                <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" alt="Image from AWS" />
-                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230809%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230809T170002Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4eacd9d260244d19346e56452ac1adbf099aeb86b1aba7f34c4688a98eabd4eb" target="_blank">YOUR PDF FILE</a></div>
+                ))} */}
+                {/* <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" alt="Image from AWS" />
+                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230809%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230809T170002Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4eacd9d260244d19346e56452ac1adbf099aeb86b1aba7f34c4688a98eabd4eb" target="_blank">YOUR PDF FILE</a></div> */}
             </div>
 
         );

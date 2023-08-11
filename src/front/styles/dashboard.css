@@ -1,0 +1,44 @@
+.dashboard {
+    background-color: #ECECEC;
+    border-radius: 20px 0 0 0;
+    height: 100vh;
+}
+
+.dashboard h1 {
+    font-size: 44px;
+    font-weight: 600;
+}
+
+.dashboard .row {
+    border: 1px solid black;
+}
+
+.dashboard .simple-card {
+    background-color: #fff;
+    border-radius: 30px;
+    width: 48%;
+}
+
+.dashboard .simple-card h5 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.dashboard .simple-card p {
+    font-size: 45px;
+    font-weight: 600;
+}
+
+.dashboard .simple-card a {
+    padding: 14px 24px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    font-size: 44px;
+    margin: auto 10px;
+}
+
+.dashboard .calendar {
+    background-color: #fff;
+    border-radius: 30px;
+    width: 100%;
+}

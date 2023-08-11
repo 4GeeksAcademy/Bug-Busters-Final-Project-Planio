@@ -6,11 +6,7 @@ import "../../styles/navbar.css";
 import { Context } from "../store/appContext";
 
 
-export const Navbar = (
-
-	isPrivate = false,
-
-) => {
+export const Navbar = () => {
 
 	const location = useLocation();
 	const navigate = useNavigate()
