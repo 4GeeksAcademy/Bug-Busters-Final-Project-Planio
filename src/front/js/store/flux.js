@@ -165,6 +165,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("there was an error this is catch block")
 				};
 
+			},
+			deleteFile: async (file_name, project_id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/delete-file`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ file_name: file_name, project_id: project_id })
+					})
+
+					if (!resp.ok) {
+						throw new Error("something went wrong while deleting the file")
+					}
+				} catch (error) {
+					console.error(error)
+
+				}
 			}
 		}
 	};

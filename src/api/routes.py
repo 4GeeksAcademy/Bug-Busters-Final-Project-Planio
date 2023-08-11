@@ -315,6 +315,7 @@ def delete_file():
             db.session.delete(file_instance)
         db.session.flush()
         db.session.commit()
+        print("Received file name:", file_name)
         s3.delete_object(Bucket=bucket_name, Key=file_name)
         new_serialized_project = project.serialize()
 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import swal from "sweetalert2";
@@ -8,11 +8,10 @@ import { UploadFile } from "../component/uploadFile";
 export const PrivateView = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
+    const [updatedComponent, setUpdatedComponent] = useState(false);
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
-
-
 
     useEffect(() => {
 
@@ -23,6 +22,7 @@ export const PrivateView = () => {
                 }
             });
         } else {
+            console.log(updatedComponent)
             actions.getUserInfo()
                 .then((userInfo) => {
                     console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
@@ -31,11 +31,12 @@ export const PrivateView = () => {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [validated_token, updatedComponent]);
 
-    // onClick={() => handleDelete(index)}
-    const handleDelete = (index) => {
 
+    const handleDelete = (file_name, project_id) => {
+        actions.deleteFile(file_name, project_id)
+        setUpdatedComponent(!updatedComponent);
 
     }
 
@@ -61,7 +62,7 @@ export const PrivateView = () => {
                                 {project.files.map((file, index) => (
                                     <li key={index} className="list-body">
                                         <a href={`${process.env.AWS_FILE_URL}/${file}`} target="_blank">{file}</a>
-                                        <button className="delete-button">X</button>
+                                        <button className="delete-button" onClick={() => handleDelete(file, project.id)}>X</button>
                                     </li>
                                 ))}
                             </ul>
