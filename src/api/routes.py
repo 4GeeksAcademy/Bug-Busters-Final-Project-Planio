@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, render_template_string, redirect, abort
 from api.models import db, User, Project, File
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -16,6 +16,7 @@ import boto3
 import botocore
 from botocore.exceptions import NoCredentialsError
 from botocore.config import Config
+from flaskMailTemplate import mail_template
 
 api = Blueprint('api', __name__)
 
@@ -107,10 +108,11 @@ def forgot_password():
         msg = Message(
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
-            recipients=[user.email],
-            body=(
-                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}reset-password/{user.id}")
+            recipients=[user.email]
         )
+        recovery_url = f"{os.getenv('FRONTEND_URL')}reset-password/{user.id}"
+        msg.html = render_template_string(
+            mail_template, user_name=user.name, url=recovery_url, recovery_token=recovery_token)
         try:
             mail.send(msg)
             return 'Correo electrónico enviado correctamente.'
@@ -299,15 +301,23 @@ def upload_file(project_id):
         return jsonify({"error": str(exception)}), 500
 
 
-@api.route('/files/<filename>', methods=['GET'])
-def get_file(filename):
+@api.route('/delete-file', methods=['DELETE'])
+def delete_file():
     try:
         bucket_name = os.getenv("BUCKET_NAME")
-        url = s3.generate_presigned_url(
-            'get_object',
-            Params={'Bucket': bucket_name, 'Key': filename},
-            ExpiresIn=3600
-        )
-        return jsonify({'url': url}), 200
+        file_name = request.json.get('file_name')
+        project_id = request.json.get('project_id')
+        project = Project.query.get(project_id)
+
+        file_instance = File.query.filter_by(
+            name=file_name, project_id=project_id).first()
+        if file_instance:
+            db.session.delete(file_instance)
+        db.session.flush()
+        db.session.commit()
+        s3.delete_object(Bucket=bucket_name, Key=file_name)
+        new_serialized_project = project.serialize()
+
+        return jsonify({'msg': 'File has been successfully deleted from AWS and from the project', 'project': new_serialized_project}), 200
     except NoCredentialsError:
         return jsonify({'error': 'AWS credentials not found'}), 500
