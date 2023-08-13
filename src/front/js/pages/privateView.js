@@ -5,6 +5,7 @@ import swal from "sweetalert2";
 import "../../styles/home.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
+import { CreateProject } from "../component/createProject";
 
 export const PrivateView = () => {
     const { store, actions } = useContext(Context);
@@ -17,7 +18,7 @@ export const PrivateView = () => {
     useEffect(() => {
 
         if (!validated_token) {
-            swal.fire({ title: "You must log in", text: "bla bla bla bla.", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
+            swal.fire({ title: "You must log in", text: "You will be redirected to the login page.", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
                 if (result.isConfirmed) {
                     navigate("/login");
                 }
@@ -35,11 +36,19 @@ export const PrivateView = () => {
     }, [validated_token, updatedComponent]);
 
 
-    const handleDelete = (file_name, project_id) => {
-        actions.deleteFile(file_name, project_id)
-        setUpdatedComponent(!updatedComponent);
+    const handleDelete = async (file_name, project_id) => {
+        try {
+            await actions.deleteFile(file_name, project_id);
+            setUpdatedComponent(!updatedComponent);
+        } catch (error) {
+            console.error("Error deleting file:", error);
+        }
 
     }
+
+    const handleUpdateComponent = () => {
+        setUpdatedComponent(!updatedComponent);
+    };
 
 
     if (!validated_token) {
@@ -63,7 +72,7 @@ export const PrivateView = () => {
                             <ul className="list-unstyled">
                                 {project.files.map((file, index) => (
                                     <li key={index} className="list-body">
-                                        <a href={`${process.env.AWS_FILE_URL}/${file}`} target="_blank">{file}</a>
+                                        <a href={`${process.env.AWS_FILE_URL}/${file}`} target="_blank" className="file-link">{file}</a>
                                         <button className="delete-button" onClick={() => handleDelete(file, project.id)}>X</button>
                                     </li>
                                 ))}
@@ -71,10 +80,11 @@ export const PrivateView = () => {
                         ) : (
                             <p>Upload your images or documents</p>
                         )}
-                        <UploadFile projectId={project.id} />
+                        <UploadFile projectId={project.id} onUploadComplete={handleUpdateComponent} />
                     </div>
 
                 ))}
+                <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
                 <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-png.png" alt="Image from AWS" />
             </div>
 

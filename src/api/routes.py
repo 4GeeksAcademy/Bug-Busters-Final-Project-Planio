@@ -170,6 +170,7 @@ def protected():
         "email": user.email,
         "name": user.name,
         "projects": serialized_projects,
+        "username": user.username
     }
 
     return jsonify(response), 200
@@ -241,7 +242,7 @@ def create_new_project():
     )
     db.session.add(project)
 
-    users = User.query.filter(User.id.in_(users)).all()
+    users = User.query.filter(User.username.in_(users)).all()
     project.users.extend(users)
     db.session.commit()
 

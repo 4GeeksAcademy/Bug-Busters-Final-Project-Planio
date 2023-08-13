@@ -54,7 +54,7 @@ mail_template = '''<!DOCTYPE html>
     <div class="container">
         <div class="header">
          <div>
-    <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-png.png" />
+    <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-mail.png" />
     </div>
             Password Recovery
         </div>

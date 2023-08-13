@@ -98,9 +98,11 @@ class Project(db.Model):
     state = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
     files = db.relationship('File', backref='project', lazy=True)
     users = db.relationship(
         'User', secondary=projectCollaborator, lazy='subquery')
+    tasks = db.relationship('Task', backref='project_task', lazy=True)
 
     def __repr__(self):
         return f'<Project {self.title}>'

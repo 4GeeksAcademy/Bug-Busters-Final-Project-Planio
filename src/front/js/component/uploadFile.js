@@ -2,10 +2,9 @@ import React, { useContext, useRef, useState } from "react";
 import { Context } from "../store/appContext";
 
 
-export const UploadFile = ({ projectId }) => {
+export const UploadFile = ({ projectId, onUploadComplete }) => {
     const { store, actions } = useContext(Context);
     const inputRef = useRef();
-    const [fileLabelName, setFileLabelName] = useState("")
 
     const handleClick = () => {
 
@@ -19,25 +18,24 @@ export const UploadFile = ({ projectId }) => {
         };
 
         actions.uploadFile(fileObj, projectId)
+            .then(() => {
+                if (onUploadComplete) {
+                    onUploadComplete();
+                }
+            })
+            .catch((error) => {
+                console.error("Error uploading file:", error);
+            });
 
         e.target.value = null;
-        setFileLabelName(fileObj.name)
     };
 
-    const handleClickDeleteFile = () => {
-        if (inputRef) {
-            inputRef.current.value = "";
-            setFileLabelName("")
-
-        }
-    };
 
     return (
         <div className="upload-file-button-container container d-flex flex-column">
             <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={handleFileChange} />
 
             <button onClick={handleClick} className="upload-file-button">Upload file</button>
-            <label className="upload-file-button-label" onClick={handleClickDeleteFile}>{fileLabelName && `${fileLabelName} click to remove`}</label>
         </div>
     );
 

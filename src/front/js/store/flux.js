@@ -7,8 +7,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			user_info: [{ name: "", email: "" }],
+			users_usernames: [""]
 		},
 		actions: {
+			getAllUsers: async () => {
+				const store = getStore();
+
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users`, {
+						method: "GET"
+					});
+
+					if (!response.ok) {
+						throw new Error("There was a problem retrieving the users data.")
+					}
+
+					const data = await response.json();
+					const usernames = data.map(user => user.username);
+					setStore(usernames);
+					console.log(usernames);
+
+
+				} catch (error) {
+					console.error(error);
+				}
+			},
 			signupFunction: async (form) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, {
@@ -181,7 +204,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error)
 
 				}
-			}
+			},
+			createNewProject: async (form) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/create-new-project`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ title: form.title, description: form.description, users: [form.username] })
+					});
+
+					if (!resp.ok) {
+						throw new Error("something went wrong while getting create project form")
+					}
+
+					const data = await resp.json()
+					console.log(["this is data from create new project", data])
+				} catch (error) {
+					console.error(error)
+				}
+			},
 		}
 	};
 };
