@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
-from api.models import db, User, Project
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, render_template_string, redirect, abort
+from api.models import db, User, Project, File, Task
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
@@ -12,10 +12,15 @@ import random
 from flask_mail import Mail, Message
 import os
 from api.mail import mail
+import boto3
+import botocore
+from botocore.exceptions import NoCredentialsError
+from botocore.config import Config
+from flaskMailTemplate import mail_template
 
 api = Blueprint('api', __name__)
 
-# SIGN UP ENDPOINT
+# SIGNUP/LOGIN ROUTES ------------------------------------------------------------------------------------------------------SIGNUP/LOGIN ROUTES #
 
 
 @api.route('/login', methods=['POST'])
@@ -37,26 +42,6 @@ def login():
 
     token = create_access_token(identity=user.id)
     return jsonify({"token": token, "user_id": user.id}), 200
-
-
-@api.route("/protected", methods=["GET"])
-@jwt_required()
-def protected():
-
-    current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
-    projects = user.projects
-
-    serialized_projects = [project.serialize() for project in projects]
-
-    response = {
-        "id": user.id,
-        "email": user.email,
-        "name": user.name,
-        "projects": serialized_projects
-    }
-
-    return jsonify(response), 200
 
 
 @api.route('/signup', methods=['POST'])
@@ -97,79 +82,11 @@ def sign_up_user():
     return jsonify(response_body), 201
 
 
-# GET USERS ENDPOINT
+# PASSWORD ROUTES ------------------------------------------------------------------------------------------------------PASSWORD ROUTES #
 
-@api.route('/users', methods=['GET'])
-def get_all_users():
-    users = User.query.all()
-
-    all_users = [user.serialize() for user in users]
-
-    return jsonify(all_users), 200
-
-
-@api.route('/user/<int:user_id>', methods=['GET'])
-def get_selected_user(user_id):
-    user = User.query.get(user_id)
-
-    selected_user = user.serialize()
-
-    return jsonify(selected_user), 200
-
-# EDIT USER ENDPOINT
-
-
-@api.route('/user/<int:user_id>', methods=['PUT'])
-def edit_user(user_id):
-    user = User.query.get(user_id)
-    data = request.json
-
-    if 'name' in data:
-        user.name = data['name']
-    if 'last_name' in data:
-        user.last_name = data['last_name']
-    if 'username' in data:
-        user.username = data['username']
-    if 'email' in data:
-        user.email = data['email']
-
-    db.session.commit()
-
-    return jsonify({"msg": "User successfully updated.", "user": user.serialize()}), 200
-
-
-#  DELETE USER ENDPOINT
-
-@api.route('/user/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    user_to_delete = User.query.get(user_id)
-
-    if user_to_delete:
-        db.session.delete(user_to_delete)
-        db.session.commit()
-        return jsonify({"msg": "User successfully deleted."}), 200
-    else:
-        return jsonify({"msg": "User not found."}), 404
-    
-# CREATE GET ALL PROYECT
-
-@api.route('/projects', methods=['GET'])
-def get_all_projects():
-    projects = Project.query.all()
-
-    all_projects = [project.serialize() for project in projects]
-
-    return jsonify(all_projects), 200
-   
-
-
-
-
-# FORGOT PASSWORD ENDPOINT
 
 @api.route('/forgot-password', methods=['POST'])
 def forgot_password():
-    # Verificamos que el usuario existe
     if request.method == 'POST':
         email = request.json.get('email')
 
@@ -177,10 +94,6 @@ def forgot_password():
     if user is None:
         abort(404, description='User not found')
 
-    # #Creamos el token
-    # token = create_access_token(identity=user.id)
-
-    # Crear número aleatorio
     def generar_numero_aleatorio():
         return str(random.randint(100000, 999999))
 
@@ -195,10 +108,11 @@ def forgot_password():
         msg = Message(
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
-            recipients=[user.email],
-            body=(
-                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}reset-password/{user.id}")
+            recipients=[user.email]
         )
+        recovery_url = f"{os.getenv('FRONTEND_URL')}reset-password/{user.id}"
+        msg.html = render_template_string(
+            mail_template, user_name=user.name, url=recovery_url, recovery_token=recovery_token)
         try:
             mail.send(msg)
             return 'Correo electrónico enviado correctamente.'
@@ -211,7 +125,6 @@ def forgot_password():
     return jsonify({"msg": "Se ha enviado un enlace de recuperación a su dirección de correo electrónico.", "user_id": user.id}), 200
 
 
-# RESET PASSWORD ENDPOINT
 @api.route('/reset-password/<int:id>', methods=['POST'])
 def reset_password(id):
     user = User.query.filter_by(id=id).first()
@@ -240,14 +153,87 @@ def reset_password(id):
     return jsonify({"msg": "Password successfully updated"})
 
 
-#    PROJECTS ENDPOINTS
+# PRIVATE VIEWS ROUTES ------------------------------------------------------------------------------------------------------PRIVATE VIEWS ROUTES #
 
-# Create new Project endpoint
+
+@api.route("/protected", methods=["GET"])
+@jwt_required()
+def protected():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    projects = user.projects
+
+    serialized_projects = [project.serialize() for project in projects]
+
+    response = {
+        "id": user.id,
+        "email": user.email,
+        "name": user.name,
+        "projects": serialized_projects,
+        "username": user.username
+    }
+
+    return jsonify(response), 200
+
+
+# MANIPULATE USERS ROUTES ------------------------------------------------------------------------------------------------------MANIPULATE USERS ROUTES #
+
+@api.route('/users', methods=['GET'])
+def get_all_users():
+    users = User.query.all()
+
+    all_users = [user.serialize() for user in users]
+
+    return jsonify(all_users), 200
+
+
+@api.route('/user/<int:user_id>', methods=['GET'])
+def get_selected_user(user_id):
+    user = User.query.get(user_id)
+
+    selected_user = user.serialize()
+
+    return jsonify(selected_user), 200
+
+
+@api.route('/user/<int:user_id>', methods=['PUT'])
+def edit_user(user_id):
+    user = User.query.get(user_id)
+    data = request.json
+
+    if 'name' in data:
+        user.name = data['name']
+    if 'last_name' in data:
+        user.last_name = data['last_name']
+    if 'username' in data:
+        user.username = data['username']
+    if 'email' in data:
+        user.email = data['email']
+
+    db.session.commit()
+
+    return jsonify({"msg": "User successfully updated.", "user": user.serialize()}), 200
+
+
+@api.route('/user/<int:user_id>', methods=['DELETE'])
+def delete_user(user_id):
+    user_to_delete = User.query.get(user_id)
+
+    if user_to_delete:
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        return jsonify({"msg": "User successfully deleted."}), 200
+    else:
+        return jsonify({"msg": "User not found."}), 404
+
+
+# PROJECT ROUTES ------------------------------------------------------------------------------------------------------PROJECT ROUTES #
+
+
 @api.route('/create-new-project', methods=['POST'])
 def create_new_project():
     title = request.json.get('title')
     description = request.json.get('description')
-    # Convert single user ID to a list
     users = request.json.get('users', [])
 
     project = Project(
@@ -256,8 +242,110 @@ def create_new_project():
     )
     db.session.add(project)
 
-    users = User.query.filter(User.id.in_(users)).all()
+    users = User.query.filter(User.username.in_(users)).all()
     project.users.extend(users)
     db.session.commit()
 
     return jsonify({"message": "Project created successfully", "project": project.serialize()}), 201
+
+
+@api.route('/projects', methods=['GET'])
+def get_all_projects():
+    projects = Project.query.all()
+
+    all_projects = [project.serialize() for project in projects]
+
+    return jsonify(all_projects), 200
+
+# AWS ROUTES ------------------------------------------------------------------------------------------------------AWS ROUTES #
+
+
+aws_config = Config(
+    region_name='eu-west-3',
+    signature_version='v4',
+    retries={
+        'max_attempts': 10,
+        'mode': 'standard'
+    }
+)
+
+s3 = boto3.client('s3', aws_access_key_id=os.getenv(
+    "ACCESS_KEY"), aws_secret_access_key=os.getenv("SECRET_KEY"), config=aws_config)
+
+
+@api.route('/upload/<int:project_id>', methods=['POST'])
+def upload_file(project_id):
+
+    if 'file' not in request.files:
+        return jsonify({"error": "You didn't sent any file."}), 400
+
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "Wrong file name."}), 400
+
+    try:
+        content_disposition = 'inline; filename="{}"'.format(file.filename)
+        folder_name = 'images'
+        file_key = folder_name + '/' + file.filename
+        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file.filename, ExtraArgs={
+            'ContentType': file.content_type,
+            'ContentDisposition': content_disposition
+        })
+
+        project = Project.query.get(project_id)
+        file = File(name=file.filename, project=project)
+        db.session.add(file)
+        db.session.commit()
+
+        return jsonify({"message": "File uploaded!"}), 200
+    except Exception as exception:
+        return jsonify({"error": str(exception)}), 500
+
+
+@api.route('/delete-file', methods=['DELETE'])
+def delete_file():
+    try:
+        bucket_name = os.getenv("BUCKET_NAME")
+        file_name = request.json.get('file_name')
+        project_id = request.json.get('project_id')
+        project = Project.query.get(project_id)
+
+        file_instance = File.query.filter_by(
+            name=file_name, project_id=project_id).first()
+        if file_instance:
+            db.session.delete(file_instance)
+        db.session.flush()
+        db.session.commit()
+        print("Received file name:", file_name)
+        s3.delete_object(Bucket=bucket_name, Key=file_name)
+        new_serialized_project = project.serialize()
+
+        return jsonify({'msg': 'File has been successfully deleted from AWS and from the project', 'project': new_serialized_project}), 200
+    except NoCredentialsError:
+        return jsonify({'error': 'AWS credentials not found'}), 500
+
+
+# TASK ENDPOINTS -----------------------------------------------------------------------TASK ENDPOINTS #
+
+@api.route('/task', methods=["POST"])
+def create_task():
+
+    title = request.json.get('title')
+    description = request.json.get('description')
+    due_at = request.json.get('due_at')
+    todo_list = request.json.get('todo_list', [])
+
+    project = request.json.get('project')
+
+    task = Task(
+        title=title.title(),
+        description=description.capitalize(),
+        due_at=due_at,
+        todo_list=todo_list,
+        project_id=project
+    )
+
+    db.session.add(task)
+    db.session.commit()
+
+    return jsonify({"message": "Task successfully created", "task": task.serialize()}), 201

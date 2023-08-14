@@ -1,6 +1,9 @@
 :root {
   --primary-color: #FF7C33;
   --secondary-color: #FFECE8;
+  --light-grey-color: #efefef;
+  --medium-grey-color: #DEDEDE;
+  --dark-grey-color: #AFAFAF;
   --light-text-color: white;
 }
 
@@ -11,8 +14,8 @@ body {
 
 /* HOME STYLES */
 
-.fade-in-image img {
-  animation: fadeInAnimation 1s ease-in 1.5s;
+.fade-in-img {
+  animation: fadeInAnimation 0.3s ease-in 0.5s;
   opacity: 0;
   animation-fill-mode: forwards;
 }
@@ -27,124 +30,111 @@ body {
   }
 }
 
-.fade-in-img2 {
-  animation: fadeInAnimation 1s ease-in 1.5s;
-  opacity: 0;
-  animation-fill-mode: forwards;
+.home-title h1 {
+  font-size: 70px;
+  max-width: 800px;
+  font-weight: 800;
+  margin: 0 auto;
 }
 
-@keyframes fadeInAnimation {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+.home-title p {
+  font-size: 22px;
+  font-weight: 500;
+  max-width: 470px;
+  margin: 30px auto;
 }
 
-.fade-in-title h1 {
-  animation: fadeInAnimation 1s ease-in;
-  opacity: 0;
-  animation-fill-mode: forwards;
-}
-
-@keyframes fadeInAnimation {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* SIGN UP STYLES */
-
-.sign-up-form {
-  width: 458.6px;
-
-}
-
-.form-input {
-  height: 40px;
-  margin-bottom: 20px;
-  background-color: var(--secondary-color);
+.home .home-button {
+  background-color: var(--primary-color);
+  text-decoration: none;
+  color: #fff;
+  height: 50px;
+  align-items: center;
+  display: inline-flex;
+  width: 250px;
+  margin: 0 auto;
   border-radius: 8px;
-  border: none;
-  padding: 5px 25px;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  border: none;
-
-  -webkit-text-fill-color: black;
-  -webkit-box-shadow: 0 0 0px 1000px var(--secondary-color) inset;
-  transition: background-color 5000s ease-in-out 0s;
+.home .home-button span {
+  margin: 0 auto
 }
 
-
-.form-input:focus {
+.home .home-button:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
   outline: 2px solid var(--primary-color);
+}
+
+/* -------------------------------------------------------------------------------uploadFile */
+
+.upload-file-button-container {
+  max-width: 150px;
 
 }
 
-.form-button {
+.upload-file-button {
   background-color: var(--primary-color);
   color: var(--light-text-color);
-
-  margin-top: 20px;
   border-radius: 8px;
   border: none;
-  height: 50px;
 }
 
-.form-button:hover {
+.upload-file-button:hover {
   color: var(--primary-color);
   background-color: var(--secondary-color);
   outline: 2px solid var(--primary-color);
-}
-
-.text-emphasis {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: none;
-}
-
-.text-emphasis:hover {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: underline;
 
 }
 
-.text-link-black {
-  font-weight: bolder;
-  color: black;
-  text-decoration: none;
-}
-
-.text-link-black:hover {
-  font-weight: bolder;
-  color: var(--primary-color);
-  text-decoration: underline;
-
-}
-
-.password-label {
+.upload-file-button-label {
   color: rgb(145, 145, 145);
   font-size: small;
   padding-left: 4px;
-  margin-top: -20px;
+  margin-top: 0px;
   margin-right: auto;
   margin-bottom: 20px;
-  /* Puedes ajustar este valor según tu preferencia */
+}
+
+.file-link {
+
+  padding: 3px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 }
 
 
+/* ---------------------------------------------------DELETE FILE BUTTON */
+.delete-button {
+  background: #c63a3a;
+  border-radius: 5px;
+  box-shadow: #c63a3a 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  /* padding: 4px 9px; */
+  border: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+  visibility: hidden;
+}
+
+.list-body:hover .delete-button {
+  visibility: visible;
+
+}
+
+.list-body {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 10px;
+}
 
 /* FONTS */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;1,100;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&family=Poppins:wght@400;600;700&display=swap');

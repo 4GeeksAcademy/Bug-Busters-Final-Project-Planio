@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate } from "react-router-dom";
 import swal from 'sweetalert2'
-import "../../styles/home.css";
+import "../../styles/signup-forms.css";
 
 
 export const Signup = () => {
@@ -41,7 +41,7 @@ export const Signup = () => {
         actions.signupFunction(form);
         swal.fire({ title: "User successfully registered!", text: "Now you can organize your projects and tasks!.", icon: "success", confirmButtonColor: '#fa9643' }).then((result) => {
             if (result.isConfirmed) {
-                navigate("/private-view");
+                navigate("/dashboard");
             }
         });
     };

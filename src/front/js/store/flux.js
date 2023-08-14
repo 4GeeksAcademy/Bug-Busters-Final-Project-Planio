@@ -6,41 +6,31 @@ import jwtDecode from 'jwt-decode';
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
-			user_info: [{ name: "test user name", email: "test user email" }],
+			user_info: [{ name: "", email: "" }],
+			users_usernames: [""]
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-
-
-			changeColor: (index, color) => {
-				//get the store
+			getAllUsers: async () => {
 				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/users`, {
+						method: "GET"
+					});
 
-				//reset the global store
-				setStore({ demo: demo });
+					if (!response.ok) {
+						throw new Error("There was a problem retrieving the users data.")
+					}
+
+					const data = await response.json();
+					const usernames = data.map(user => user.username);
+					setStore(usernames);
+					console.log(usernames);
+
+
+				} catch (error) {
+					console.error(error);
+				}
 			},
 			signupFunction: async (form) => {
 				try {
@@ -159,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem("jwt-token");
 				const store = getStore();
 
-				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
+				return fetch(`${process.env.BACKEND_URL}api/protected`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -177,6 +167,61 @@ const getState = ({ getStore, getActions, setStore }) => {
 						// Maneja el error si lo deseas
 						throw new Error("Error al obtener la información del usuario");
 					});
+			},
+			uploadFile: async (file, projectId) => {
+				const formData = new FormData();
+				formData.append("file", file);
+
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/upload/${projectId}`, {
+						method: "POST",
+						body: formData
+					});
+
+					if (!resp.ok) {
+						throw new Error("There was a prolem while uploading the file.")
+					};
+
+					return "Success"
+				} catch (error) {
+					console.error(error);
+					console.log("there was an error this is catch block")
+				};
+
+			},
+			deleteFile: async (file_name, project_id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/delete-file`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ file_name: file_name, project_id: project_id })
+					})
+
+					if (!resp.ok) {
+						throw new Error("something went wrong while deleting the file")
+					}
+				} catch (error) {
+					console.error(error)
+
+				}
+			},
+			createNewProject: async (form) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/create-new-project`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ title: form.title, description: form.description, users: [form.username] })
+					});
+
+					if (!resp.ok) {
+						throw new Error("something went wrong while getting create project form")
+					}
+
+					const data = await resp.json()
+					console.log(["this is data from create new project", data])
+				} catch (error) {
+					console.error(error)
+				}
 			},
 		}
 	};

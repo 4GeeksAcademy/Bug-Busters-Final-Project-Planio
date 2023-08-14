@@ -1,0 +1,102 @@
+.navbar {
+    padding: 15px;
+}
+
+
+
+.navbar-brand {
+    width: 300px;
+}
+
+.navbar-brand img {
+    width: 120px;
+}
+
+.loginOptions {
+    justify-content: flex-end !important
+}
+
+.searchBar {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.searchBar .form-control {
+    border-radius: 25px 0 0 25px;
+    background-color: var(--light-grey-color);
+    border: none;
+    padding: 10px 20px;
+
+}
+
+.searchBar .form-control:focus {
+    box-shadow: none;
+
+}
+
+.searchBar .input-group-text {
+    border-radius: 0 25px 25px 0;
+    background-color: var(--light-grey-color);
+    border: none;
+    padding: 10px 20px;
+}
+
+.projectSelector .btn {
+    padding: 1rem;
+    border: 1px solid var(--medium-grey-color);
+    border-radius: 14px;
+    color: black;
+    font-weight: 800;
+    margin: 0 20px;
+    display: flex;
+}
+
+.projectSelector .btn:focus {
+    border: 1px solid var(--dark-grey-color);
+    box-shadow: none;
+}
+
+.projectSelector .btn p {
+    margin: 0;
+    width: 150px;
+    text-align: left;
+}
+
+.projectSelector .dropdown-toggle::after {
+    display: none;
+}
+
+.projectSelector .btnIcon {
+    padding: 6px;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: end;
+}
+
+.projectSelector .dropdown-menu {
+    border-radius: 14px;
+    width: 100%;
+    margin: 5px 20px;
+}
+
+.notificationsIcon {
+    padding: 20px;
+}
+
+.notificationsIcon .fas {
+    font-size: 22px;
+    padding: 2px;
+}
+
+.userName p {
+    margin: 0px;
+    padding: 10px 20px;
+    width: max-content;
+    font-weight: 900;
+}
+
+.logoutIcon {
+    margin: 20px;
+    cursor: pointer;
+}
