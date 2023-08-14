@@ -6,7 +6,7 @@ import "../../styles/home.css";
 import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 
-export const PrivateView = () => {
+export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ export const PrivateView = () => {
         return (
             <div className="dashboard p-4">
 
-                <div className="container">
+                <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-8">
                             <div className="row">

@@ -13,40 +13,40 @@ export const Sidebar = () => {
     const { store, actions } = useContext(Context);
 
     const getButtonContent = () => {
-        if (location.pathname === '/private-view') {
+        if (location.pathname === '/dashboard') {
             return <>
                 <div className="sidebar">
 
                     <ul className="list-group m-4">
                         <li className="list-group-item active">
                             <a onClick={() => {
-                                    navigate("/")
+                                navigate("/")
                             }}>
-                                <i className="fa-solid fa-layer-group" style={{color: "#000000"}}></i>
+                                <i className="fa-solid fa-layer-group" style={{ color: "#000000" }}></i>
                                 Dashboard
                             </a>
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                    navigate("/")
+                                navigate("/")
                             }}>
-                                <i className="fa-solid fa-desktop" style={{color: "#000000"}}></i>
+                                <i className="fa-solid fa-desktop" style={{ color: "#000000" }}></i>
                                 Projects
                             </a>
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                    navigate("/")
+                                navigate("/")
                             }}>
-                                <i className="fa-regular fa-calendar" style={{color: "#000000"}}></i>
+                                <i className="fa-regular fa-calendar" style={{ color: "#000000" }}></i>
                                 Calendar
                             </a>
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                    navigate("/")
+                                navigate("/")
                             }}>
-                                <i className="fa-solid fa-list-check" style={{color: "#000000"}}></i>
+                                <i className="fa-solid fa-list-check" style={{ color: "#000000" }}></i>
                                 Tasks
                             </a>
                         </li>
@@ -54,7 +54,7 @@ export const Sidebar = () => {
                             <a onClick={() => {
                                 navigate("/")
                             }}>
-                                <i className="fa-solid fa-gear" style={{color: "#000000"}}></i>
+                                <i className="fa-solid fa-gear" style={{ color: "#000000" }}></i>
                                 Settings
                             </a>
                         </li>

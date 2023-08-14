@@ -27,7 +27,7 @@ export const Navbar = () => {
 	}, []);
 
 	const getButtonContent = () => {
-		if (location.pathname === '/private-view') {
+		if (location.pathname === '/dashboard') {
 			return <>
 				<div className="navbar-collapse">
 
