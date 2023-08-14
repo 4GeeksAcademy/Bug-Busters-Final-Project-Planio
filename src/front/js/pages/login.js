@@ -27,7 +27,7 @@ export const Login = () => {
 
         actions.loginFunction(form)
             .then((data) => {
-                if (data) { navigate("/private-view"); }
+                if (data) { navigate("/dashboard"); }
             });
     };
 

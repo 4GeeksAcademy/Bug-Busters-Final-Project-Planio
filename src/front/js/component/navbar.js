@@ -6,11 +6,7 @@ import "../../styles/navbar.css";
 import { Context } from "../store/appContext";
 
 
-export const Navbar = (
-
-	isPrivate = false,
-
-) => {
+export const Navbar = () => {
 
 	const location = useLocation();
 	const navigate = useNavigate()
@@ -31,7 +27,7 @@ export const Navbar = (
 	}, []);
 
 	const getButtonContent = () => {
-		if (location.pathname === '/private-view') {
+		if (location.pathname === '/dashboard') {
 			return <>
 				<div className="navbar-collapse">
 

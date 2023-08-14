@@ -41,7 +41,7 @@ export const Signup = () => {
         actions.signupFunction(form);
         swal.fire({ title: "User successfully registered!", text: "Now you can organize your projects and tasks!.", icon: "success", confirmButtonColor: '#fa9643' }).then((result) => {
             if (result.isConfirmed) {
-                navigate("/private-view");
+                navigate("/dashboard");
             }
         });
     };
