@@ -35,7 +35,7 @@ export const Login = () => {
     useEffect(() => {
 
         if (validated_token) {
-            navigate("/private-view")
+            navigate("/dashboard")
         } else {
             return;
         }
