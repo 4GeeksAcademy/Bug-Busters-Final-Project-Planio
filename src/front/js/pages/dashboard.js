@@ -1,17 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import "../../styles/home.css";
 import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
+import { DateTime } from "../component/dateTime";
+import { CreateProject } from "../component/createProject";
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
+    const [updatedComponent, setUpdatedComponent] = useState(false);
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
+    // const projectsLength = userInfo.projects.length;
+    console.log(userInfo);
 
 
 
@@ -32,7 +37,12 @@ export const Dashboard = () => {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [validated_token, updatedComponent]);
+
+    const handleUpdateComponent = () => {
+        setUpdatedComponent(!updatedComponent);
+    };
+
 
     if (!validated_token) {
         return null;
@@ -47,13 +57,15 @@ export const Dashboard = () => {
                         <div className="col-md-8">
                             <div className="row">
                                 <h1>Hi, {userInfo.name}</h1>
-                                <p className="date">Friday August 11</p>
+                                <h6><DateTime /></h6>
                             </div>
                             <div className="row justify-content-between">
                                 <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
                                     <div className="card-info">
                                         <h5 className="card-title">Proyectos</h5>
-                                        <p className="card-text">4</p>
+
+                                        <p className="card-text">{userInfo.projects && userInfo.projects.length}</p>
+                                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
                                     </div>
                                     <div className="card-icon d-flex">
                                         <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>

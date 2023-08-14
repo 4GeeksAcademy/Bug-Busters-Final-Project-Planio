@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint, render_template, redirect, abort
-from api.models import db, User, Project, File
+from flask import Flask, request, jsonify, url_for, Blueprint, render_template, render_template_string, redirect, abort
+from api.models import db, User, Project, File, Task
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
@@ -16,6 +16,7 @@ import boto3
 import botocore
 from botocore.exceptions import NoCredentialsError
 from botocore.config import Config
+from flaskMailTemplate import mail_template
 
 api = Blueprint('api', __name__)
 
@@ -107,10 +108,11 @@ def forgot_password():
         msg = Message(
             subject=("Your recovery code"),
             sender="planio.notification@gmail.com",
-            recipients=[user.email],
-            body=(
-                f" Hi {user.name}! your recovery code is: {recovery_token}.\n {os.getenv('FRONTEND_URL')}reset-password/{user.id}")
+            recipients=[user.email]
         )
+        recovery_url = f"{os.getenv('FRONTEND_URL')}reset-password/{user.id}"
+        msg.html = render_template_string(
+            mail_template, user_name=user.name, url=recovery_url, recovery_token=recovery_token)
         try:
             mail.send(msg)
             return 'Correo electrónico enviado correctamente.'
@@ -168,6 +170,7 @@ def protected():
         "email": user.email,
         "name": user.name,
         "projects": serialized_projects,
+        "username": user.username
     }
 
     return jsonify(response), 200
@@ -239,7 +242,7 @@ def create_new_project():
     )
     db.session.add(project)
 
-    users = User.query.filter(User.id.in_(users)).all()
+    users = User.query.filter(User.username.in_(users)).all()
     project.users.extend(users)
     db.session.commit()
 
@@ -284,7 +287,7 @@ def upload_file(project_id):
         content_disposition = 'inline; filename="{}"'.format(file.filename)
         folder_name = 'images'
         file_key = folder_name + '/' + file.filename
-        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file_key, ExtraArgs={
+        s3.upload_fileobj(file, os.getenv("BUCKET_NAME"), file.filename, ExtraArgs={
             'ContentType': file.content_type,
             'ContentDisposition': content_disposition
         })
@@ -299,15 +302,50 @@ def upload_file(project_id):
         return jsonify({"error": str(exception)}), 500
 
 
-@api.route('/files/<filename>', methods=['GET'])
-def get_file(filename):
+@api.route('/delete-file', methods=['DELETE'])
+def delete_file():
     try:
         bucket_name = os.getenv("BUCKET_NAME")
-        url = s3.generate_presigned_url(
-            'get_object',
-            Params={'Bucket': bucket_name, 'Key': filename},
-            ExpiresIn=3600
-        )
-        return jsonify({'url': url}), 200
+        file_name = request.json.get('file_name')
+        project_id = request.json.get('project_id')
+        project = Project.query.get(project_id)
+
+        file_instance = File.query.filter_by(
+            name=file_name, project_id=project_id).first()
+        if file_instance:
+            db.session.delete(file_instance)
+        db.session.flush()
+        db.session.commit()
+        print("Received file name:", file_name)
+        s3.delete_object(Bucket=bucket_name, Key=file_name)
+        new_serialized_project = project.serialize()
+
+        return jsonify({'msg': 'File has been successfully deleted from AWS and from the project', 'project': new_serialized_project}), 200
     except NoCredentialsError:
         return jsonify({'error': 'AWS credentials not found'}), 500
+
+
+# TASK ENDPOINTS -----------------------------------------------------------------------TASK ENDPOINTS #
+
+@api.route('/task', methods=["POST"])
+def create_task():
+
+    title = request.json.get('title')
+    description = request.json.get('description')
+    due_at = request.json.get('due_at')
+    todo_list = request.json.get('todo_list', [])
+
+    project = request.json.get('project')
+
+    task = Task(
+        title=title.title(),
+        description=description.capitalize(),
+        due_at=due_at,
+        todo_list=todo_list,
+        project_id=project
+    )
+
+    db.session.add(task)
+    db.session.commit()
+
+    return jsonify({"message": "Task successfully created", "task": task.serialize()}), 201

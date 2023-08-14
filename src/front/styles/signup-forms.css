@@ -36,12 +36,21 @@ input:-webkit-autofill:focus {
     border-radius: 8px;
     border: none;
     height: 50px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .form-button:hover {
     color: var(--primary-color);
     background-color: var(--secondary-color);
     outline: 2px solid var(--primary-color);
+}
+
+.form-button:focus {
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
+    outline: 2px solid var(--primary-color);
+    border: none;
 }
 
 .text-emphasis {

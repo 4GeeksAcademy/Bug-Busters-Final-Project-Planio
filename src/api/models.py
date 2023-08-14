@@ -98,9 +98,11 @@ class Project(db.Model):
     state = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
+
     files = db.relationship('File', backref='project', lazy=True)
     users = db.relationship(
         'User', secondary=projectCollaborator, lazy='subquery')
+    tasks = db.relationship('Task', backref='project_task', lazy=True)
 
     def __repr__(self):
         return f'<Project {self.title}>'
@@ -121,6 +123,10 @@ class Project(db.Model):
         if self.updated_at:
             serialized_project["updated_at"] = self.updated_at.strftime(
                 '%d-%m-%Y %H:%M:%S')
+
+        if self.tasks:
+            serialized_project["tasks"] = [task.serialize()
+                                           for task in self.tasks]
 
         return serialized_project
 
@@ -143,11 +149,11 @@ class Task(db.Model):
     due_at = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=3))
     done = db.Column(db.Boolean, nullable=False, default=False)
-    todo_list = db.Column(db.JSON, nullable=True)
+    todo_list = db.Column(db.String, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, todo_list=None):
-        self.todo_list = json.dumps(todo_list) if todo_list else None
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'),
+                           nullable=False)
 
     def __repr__(self):
         return f'<Task {self.title}>'
@@ -156,11 +162,13 @@ class Task(db.Model):
         serialized_task = {
             "id": self.id,
             "title": self.title,
-            "description:": self.description,
-            "due_at": self.due_at,
+            "description": self.description,
+            "due_at": self.due_at.strftime(
+                '%d-%m-%Y %H:%M:%S'),
             "done": self.done,
-            "todo_list": json.loads(self.todo_list) if self.todo_list else None,
-            "created_at": self.created_at
+            "todo_list": self.todo_list,
+            "created_at": self.created_at.strftime(
+                '%d-%m-%Y %H:%M:%S')
         }
 
         return serialized_task
