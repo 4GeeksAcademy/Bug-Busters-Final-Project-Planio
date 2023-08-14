@@ -15,6 +15,7 @@ import { ForgotPassword } from "./pages/forgot-password";
 import { ResetPassword } from "./pages/reset-password";
 import { Login } from "./pages/login";
 import { PrivateView } from "./pages/privateView";
+//import { TaskView } from "./pages/taskView";
 
 
 //create your first component
