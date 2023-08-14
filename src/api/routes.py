@@ -333,7 +333,6 @@ def create_task():
     title = request.json.get('title')
     description = request.json.get('description')
     due_at = request.json.get('due_at')
-    done = request.json.get('done')
     todo_list = request.json.get('todo_list', [])
 
     project = request.json.get('project')
@@ -342,7 +341,6 @@ def create_task():
         title=title.title(),
         description=description.capitalize(),
         due_at=due_at,
-        done=done,
         todo_list=todo_list,
         project_id=project
     )

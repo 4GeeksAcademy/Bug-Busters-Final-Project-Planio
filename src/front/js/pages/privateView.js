@@ -6,6 +6,7 @@ import "../../styles/home.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
+import { CreateTask } from "../component/createTask";
 
 export const PrivateView = () => {
     const { store, actions } = useContext(Context);
@@ -67,6 +68,7 @@ export const PrivateView = () => {
                     <div key={project.id} className="mt-5">
                         <h2>{project.title}</h2>
                         <h5>{project.description}</h5>
+                        <CreateTask />
                         <h4>Your images and documents:</h4>
                         {project.files && project.files.length > 0 ? (
                             <ul className="list-unstyled">
