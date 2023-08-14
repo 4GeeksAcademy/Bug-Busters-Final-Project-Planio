@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import "../../styles/home.css";
 import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
+import { DateTime } from "../component/dateTime";
+import { CreateProject } from "../component/createProject";
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
@@ -47,7 +49,7 @@ export const Dashboard = () => {
                         <div className="col-md-8">
                             <div className="row">
                                 <h1>Hi, {userInfo.name}</h1>
-                                <p className="date">Friday August 11</p>
+                                <h6><DateTime /></h6>
                             </div>
                             <div className="row justify-content-between">
                                 <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
