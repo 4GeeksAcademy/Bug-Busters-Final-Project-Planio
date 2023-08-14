@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, render_template, render_template_string, redirect, abort
-from api.models import db, User, Project, File
+from api.models import db, User, Project, File, Task
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy import or_
@@ -323,3 +323,31 @@ def delete_file():
         return jsonify({'msg': 'File has been successfully deleted from AWS and from the project', 'project': new_serialized_project}), 200
     except NoCredentialsError:
         return jsonify({'error': 'AWS credentials not found'}), 500
+
+
+# TASK ENDPOINTS -----------------------------------------------------------------------TASK ENDPOINTS #
+
+@api.route('/task', methods=["POST"])
+def create_task():
+
+    title = request.json.get('title')
+    description = request.json.get('description')
+    due_at = request.json.get('due_at')
+    done = request.json.get('done')
+    todo_list = request.json.get('todo_list', [])
+
+    project = request.json.get('project')
+
+    task = Task(
+        title=title.title(),
+        description=description.capitalize(),
+        due_at=due_at,
+        done=done,
+        todo_list=todo_list,
+        project_id=project
+    )
+
+    db.session.add(task)
+    db.session.commit()
+
+    return jsonify({"message": "Task successfully created", "task": task.serialize()}), 201

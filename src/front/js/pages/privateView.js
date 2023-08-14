@@ -85,7 +85,7 @@ export const PrivateView = () => {
 
                 ))}
                 <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
-                <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-png.png" alt="Image from AWS" />
+                <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-mail.png" alt="Image from AWS" />
             </div>
 
         );

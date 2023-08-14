@@ -5,7 +5,7 @@ import swal from "sweetalert2";
 
 
 
-export const CreateProject = ({ username, projectCreated }) => {
+export const CreateProject = ({ username = "", projectCreated }) => {
     const { store, actions } = useContext(Context);
     const [form, setForm] = useState(
         {
@@ -18,7 +18,6 @@ export const CreateProject = ({ username, projectCreated }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
-
     };
 
     const handleSubmit = (e) => {
