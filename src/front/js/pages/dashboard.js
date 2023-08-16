@@ -7,6 +7,8 @@ import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
+import { NumberOfProjects } from "../component/dashboard-components/numberOfProjects";
+import { NumberCard } from "../component/dashboard-components/numberCard";
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
@@ -16,8 +18,6 @@ export const Dashboard = () => {
 
     const userInfo = store.user_info[0];
     // const projectsLength = userInfo.projects.length;
-    console.log(userInfo);
-
 
 
     useEffect(() => {
@@ -37,12 +37,7 @@ export const Dashboard = () => {
                     console.error(error);
                 });
         }
-    }, [validated_token, updatedComponent]);
-
-    const handleUpdateComponent = () => {
-        setUpdatedComponent(!updatedComponent);
-    };
-
+    }, []);
 
     if (!validated_token) {
         return null;
@@ -60,26 +55,14 @@ export const Dashboard = () => {
                                 <h6><DateTime /></h6>
                             </div>
                             <div className="row justify-content-between">
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
-
-                                        <p className="card-text">{userInfo.projects && userInfo.projects.length}</p>
-                                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
-                                    </div>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
-                                        <p className="card-text">4</p>
-                                    </div>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                                    </div>
-                                </div>
+                                <NumberCard
+                                    title={"Projects"}
+                                    isProjects={true}
+                                />
+                                <NumberCard
+                                    title={"Files"}
+                                    isFiles={true}
+                                />
                             </div>
                         </div>
                         <div className="col-md-4 d-flex">

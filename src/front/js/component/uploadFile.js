@@ -2,7 +2,11 @@ import React, { useContext, useRef, useState } from "react";
 import { Context } from "../store/appContext";
 
 
-export const UploadFile = ({ projectId, onUploadComplete }) => {
+export const UploadFile = ({ 
+    projectId, 
+    onUploadComplete, 
+    ctaText="Upload file",
+}) => {
     const { store, actions } = useContext(Context);
     const inputRef = useRef();
 
@@ -32,10 +36,10 @@ export const UploadFile = ({ projectId, onUploadComplete }) => {
 
 
     return (
-        <div className="upload-file-button-container container d-flex flex-column">
+        <div className="upload-file-button-container d-flex">
             <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={handleFileChange} />
 
-            <button onClick={handleClick} className="upload-file-button">Upload file</button>
+            <button onClick={handleClick} className="">{ctaText}</button>
         </div>
     );
 
