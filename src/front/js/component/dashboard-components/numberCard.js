@@ -12,6 +12,7 @@ export const NumberCard = ({
     title,
     isProjects,
     isFiles,
+    folderUrl,
 
 }) => {
 
@@ -36,7 +37,7 @@ export const NumberCard = ({
     }, [userInfo]);
 
 
-    
+
 
     useEffect(() => {
 
@@ -65,40 +66,44 @@ export const NumberCard = ({
     };
 
     return (
-        <div className="col-md-6 simple-card p-4">
-            <div className="card-info d-flex justify-content-between">
-                <h5 className="card-title">{title}</h5>
-                {
-                    isProjects &&
-                    <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="fa-solid fa-plus" style={{ color: "#000000" }}></i>} />
-                }
-
-                {
-                    isFiles &&
-                    <UploadFile projectId={project} onUploadComplete={handleUpdateComponent} ctaText={<i className="fa-solid fa-plus" style={{ color: "#000000" }}></i>}/>
-                }
-            </div>
-            <div className=" d-flex justify-content-between">
+        <div className="col-md-6 simple-card w49 p-4">
 
                 {
                     isProjects &&
+                    <>
+                        <div className="card-info d-flex justify-content-between">
+                            <h5 className="card-title">{title}</h5>
+                            <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew"/>
+                        </div>
+                        <div className="card-number d-flex justify-content-between">
+                            <p className="card-text">{userInfo.projects && userInfo.projects.length ? userInfo.projects.length : "0"}</p>
+                            <div className="card-icon d-flex">
+                                <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
+                            </div>
+                        </div>
+                    </>
                         
-                        <p className="card-text">{userInfo.projects && userInfo.projects.length ? userInfo.projects.length : "0"}</p>
 
                 }
 
                 {
                     isFiles &&
+                    <>
+                        <div className="card-info d-flex justify-content-between">
+                            <h5 className="card-title">{title}</h5>
+                            <UploadFile projectId={project} onUploadComplete={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew"/>
+                        </div>
+                        <div className="card-number d-flex justify-content-between">
+                            <p className="card-text">{totalFiles}</p>
+                            <div className="card-icon d-flex">
+                                <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
+                            </div>
+                        </div>
+                    </>
 
-                        <p className="card-text">{totalFiles}</p>
 
                 }
 
-                <div className="card-icon d-flex">
-                    <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                </div>
-
-            </div>
         </div>
 
     )

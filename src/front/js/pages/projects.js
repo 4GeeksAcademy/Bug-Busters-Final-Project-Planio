@@ -10,7 +10,7 @@ import { CreateProject } from "../component/createProject";
 import { NumberOfProjects } from "../component/dashboard-components/numberOfProjects";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 
-export const Dashboard = () => {
+export const Projects = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
     const [updatedComponent, setUpdatedComponent] = useState(false);
@@ -18,7 +18,6 @@ export const Dashboard = () => {
 
     const userInfo = store.user_info[0];
     // const projectsLength = userInfo.projects.length;
-
 
     useEffect(() => {
 
@@ -49,75 +48,46 @@ export const Dashboard = () => {
 
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-md-8">
-                            <div className="row">
-                                <h1>Hi, {userInfo.name}</h1>
-                                <h6><DateTime /></h6>
-                            </div>
-                            <div className="row justify-content-between">
-                                <NumberCard
-                                    title={"Projects"}
-                                    isProjects={true}
-                                    folderUrl={"#"}
-                                />
-                                <NumberCard
-                                    title={"Files"}
-                                    isFiles={true}
-                                    folderUrl={"#"}
-                                    butClass={"addNew"}
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-4 d-flex justify-content-end">
-                            <div className="calendar p-4">
-                                Calendario
-                            </div>
-                        </div>
+                        <h1>These are your projects, {userInfo.name}</h1>
                     </div>
-                    <div className="row mt-4">
-                        <div className="col-md-6 ">
-                            <div className="simple-card p-4">
+                    <div className="row">
+                        {userInfo.projects && userInfo.projects.map((project) => (
+                        <div className="col-md-6 project-card">
+                            <div className="simple-card p-4 my-3">
                                 <div className="card-info d-flex justify-content-between">
-                                    <h5 className="card-title">titulo</h5>
-
-                                </div>
-                                <div className="card-number d-flex justify-content-between">
-                                    <p className="card-text">0</p>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="viewFolder fa-regular fa-folder"></i></a>
+                                    <div key={project.id} className="">
+                                        <h2>{project.title}</h2>
+                                        <p className="card-title">{project.description}</p>
+                                        <h3>Number of images and documents: <span>{project.files.length}</span></h3>
+                                        <h3>Total number of tasks: <span>12</span></h3>
+                                        {/* <h4>Your images and documents:</h4>
+                                        {project.files && project.files.length > 0 ? (
+                                            <ul className="list-unstyled">
+                                                {project.files.map((file, index) => (
+                                                    <li key={index}>{file}</li>
+                                                ))}
+                                            </ul>
+                                        ) : (
+                                            <p>Upload your images or documents</p>
+                                        )}
+                                        <UploadFile 
+                                            projectId={project.id} 
+                                            ctaText={"Upload file"}
+                                            butClass={"upload-file-button"}
+                                        /> */}
+                                        <button onClick={() => {navigate(`/dashboard/${project.id}`)}} className="upload-file-button mt-3">Go to this project</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="second-card">
-                                <p>holahoalhaohaolsh</p>
-                            </div>
-                        </div>
+                                    ))}
+
                     </div>
                 </div>
 
 
 
-                {/* <h1>Your projects below:</h1>
-                {userInfo.projects && userInfo.projects.map((project) => (
-                    <div key={project.id} className="mt-5">
-                        <h2>{project.title}</h2>
-                        <h5>{project.description}</h5>
-                        <h4>Your images and documents:</h4>
-                        {project.files && project.files.length > 0 ? (
-                            <ul className="list-unstyled">
-                                {project.files.map((file, index) => (
-                                    <li key={index}>{file}</li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>Upload your images or documents</p>
-                        )}
-                        <UploadFile projectId={project.id} />
-                    </div>
 
-                ))} */}
                 {/* <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" alt="Image from AWS" />
                 <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230809%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230809T170002Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4eacd9d260244d19346e56452ac1adbf099aeb86b1aba7f34c4688a98eabd4eb" target="_blank">YOUR PDF FILE</a></div> */}
             </div>

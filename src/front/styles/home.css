@@ -78,6 +78,7 @@ body {
   color: var(--light-text-color);
   border-radius: 8px;
   border: none;
+  padding: 10px 20px;
 }
 
 .upload-file-button:hover {

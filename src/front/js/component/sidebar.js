@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import planioLogo from "../../img/planio-logo.png";
 import { Avatar, Badge } from "@prismane/core";
@@ -9,26 +9,28 @@ import { Context } from "../store/appContext";
 export const Sidebar = () => {
 
     const location = useLocation();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const { store, actions } = useContext(Context);
 
+    const [activeItem, setActiveItem] = useState(location.pathname);
+
     const getButtonContent = () => {
-        if (location.pathname === '/dashboard') {
+        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings') {
             return <>
                 <div className="sidebar">
 
                     <ul className="list-group m-4">
-                        <li className="list-group-item active">
+                        <li className={`list-group-item ${activeItem === '/dashboard' ? 'active' : ''}`}>
                             <a onClick={() => {
-                                navigate("/")
+                                navigate("/dashboard")
                             }}>
                                 <i className="fa-solid fa-layer-group" style={{ color: "#000000" }}></i>
                                 Dashboard
                             </a>
                         </li>
-                        <li className="list-group-item">
+                        <li className={`list-group-item ${activeItem === '/projects' ? 'active' : ''}`}>
                             <a onClick={() => {
-                                navigate("/")
+                                navigate("/projects")
                             }}>
                                 <i className="fa-solid fa-desktop" style={{ color: "#000000" }}></i>
                                 Projects
@@ -36,7 +38,7 @@ export const Sidebar = () => {
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                navigate("/")
+                                navigate("/calendar")
                             }}>
                                 <i className="fa-regular fa-calendar" style={{ color: "#000000" }}></i>
                                 Calendar
@@ -44,7 +46,7 @@ export const Sidebar = () => {
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                navigate("/")
+                                navigate("/tasks")
                             }}>
                                 <i className="fa-solid fa-list-check" style={{ color: "#000000" }}></i>
                                 Tasks
@@ -52,7 +54,7 @@ export const Sidebar = () => {
                         </li>
                         <li className="list-group-item">
                             <a onClick={() => {
-                                navigate("/")
+                                navigate("/settings")
                             }}>
                                 <i className="fa-solid fa-gear" style={{ color: "#000000" }}></i>
                                 Settings

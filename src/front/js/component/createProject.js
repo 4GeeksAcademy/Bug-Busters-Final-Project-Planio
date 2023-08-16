@@ -9,6 +9,7 @@ export const CreateProject = ({
     username = "",
     projectCreated,
     ctaText = "Create new project",
+    butClass="upload-file-button",
 
 }) => {
     const { store, actions } = useContext(Context);
@@ -48,7 +49,7 @@ export const CreateProject = ({
 
     return (
         <div>
-            <button type="button" className="" data-bs-toggle="modal" data-bs-target="#projectModal">
+            <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target="#projectModal">
                 {ctaText}
             </button>
 

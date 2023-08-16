@@ -6,6 +6,8 @@ export const UploadFile = ({
     projectId, 
     onUploadComplete, 
     ctaText="Upload file",
+    butClass="upload-file-button",
+
 }) => {
     const { store, actions } = useContext(Context);
     const inputRef = useRef();
@@ -39,7 +41,7 @@ export const UploadFile = ({
         <div className="upload-file-button-container d-flex">
             <input style={{ display: 'none' }} ref={inputRef} type="file" onChange={handleFileChange} />
 
-            <button onClick={handleClick} className="">{ctaText}</button>
+            <button onClick={handleClick} className={butClass}>{ctaText}</button>
         </div>
     );
 
