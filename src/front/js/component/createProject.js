@@ -5,11 +5,11 @@ import swal from "sweetalert2";
 
 
 
-export const CreateProject = ({ 
+export const CreateProject = ({
     username = "",
     projectCreated,
     ctaText = "Create new project",
-    butClass="upload-file-button",
+    butClass = "primary-button",
 
 }) => {
     const { store, actions } = useContext(Context);

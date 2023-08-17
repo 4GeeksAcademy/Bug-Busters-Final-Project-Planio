@@ -7,7 +7,6 @@ import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
-import { NumberOfProjects } from "../component/dashboard-components/numberOfProjects";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 
 export const Tasks = () => {
@@ -55,35 +54,18 @@ export const Tasks = () => {
                     </div>
                     <div className="row">
                         {userInfo.projects && userInfo.projects.map((project) => (
-                        <div className="col-md-6 project-card">
-                            <div className="simple-card p-4 my-3">
-                                <div className="card-info d-flex justify-content-between">
-                                    <div key={project.id} className="">
-                                        <h2>{project.title}</h2>
-                                        <p className="card-title">{project.description}</p>
-                                        <h3>Number of images and documents: <span>{project.files.length}</span></h3>
-                                        <h3>Total number of tasks: <span>12</span></h3>
-                                        {/* <h4>Your images and documents:</h4>
-                                        {project.files && project.files.length > 0 ? (
-                                            <ul className="list-unstyled">
-                                                {project.files.map((file, index) => (
-                                                    <li key={index}>{file}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p>Upload your images or documents</p>
-                                        )}
-                                        <UploadFile 
-                                            projectId={project.id} 
-                                            ctaText={"Upload file"}
-                                            butClass={"upload-file-button"}
-                                        /> */}
-                                        <button onClick={() => {navigate(`/dashboard/${project.id}`)}} className="upload-file-button mt-3">Go to this project</button>
+                            <div className="col-md-4 project-card">
+                                <div className="simple-card p-4 my-3">
+                                    <div className="card-info d-flex justify-content-between">
+                                        <div key={project.id} className="">
+                                            <h2>{project.title}</h2>
+                                            <p className="card-title">{project.description}</p>
+                                            <button onClick={() => { navigate(`/dashboard/${project.id}`) }} className="primary-button mt-3">Go to this project</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                                    ))}
+                        ))}
 
                     </div>
                 </div>

@@ -7,7 +7,6 @@ import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
-import { NumberOfProjects } from "../component/dashboard-components/numberOfProjects";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 
 export const Dashboard = () => {
