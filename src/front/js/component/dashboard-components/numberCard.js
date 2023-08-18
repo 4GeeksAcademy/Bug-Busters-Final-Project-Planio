@@ -23,8 +23,7 @@ export const NumberCard = ({
     const userInfo = store.user_info[0];
 
     const project = userInfo.projects && userInfo.projects.map(project => project.id);
-    console.log(userInfo)
-    console.log(project)
+
 
     useEffect(() => {
         if (userInfo.projects) {
@@ -32,7 +31,6 @@ export const NumberCard = ({
                 return accumulator + (project.files && project.files.length ? project.files.length : "0");
             }, 0);
             setTotalFiles(calculatedTotalFiles);
-            console.log(totalFiles)
         }
     }, [userInfo]);
 

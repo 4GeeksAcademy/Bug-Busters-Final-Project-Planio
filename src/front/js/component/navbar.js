@@ -48,7 +48,7 @@ export const Navbar = () => {
 							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								{userInfo.projects && userInfo.projects.map((project) => (
                         		<li key={project.id}>
-									<a className="dropdown-item" href={`/dashboard/${project.id}`}>{project.title}</a>
+									<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
 								</li>
                                     ))}
 							</ul>

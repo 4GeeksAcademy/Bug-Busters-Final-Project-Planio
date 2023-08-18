@@ -50,8 +50,8 @@ export const Projects = () => {
                         <h1>These are your projects, {userInfo.name}</h1>
                     </div>
                     <div className="row">
-                        {userInfo.projects && userInfo.projects.map((project) => (
-                            <div className="col-md-6 project-card">
+                        {userInfo.projects && userInfo.projects.map((project, index) => (
+                            <div className="col-md-6 project-card" key={index}>
                                 <div className="simple-card p-4 my-3">
                                     <div className="card-info">
                                         <div key={project.id} className="">
