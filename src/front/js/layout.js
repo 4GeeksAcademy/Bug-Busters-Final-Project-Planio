@@ -18,6 +18,7 @@ import { Dashboard } from "./pages/dashboard";
 import { Sidebar } from "./component/sidebar";
 
 import "../styles/sidebar.css";
+import { PrivateView } from "./pages/privateView";
 
 
 //create your first component
@@ -43,10 +44,9 @@ const Layout = () => {
                                 <Route element={<Home />} path="/" />
                                 <Route element={<Signup />} path="/signup" />
                                 <Route element={<Login />} path="/login" />
-                                <Route element={<Demo />} path="/demo" />
                                 <Route element={<ForgotPassword />} path="/forgot-password" />
                                 <Route element={<ResetPassword />} path="/reset-password/:user_id" />
-                                <Route element={<Single />} path="/single/:theid" />
+                                <Route element={<PrivateView />} path="/private-view" />
                                 <Route element={<Dashboard />} path="/dashboard" />
                                 <Route element={<h1>Not found!</h1>} />
                             </Routes>

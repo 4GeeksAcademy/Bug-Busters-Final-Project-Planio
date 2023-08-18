@@ -149,7 +149,7 @@ class Task(db.Model):
     due_at = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=3))
     done = db.Column(db.Boolean, nullable=False, default=False)
-    todo_list = db.Column(db.String, nullable=True)
+    todo_list = db.Column(db.JSON, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'),

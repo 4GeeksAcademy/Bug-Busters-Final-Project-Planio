@@ -162,15 +162,18 @@ def protected():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     projects = user.projects
+    tasks = user.tasks
 
     serialized_projects = [project.serialize() for project in projects]
+    serialized_tasks = [task.serialize() for task in tasks]
 
     response = {
         "id": user.id,
         "email": user.email,
         "name": user.name,
         "projects": serialized_projects,
-        "username": user.username
+        "username": user.username,
+        # "tasks": serialized_tasks
     }
 
     return jsonify(response), 200
