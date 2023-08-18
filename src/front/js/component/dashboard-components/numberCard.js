@@ -28,7 +28,7 @@ export const NumberCard = ({
     useEffect(() => {
         if (userInfo.projects) {
             const calculatedTotalFiles = userInfo.projects && userInfo.projects.reduce((accumulator, project) => {
-                return accumulator + (project.files && project.files.length ? project.files.length : "0");
+                return accumulator + (project.files ? project.files.length : 0);
             }, 0);
             setTotalFiles(calculatedTotalFiles);
         }

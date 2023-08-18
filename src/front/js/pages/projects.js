@@ -35,7 +35,11 @@ export const Projects = () => {
                     console.error(error);
                 });
         }
-    }, []);
+    }, [validated_token, updatedComponent]);
+
+    const handleUpdateComponent = () => {
+        setUpdatedComponent(!updatedComponent);
+    };
 
     if (!validated_token) {
         return null;
@@ -82,6 +86,7 @@ export const Projects = () => {
                                         <div className="butProj">
                                             <UploadFile
                                                 projectId={project.id}
+                                                onUploadComplete={handleUpdateComponent}
                                                 ctaText={"Upload file"}
                                                 butClass={"secondary-button"}
                                             />
