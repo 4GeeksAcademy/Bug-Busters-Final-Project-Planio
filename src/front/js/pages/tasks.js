@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import "../../styles/home.css";
 import "../../styles/dashboard.css";
+import "../../styles/tasks.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
@@ -17,7 +18,7 @@ export const Tasks = () => {
 
     const userInfo = store.user_info[0];
 
-    const project = userInfo.projects && userInfo.projects.map(project => project.title);
+    const project = userInfo.projects && userInfo.projects[2].title;
     console.log(userInfo)
     console.log(project)
 
@@ -46,27 +47,342 @@ export const Tasks = () => {
 
     if (validated_token) {
         return (
-            <div className="dashboard p-4">
-
+            <div className="tasks p-4">
                 <div className="container-fluid">
                     <div className="row">
-                        <h1>These are your projects, {project}</h1>
+                        <h1>{project}</h1>
                     </div>
-                    <div className="row">
-                        {userInfo.projects && userInfo.projects.map((project) => (
-                            <div className="col-md-4 project-card">
-                                <div className="simple-card p-4 my-3">
-                                    <div className="card-info d-flex justify-content-between">
-                                        <div key={project.id} className="">
-                                            <h2>{project.title}</h2>
-                                            <p className="card-title">{project.description}</p>
-                                            <button onClick={() => { navigate(`/dashboard/${project.id}`) }} className="primary-button mt-3">Go to this project</button>
-                                        </div>
+                    <div className="row justify-content-between">
+                        <div className="col-4 simple-card my-4 p-4">
+                            <div className="task-list d-flex justify-content-between">
+                                <h2>To do</h2>
+                                <div className="d-flex">
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
+                        <div className="col-4 simple-card my-4 p-4">
+                            <div className="task-list d-flex justify-content-between">
+                                <h2>To do</h2>
+                                <div className="d-flex">
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="col-4 simple-card my-4 p-4">
+                            <div className="task-list d-flex justify-content-between">
+                                <h2>To do</h2>
+                                <div className="d-flex">
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" for="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" for="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
