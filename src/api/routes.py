@@ -177,6 +177,8 @@ def protected():
     return jsonify(response), 200
 
 
+
+
 # MANIPULATE USERS ROUTES ------------------------------------------------------------------------------------------------------MANIPULATE USERS ROUTES #
 
 @api.route('/users', methods=['GET'])

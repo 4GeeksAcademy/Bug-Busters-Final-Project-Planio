@@ -16,8 +16,10 @@ import { ResetPassword } from "./pages/reset-password";
 import { Login } from "./pages/login";
 import { Dashboard } from "./pages/dashboard";
 import { Sidebar } from "./component/sidebar";
+import { Projects } from "./pages/projects";
 
 import "../styles/sidebar.css";
+import { Tasks } from "./pages/tasks";
 import { PrivateView } from "./pages/privateView";
 
 
@@ -48,6 +50,9 @@ const Layout = () => {
                                 <Route element={<ResetPassword />} path="/reset-password/:user_id" />
                                 <Route element={<PrivateView />} path="/private-view" />
                                 <Route element={<Dashboard />} path="/dashboard" />
+                                <Route element={<Projects />} path="/projects" />
+                                <Route element={<Tasks />} path="/tasks" />
+                                <Route element={<PrivateView />} path="/private-view" />
                                 <Route element={<h1>Not found!</h1>} />
                             </Routes>
                         </div>

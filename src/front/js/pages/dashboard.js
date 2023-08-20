@@ -7,6 +7,7 @@ import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
+import { NumberCard } from "../component/dashboard-components/numberCard";
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
@@ -37,12 +38,7 @@ export const Dashboard = () => {
                     console.error(error);
                 });
         }
-    }, [validated_token, updatedComponent]);
-
-    const handleUpdateComponent = () => {
-        setUpdatedComponent(!updatedComponent);
-    };
-
+    }, []);
 
     if (!validated_token) {
         return null;
@@ -60,31 +56,43 @@ export const Dashboard = () => {
                                 <h6><DateTime /></h6>
                             </div>
                             <div className="row justify-content-between">
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
+                                <NumberCard
+                                    title={"Projects"}
+                                    isProjects={true}
+                                    folderUrl={"#"}
+                                />
+                                <NumberCard
+                                    title={"Files"}
+                                    isFiles={true}
+                                    folderUrl={"#"}
+                                    butClass={"addNew"}
+                                />
+                            </div>
+                        </div>
+                        <div className="col-md-4 d-flex justify-content-end">
+                            <div className="calendar p-4">
+                                Calendario
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row mt-4">
+                        <div className="col-md-6 ">
+                            <div className="simple-card p-4">
+                                <div className="card-info d-flex justify-content-between">
+                                    <h5 className="card-title">titulo</h5>
 
-                                        <p className="card-text">{userInfo.projects && userInfo.projects.length}</p>
-                                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
-                                    </div>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                                    </div>
                                 </div>
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
-                                        <p className="card-text">4</p>
-                                    </div>
+                                <div className="card-number d-flex justify-content-between">
+                                    <p className="card-text">0</p>
                                     <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
+                                        <a href="#"><i className="viewFolder fa-regular fa-folder"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-4 d-flex">
-                            <div className="calendar p-4">
-                                Calendario
+                        <div className="col-md-6">
+                            <div className="second-card">
+                                <p>holahoalhaohaolsh</p>
                             </div>
                         </div>
                     </div>

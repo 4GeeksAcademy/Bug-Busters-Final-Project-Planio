@@ -5,7 +5,13 @@ import swal from "sweetalert2";
 
 
 
-export const CreateProject = ({ username = "", projectCreated }) => {
+export const CreateProject = ({
+    username = "",
+    projectCreated,
+    ctaText = "Create new project",
+    butClass = "primary-button",
+
+}) => {
     const { store, actions } = useContext(Context);
     const [form, setForm] = useState(
         {
@@ -27,6 +33,7 @@ export const CreateProject = ({ username = "", projectCreated }) => {
             .then(() => {
                 if (projectCreated) {
                     projectCreated();
+                    console.error("project created");
                 }
             })
             .catch((error) => {
@@ -41,9 +48,9 @@ export const CreateProject = ({ username = "", projectCreated }) => {
     }, [username]);
 
     return (
-        <div className="mt-5">
-            <button type="button" className="form-button mb-5" data-bs-toggle="modal" data-bs-target="#projectModal">
-                Create new project
+        <div>
+            <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target="#projectModal">
+                {ctaText}
             </button>
 
 

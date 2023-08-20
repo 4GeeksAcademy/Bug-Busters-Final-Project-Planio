@@ -1,7 +1,7 @@
 .dashboard {
     background-color: #ECECEC;
     border-radius: 20px 0 0 0;
-    height: 100vh;
+    height: 100%;
 }
 
 .dashboard h1 {
@@ -9,18 +9,22 @@
     font-weight: 600;
 }
 
-.dashboard .row {
+/* .dashboard .row {
     border: 1px solid black;
-}
+} */
 
 .dashboard .simple-card {
     background-color: #fff;
     border-radius: 30px;
-    width: 48%;
+}
+
+.dashboard .w49 {
+    width: 49%;
+
 }
 
 .dashboard .simple-card h5 {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 600;
 }
 
@@ -29,16 +33,85 @@
     font-weight: 600;
 }
 
-.dashboard .simple-card a {
+.dashboard .simple-card .card-icon a {
     padding: 14px 24px;
     background-color: var(--secondary-color);
     border-radius: 10px;
     font-size: 44px;
-    margin: auto 10px;
+
 }
 
 .dashboard .calendar {
     background-color: #fff;
     border-radius: 30px;
-    width: 100%;
+    width: 98%;
+}
+
+.dashboard .simple-card .card-info .addNew {
+    background-color: #fff;
+    border: 0px;
+}
+
+.dashboard .simple-card .card-info .addIcon {
+    font-size: 30px;
+    color: "#000000"
+}
+
+.dashboard .simple-card .card-number {
+    margin: 10px 0px;
+}
+
+.dashboard .simple-card .card-number .card-icon .viewFolder {
+    color: var(--primary-color)
+}
+
+.dashboard .second-card {
+    background-color: #fff;
+    border-radius: 30px;
+
+}
+
+
+/* ------------------- PROJECTS STYLE ------------------- */
+
+.dashboard .project-card h2 {
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.dashboard .project-card .numberOf {
+    border: 1px solid var(--medium-grey-color);
+    border-radius: 14px;
+    padding: 14px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.2em;
+}
+
+.dashboard .project-card .numberOf h3 {
+    font-size: 1em;
+    font-weight: 600;
+
+}
+
+.dashboard .project-card .numberOf span{
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--primary-color)
+}
+
+.dashboard .project-card p {
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.dashboard .project-card .butProj {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dashboard .project-card .butProj button {
+    font-size: 1em;
+    font-weight: 600;
 }

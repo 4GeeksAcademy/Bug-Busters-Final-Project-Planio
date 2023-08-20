@@ -66,28 +66,29 @@ body {
   outline: 2px solid var(--primary-color);
 }
 
-/* -------------------------------------------------------------------------------uploadFile */
+/* -------------------------------------------------------------------------------Primary button */
 
-.upload-file-button-container {
+.primary-button-container {
   max-width: 150px;
 
 }
 
-.upload-file-button {
+.primary-button {
   background-color: var(--primary-color);
   color: var(--light-text-color);
   border-radius: 8px;
   border: none;
+  padding: 10px 20px;
 }
 
-.upload-file-button:hover {
+.primary-button:hover {
   color: var(--primary-color);
   background-color: var(--secondary-color);
   outline: 2px solid var(--primary-color);
 
 }
 
-.upload-file-button-label {
+.primary-button-label {
   color: rgb(145, 145, 145);
   font-size: small;
   padding-left: 4px;
@@ -106,6 +107,34 @@ body {
   background-color: var(--secondary-color);
 }
 
+/* -------------------------------------------------------------------------------Primary button */
+
+.secondary-button-container {
+  max-width: 150px;
+
+}
+
+.secondary-button {
+  background-color: var(--light-text-color);
+  color: var(--primary-color);
+  border-radius: 8px;
+  border: 2px solid var(--primary-color);
+  padding: 10px 20px;
+}
+
+.secondary-button:hover {
+  background-color: var(--secondary-color);
+
+}
+
+.secondary-button-label {
+  color: rgb(145, 145, 145);
+  font-size: small;
+  padding-left: 4px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
 
 /* ---------------------------------------------------DELETE FILE BUTTON */
 .delete-button {
