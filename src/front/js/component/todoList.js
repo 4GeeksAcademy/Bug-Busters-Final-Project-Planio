@@ -18,7 +18,7 @@ export const TodoList = () => {
 
         setTodoState((prev) => [...prev, newTask]);
 
-        setTodoInput("");
+        // setTodoInput("");
     }
 
     const handleKeyDown = (e) => {

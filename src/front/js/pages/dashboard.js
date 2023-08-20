@@ -15,7 +15,6 @@ export const Dashboard = () => {
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
-    // const projectsLength = userInfo.projects.length;
     console.log(userInfo);
 
 
@@ -23,7 +22,7 @@ export const Dashboard = () => {
     useEffect(() => {
 
         if (!validated_token) {
-            swal.fire({ title: "You must log in", text: "bla bla bla bla.", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
+            swal.fire({ title: "You must log in", text: "You will be redirected to login page", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
                 if (result.isConfirmed) {
                     navigate("/login");
                 }
@@ -32,6 +31,7 @@ export const Dashboard = () => {
             actions.getUserInfo()
                 .then((userInfo) => {
                     console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
+
                 })
                 .catch((error) => {
                     console.error(error);

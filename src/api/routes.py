@@ -162,10 +162,8 @@ def protected():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
     projects = user.projects
-    tasks = user.tasks
 
     serialized_projects = [project.serialize() for project in projects]
-    serialized_tasks = [task.serialize() for task in tasks]
 
     response = {
         "id": user.id,
@@ -173,7 +171,7 @@ def protected():
         "name": user.name,
         "projects": serialized_projects,
         "username": user.username,
-        # "tasks": serialized_tasks
+
     }
 
     return jsonify(response), 200
@@ -337,15 +335,18 @@ def create_task():
     description = request.json.get('description')
     due_at = request.json.get('due_at')
     todo_list = request.json.get('todo_list', [])
+    project_id = request.json.get('project_id')
 
-    project = request.json.get('project')
+    project = Project.query.get(project_id)
+    if not project:
+        return jsonify({"message": "Project not found"}), 404
 
     task = Task(
         title=title.title(),
         description=description.capitalize(),
         due_at=due_at,
         todo_list=todo_list,
-        project_id=project
+        project_id=project.id
     )
 
     db.session.add(task)

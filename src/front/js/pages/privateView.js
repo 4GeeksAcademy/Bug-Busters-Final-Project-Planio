@@ -68,17 +68,6 @@ export const PrivateView = () => {
                     <div key={project.id} className="mt-5">
                         <h2>{project.title}</h2>
                         <h5>{project.description}</h5>
-                        {/* {project.tasks && project.tasks.length > 0 ? (
-                            <ul className="list-unstyled">
-                                {project.tasks.map((task, index) => (
-                                    <li key={index} className="list-body">
-                                        <span className="task-title">{task.title}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>No tasks yet. Create one!</p>
-                        )} */}
                         <CreateTask />
                         <h4>Your images and documents:</h4>
                         {project.files && project.files.length > 0 ? (
