@@ -3,7 +3,13 @@ import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import { TodoList } from "./todoList";
 
-export const CreateTask = ({ projectId }) => {
+export const CreateTask = ({ 
+
+    projectId, 
+    ctaText,
+    butClass,
+
+ }) => {
     const { store, actions } = useContext(Context);
 
 
@@ -75,8 +81,8 @@ export const CreateTask = ({ projectId }) => {
 
     return (
         <div className="mt-5">
-            <button type="button" className="form-button mb-5" data-bs-toggle="modal" data-bs-target={`#taskModal${projectId}`}>
-                Create new task
+            <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal${projectId}`}>
+                {ctaText}
             </button>
 
 

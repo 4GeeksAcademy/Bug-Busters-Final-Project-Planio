@@ -9,6 +9,8 @@ import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
+import { CreateTask } from "../component/createTask";
+import { TaskCard } from "../component/dashboard-components/taskCard";
 
 export const ProjectTasks = () => {
     const { store, actions } = useContext(Context);
@@ -61,45 +63,21 @@ export const ProjectTasks = () => {
                             <div className="task-list d-flex justify-content-between">
                                 <h2>To do</h2>
                                 <div className="d-flex">
-                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateTask projectId={project.id} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
                                     <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
                                 </div>
                             </div>
                             {project.tasks ? (
                                 project.tasks.map((task, index) => (
-
-                                    <div className="task-card mt-3 p-4" key={index} draggable>
-                                        <div className="hero-section d-flex justify-content-between">
-                                            <div className="task-tag">
-                                                <p>Design system</p>
-                                            </div>
-                                            <div className="edit-tag">
-                                                <i className="addIcon fa-solid fa-ellipsis"></i>
-                                            </div>
-                                        </div>
-                                        <div className="task-title">
-                                            <p>{task.title}</p>
-                                        </div>
-                                        <div className="task-description">
-                                            <p>{task.description}</p>
-                                        </div>
-                                        {task.todo_list && task.todo_list.length > 0 ? (
-                                            <div className="">
-                                                <ul className="p-0 d-flex flex-column align-items-start ">
-                                                    {task.todo_list.map((todo, index) => (
-                                                        <li key={index} className="list-body d-flex gap-2 ms-5">
-                                                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                                            <label className="form-check-label" htmlFor="flexCheckDefault">{todo}</label>
-                                                        </li>
-                                                    ))}
-                                                </ul>
-                                                <div>{task.due_at}</div>
-                                            </div>
-                                        ) : (
-                                            <p>There is no Todo's</p>
-                                        )}
-                                    </div>
-
+                                    <TaskCard 
+                                        index = {index}
+                                        tag = "tag"
+                                        title = {task.title}
+                                        description = {task.description}
+                                        todo_list = {task.todo_list}
+                                        numberToDos = {task.todo_list.length}
+                                        due_at = {task.due_at}
+                                    />
                                 ))
                             ) : (
                                 <p>No tasks found for this project</p>
