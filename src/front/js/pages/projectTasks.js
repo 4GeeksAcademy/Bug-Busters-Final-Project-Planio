@@ -21,7 +21,7 @@ export const ProjectTasks = () => {
 
     const userInfo = store.user_info[0];
 
-    const project = userInfo.projects.find(project => project.id === parsedProjectId);
+    const project = userInfo.projects && userInfo.projects.find(project => project.id === parsedProjectId);
 
     useEffect(() => {
 
