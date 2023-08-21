@@ -29,62 +29,10 @@ export const Sidebar = () => {
     ];
 
     const getButtonContent = () => {
-        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings') {
+        const regex = /^\/project\/\d+\/tasks$/;
+
+        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
             return <>
-                {/* <div className="sidebar">
-
-                    <ul className="list-group m-4">
-                        <li className={activeItem === '/dashboard' ? 'list-group-item active' : 'list-group-item'}>
-                            <a onClick={() => {
-                                navigate("/dashboard")
-                            }}>
-                                <i className="fa-solid fa-layer-group" style={{ color: "#000000" }}></i>
-                                Dashboard
-                            </a>
-                        </li>
-                        <li className={`list-group-item ${activeItem === '/projects' ? 'active' : ''}`}>
-                            <a onClick={() => {
-                                navigate("/projects")
-                            }}>
-                                <i className="fa-solid fa-desktop" style={{ color: "#000000" }}></i>
-                                Projects
-                            </a>
-                        </li>
-                        <li className="list-group-item">
-                            <a onClick={() => {
-                                navigate("/calendar")
-                            }}>
-                                <i className="fa-regular fa-calendar" style={{ color: "#000000" }}></i>
-                                Calendar
-                            </a>
-                        </li>
-                        <li className="list-group-item">
-                            <a onClick={() => {
-                                navigate("/tasks")
-                            }}>
-                                <i className="fa-solid fa-list-check" style={{ color: "#000000" }}></i>
-                                Tasks
-                            </a>
-                        </li>
-                        <li className="list-group-item">
-                            <a onClick={() => {
-                                navigate("/settings")
-                            }}>
-                                <i className="fa-solid fa-gear" style={{ color: "#000000" }}></i>
-                                Settings
-                            </a>
-                        </li>
-                        <li className="list-group-item">
-                            <a onClick={() => {
-                                localStorage.removeItem("jwt-token"); navigate("/")
-                            }}>
-                                <i className="fas fa-sign-out-alt" style={{ color: "#d70404" }}></i>
-                                Logout
-                            </a>
-                        </li>
-                    </ul>
-                </div> */}
-
                 <div className="sidebar">
                     <ul className="list-group m-4">
                         {menuItems.map((item) => (
@@ -108,7 +56,7 @@ export const Sidebar = () => {
                         </li>
                     </ul>
                 </div>
-                
+
 
             </>
         }
