@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, matchPath } from "react-router-dom";
 import planioLogo from "../../img/planio-logo.png";
 import { Avatar, Badge } from "@prismane/core";
 import "../../styles/navbar.css";
@@ -25,9 +25,14 @@ export const Navbar = () => {
 			});
 
 	}, []);
-
+	// const matchedPath = matchPath(location.pathname, {
+	// 	path: '/project/:project_id/tasks',
+	// 	exact: true
+	// });
 	const getButtonContent = () => {
-		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings') {
+		const regex = /^\/project\/\d+\/tasks$/;
+
+		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || location.pathname === '/project/:project_id/tasks' || regex.test(location.pathname)) {
 			return <>
 				<div className="navbar-collapse">
 

@@ -79,25 +79,25 @@ export const Tasks = () => {
                                 <div className="task-todo-list">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 1
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 2
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 3
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 4
                                         </label>
                                     </div>
@@ -129,135 +129,25 @@ export const Tasks = () => {
                                 <div className="task-todo-list">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 1
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 2
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 3
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
-                                            Todo 4
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="task-footer d-flex justify-content-end">
-                                    <div className="task-date d-flex">
-                                        <i className="addIcon fa-regular fa-calendar"></i>
-                                        <span className="date-text">
-                                            Mar 13
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div className="col-4 simple-card my-4 p-4">
-                            <div className="task-list d-flex justify-content-between">
-                                <h2>To do</h2>
-                                <div className="d-flex">
-                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
-                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
-                                </div>
-                            </div>
-                            <div className="task-card mt-3 p-4">
-                                <div className="hero-section d-flex justify-content-between">
-                                    <div className="task-tag">
-                                        <p>Design system</p>
-                                    </div>
-                                    <div className="edit-tag">
-                                        <i className="addIcon fa-solid fa-ellipsis"></i>
-                                    </div>
-                                </div>
-                                <div className="task-title">
-                                    <p>Typography change</p>
-                                </div>
-                                <div className="task-description">
-                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
-                                </div>
-                                <div className="task-todo-list">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
-                                            Todo 1
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
-                                            Todo 2
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
-                                            Todo 3
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
-                                            Todo 4
-                                        </label>
-                                    </div>
-                                </div>
-                                <div className="task-footer d-flex justify-content-end">
-                                    <div className="task-date d-flex">
-                                        <i className="addIcon fa-regular fa-calendar"></i>
-                                        <span className="date-text">
-                                            Mar 13
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="task-card mt-3 p-4">
-                                <div className="hero-section d-flex justify-content-between">
-                                    <div className="task-tag">
-                                        <p>Design system</p>
-                                    </div>
-                                    <div className="edit-tag">
-                                        <i className="addIcon fa-solid fa-ellipsis"></i>
-                                    </div>
-                                </div>
-                                <div className="task-title">
-                                    <p>Typography change</p>
-                                </div>
-                                <div className="task-description">
-                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
-                                </div>
-                                <div className="task-todo-list">
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
-                                            Todo 1
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
-                                            Todo 2
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
-                                            Todo 3
-                                        </label>
-                                    </div>
-                                    <div className="form-check">
-                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 4
                                         </label>
                                     </div>
@@ -299,25 +189,25 @@ export const Tasks = () => {
                                 <div className="task-todo-list">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 1
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 2
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 3
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 4
                                         </label>
                                     </div>
@@ -349,25 +239,135 @@ export const Tasks = () => {
                                 <div className="task-todo-list">
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 1
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 2
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                        <label className="form-check-label" for="flexCheckDefault">
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
                                             Todo 3
                                         </label>
                                     </div>
                                     <div className="form-check">
                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                        <label className="form-check-label" for="flexCheckChecked">
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="col-4 simple-card my-4 p-4">
+                            <div className="task-list d-flex justify-content-between">
+                                <h2>To do</h2>
+                                <div className="d-flex">
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                            Todo 4
+                                        </label>
+                                    </div>
+                                </div>
+                                <div className="task-footer d-flex justify-content-end">
+                                    <div className="task-date d-flex">
+                                        <i className="addIcon fa-regular fa-calendar"></i>
+                                        <span className="date-text">
+                                            Mar 13
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="task-card mt-3 p-4">
+                                <div className="hero-section d-flex justify-content-between">
+                                    <div className="task-tag">
+                                        <p>Design system</p>
+                                    </div>
+                                    <div className="edit-tag">
+                                        <i className="addIcon fa-solid fa-ellipsis"></i>
+                                    </div>
+                                </div>
+                                <div className="task-title">
+                                    <p>Typography change</p>
+                                </div>
+                                <div className="task-description">
+                                    <p>Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.</p>
+                                </div>
+                                <div className="task-todo-list">
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                                            Todo 1
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
+                                            Todo 2
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                        <label className="form-check-label" htmlFor="flexCheckDefault">
+                                            Todo 3
+                                        </label>
+                                    </div>
+                                    <div className="form-check">
+                                        <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
+                                        <label className="form-check-label" htmlFor="flexCheckChecked">
                                             Todo 4
                                         </label>
                                     </div>

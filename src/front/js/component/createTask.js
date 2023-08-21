@@ -59,7 +59,7 @@ export const CreateTask = ({ projectId }) => {
 
         actions.createNewTask(form, projectId)
 
-        console.log(form)
+
     }
 
     const handleDelete = () => {
@@ -70,7 +70,7 @@ export const CreateTask = ({ projectId }) => {
             todo_list: [],
 
         })
-        console.log({ "this is delete": form });
+
     }
 
     return (

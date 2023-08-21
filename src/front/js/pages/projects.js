@@ -69,18 +69,6 @@ export const Projects = () => {
                                                 <h3>Total number of tasks:</h3>
                                                 <span>{project.files.length}</span>
                                             </div>
-
-                                            {/* <h4>Your images and documents:</h4>
-                                        {project.files && project.files.length > 0 ? (
-                                            <ul className="list-unstyled">
-                                                {project.files.map((file, index) => (
-                                                    <li key={index}>{file}</li>
-                                                ))}
-                                            </ul>
-                                        ) : (
-                                            <p>Upload your images or documents</p>
-                                        )} */}
-
                                         </div>
 
                                         <div className="butProj">
@@ -90,7 +78,7 @@ export const Projects = () => {
                                                 ctaText={"Upload file"}
                                                 butClass={"secondary-button"}
                                             />
-                                            <button onClick={() => { navigate(`/tasks/${project.id}`) }} className="primary-button">Go to this project</button>
+                                            <button onClick={() => { navigate(`/project/${project.id}/tasks`) }} className="primary-button">Go to this project</button>
                                         </div>
                                     </div>
                                 </div>
