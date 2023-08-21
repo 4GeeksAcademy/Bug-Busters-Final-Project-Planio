@@ -33,7 +33,7 @@ export const CreateProject = ({
             .then(() => {
                 if (projectCreated) {
                     projectCreated();
-                    console.error("project created");
+                    console.log("project created");
                 }
             })
             .catch((error) => {

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, matchPath } from "react-router-dom";
 import planioLogo from "../../img/planio-logo.png";
 import { Avatar, Badge } from "@prismane/core";
 import "../../styles/navbar.css";
@@ -25,9 +25,14 @@ export const Navbar = () => {
 			});
 
 	}, []);
-
+	// const matchedPath = matchPath(location.pathname, {
+	// 	path: '/project/:project_id/tasks',
+	// 	exact: true
+	// });
 	const getButtonContent = () => {
-		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings') {
+		const regex = /^\/project\/\d+\/tasks$/;
+
+		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || location.pathname === '/project/:project_id/tasks' || regex.test(location.pathname)) {
 			return <>
 				<div className="navbar-collapse">
 
@@ -42,15 +47,15 @@ export const Navbar = () => {
 					<div className="projectSelector">
 						<div className="btn-group">
 							<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-								<p>Proyecto</p>
+								<p>Projects</p>
 								<i className="btnIcon fas fa-chevron-down"></i>
 							</button>
 							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								{userInfo.projects && userInfo.projects.map((project) => (
-                        		<li key={project.id}>
-									<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
-								</li>
-                                    ))}
+									<li key={project.id}>
+										<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
+									</li>
+								))}
 							</ul>
 						</div>
 					</div>
