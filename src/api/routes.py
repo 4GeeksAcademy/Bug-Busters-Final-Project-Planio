@@ -170,7 +170,8 @@ def protected():
         "email": user.email,
         "name": user.name,
         "projects": serialized_projects,
-        "username": user.username
+        "username": user.username,
+
     }
 
     return jsonify(response), 200
@@ -334,15 +335,14 @@ def create_task():
     description = request.json.get('description')
     due_at = request.json.get('due_at')
     todo_list = request.json.get('todo_list', [])
-
-    project = request.json.get('project')
+    project_id = request.json.get('project_id')
 
     task = Task(
         title=title.title(),
         description=description.capitalize(),
         due_at=due_at,
         todo_list=todo_list,
-        project_id=project
+        project_id=project_id
     )
 
     db.session.add(task)

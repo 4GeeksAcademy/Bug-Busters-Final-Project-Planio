@@ -149,7 +149,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const token = localStorage.getItem("jwt-token");
 				const store = getStore();
 
-				return fetch(`${process.env.BACKEND_URL}api/protected`, {
+				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
 					method: "GET",
 					headers: {
 						"Content-Type": "application/json",
@@ -164,7 +164,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					.catch((error) => {
 						console.error(error);
-						// Maneja el error si lo deseas
 						throw new Error("Error al obtener la información del usuario");
 					});
 			},
@@ -219,6 +218,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await resp.json()
 					console.log(["this is data from create new project", data])
+				} catch (error) {
+					console.error(error)
+				}
+			},
+			createNewTask: async (form, projectId) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/task`, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ title: form.title, description: form.description, due_at: form.due_at, todo_list: form.todo_list, project_id: projectId })
+					});
+
+					if (!resp.ok) {
+						throw new Error("something went wrong while creating a new task.")
+					}
+
+					const data = await resp.json()
+					console.log(["this is data from create new task", data])
+
 				} catch (error) {
 					console.error(error)
 				}

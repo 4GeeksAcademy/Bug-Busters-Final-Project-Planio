@@ -27,7 +27,7 @@ export const Navbar = () => {
 	}, []);
 
 	const getButtonContent = () => {
-		if (location.pathname === '/dashboard') {
+		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings') {
 			return <>
 				<div className="navbar-collapse">
 
@@ -42,13 +42,15 @@ export const Navbar = () => {
 					<div className="projectSelector">
 						<div className="btn-group">
 							<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-								<p>Proyecto</p>
+								<p>Projects</p>
 								<i className="btnIcon fas fa-chevron-down"></i>
 							</button>
 							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<li><a className="dropdown-item" href="#">Proyecto 1</a></li>
-								<li><a className="dropdown-item" href="#">Proyecto 2</a></li>
-								<li><a className="dropdown-item" href="#">Proyecto 3</a></li>
+								{userInfo.projects && userInfo.projects.map((project) => (
+									<li key={project.id}>
+										<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
+									</li>
+								))}
 							</ul>
 						</div>
 					</div>

@@ -7,6 +7,7 @@ import "../../styles/dashboard.css";
 import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
+import { NumberCard } from "../component/dashboard-components/numberCard";
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
@@ -15,7 +16,6 @@ export const Dashboard = () => {
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
-    // const projectsLength = userInfo.projects.length;
     console.log(userInfo);
 
 
@@ -23,7 +23,7 @@ export const Dashboard = () => {
     useEffect(() => {
 
         if (!validated_token) {
-            swal.fire({ title: "You must log in", text: "bla bla bla bla.", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
+            swal.fire({ title: "You must log in", text: "You will be redirected to login page", icon: "error", confirmButtonColor: '#fa9643' }).then((result) => {
                 if (result.isConfirmed) {
                     navigate("/login");
                 }
@@ -32,17 +32,13 @@ export const Dashboard = () => {
             actions.getUserInfo()
                 .then((userInfo) => {
                     console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
+
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
-    }, [validated_token, updatedComponent]);
-
-    const handleUpdateComponent = () => {
-        setUpdatedComponent(!updatedComponent);
-    };
-
+    }, []);
 
     if (!validated_token) {
         return null;
@@ -60,59 +56,47 @@ export const Dashboard = () => {
                                 <h6><DateTime /></h6>
                             </div>
                             <div className="row justify-content-between">
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
-
-                                        <p className="card-text">{userInfo.projects && userInfo.projects.length}</p>
-                                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
-                                    </div>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                                    </div>
-                                </div>
-                                <div className="col-md-6 simple-card p-4 d-flex justify-content-between">
-                                    <div className="card-info">
-                                        <h5 className="card-title">Proyectos</h5>
-                                        <p className="card-text">4</p>
-                                    </div>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="fa-regular fa-folder" style={{ color: "#ff7c33" }}></i></a>
-                                    </div>
-                                </div>
+                                <NumberCard
+                                    title={"Projects"}
+                                    isProjects={true}
+                                    folderUrl={"#"}
+                                />
+                                <NumberCard
+                                    title={"Files"}
+                                    isFiles={true}
+                                    folderUrl={"#"}
+                                    butClass={"addNew"}
+                                />
                             </div>
                         </div>
-                        <div className="col-md-4 d-flex">
+                        <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
                                 Calendario
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div className="row mt-4">
+                        <div className="col-md-6 ">
+                            <div className="simple-card p-4">
+                                <div className="card-info d-flex justify-content-between">
+                                    <h5 className="card-title">titulo</h5>
 
-
-
-                {/* <h1>Your projects below:</h1>
-                {userInfo.projects && userInfo.projects.map((project) => (
-                    <div key={project.id} className="mt-5">
-                        <h2>{project.title}</h2>
-                        <h5>{project.description}</h5>
-                        <h4>Your images and documents:</h4>
-                        {project.files && project.files.length > 0 ? (
-                            <ul className="list-unstyled">
-                                {project.files.map((file, index) => (
-                                    <li key={index}>{file}</li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>Upload your images or documents</p>
-                        )}
-                        <UploadFile projectId={project.id} />
+                                </div>
+                                <div className="card-number d-flex justify-content-between">
+                                    <p className="card-text">0</p>
+                                    <div className="card-icon d-flex">
+                                        <a href="#"><i className="viewFolder fa-regular fa-folder"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className="second-card">
+                                <p>holahoalhaohaolsh</p>
+                            </div>
+                        </div>
                     </div>
-
-                ))} */}
-                {/* <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" alt="Image from AWS" />
-                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230809%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230809T170002Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4eacd9d260244d19346e56452ac1adbf099aeb86b1aba7f34c4688a98eabd4eb" target="_blank">YOUR PDF FILE</a></div> */}
+                </div>
             </div>
 
         );

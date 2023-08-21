@@ -64,28 +64,31 @@ export const PrivateView = () => {
                 <h6><DateTime /></h6>
 
                 <h1>Your projects below:</h1>
-                {userInfo.projects && userInfo.projects.map((project) => (
-                    <div key={project.id} className="mt-5">
-                        <h2>{project.title}</h2>
-                        <h5>{project.description}</h5>
-                        <CreateTask />
-                        <h4>Your images and documents:</h4>
-                        {project.files && project.files.length > 0 ? (
-                            <ul className="list-unstyled">
-                                {project.files.map((file, index) => (
-                                    <li key={index} className="list-body">
-                                        <a href={`${process.env.AWS_FILE_URL}/${file}`} target="_blank" className="file-link">{file}</a>
-                                        <button className="delete-button" onClick={() => handleDelete(file, project.id)}>X</button>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>Upload your images or documents</p>
-                        )}
-                        <UploadFile projectId={project.id} onUploadComplete={handleUpdateComponent} />
-                    </div>
-
-                ))}
+                {userInfo.projects && userInfo.projects.map((project, index) => {
+                    console.log('projectId:', project.id);
+                    return (
+                        <div key={index} className="mt-5">
+                            <h2>{project.title}</h2>
+                            <h5>{project.description}</h5>
+                            <h1>{project.id}</h1>
+                            <CreateTask projectId={project.id} />
+                            <h4>Your images and documents:</h4>
+                            {project.files && project.files.length > 0 ? (
+                                <ul className="list-unstyled">
+                                    {project.files.map((file, index) => (
+                                        <li key={index} className="list-body">
+                                            <a href={`${process.env.AWS_FILE_URL}/${file}`} target="_blank" className="file-link">{file}</a>
+                                            <button className="delete-button" onClick={() => handleDelete(file, project.id)}>X</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p>Upload your images or documents</p>
+                            )}
+                            <UploadFile projectId={project.id} onUploadComplete={handleUpdateComponent} />
+                        </div>
+                    );
+                })}
                 <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} />
                 <img src="https://bug-busters-planio-bucket-demostration.s3.eu-west-3.amazonaws.com/planio-logo-mail.png" alt="Image from AWS" />
             </div>

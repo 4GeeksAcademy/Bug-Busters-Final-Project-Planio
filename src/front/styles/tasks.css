@@ -1,0 +1,64 @@
+.tasks {
+    background-color: #ECECEC;
+    border-radius: 20px 0 0 0;
+    height: 100%;
+}
+
+.tasks h1 {
+    font-size: 44px;
+    font-weight: 600;
+}
+
+.tasks .simple-card {
+    background-color: #dddfe1;
+    border-radius: 30px;
+    width: 32%;
+}
+
+.tasks .simple-card .task-list h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.tasks .simple-card .task-list .addNew {
+    background-color: #dddfe1;
+    border: 0px;
+}
+
+.tasks .simple-card .task-list .addIcon {
+    font-size: 20px;
+    color: "#000000"
+}
+
+.tasks .simple-card .task-card {
+    background-color: #fff;
+    border-radius: 20px;
+}
+
+.tasks .simple-card .task-card .hero-section .task-tag {
+    font-size: 12px;
+    color: #18b0ff;
+    background-color: #18b0ff20;
+    padding: 6px 20px;
+    border-radius: 18px;
+    margin-bottom: 8px;
+}
+.tasks .simple-card .task-card .hero-section .task-tag p{
+    margin-bottom: 0;
+}
+
+.tasks .simple-card .task-card .task-title {
+    
+}
+
+.tasks .simple-card .task-card .task-description {
+    
+}
+
+.tasks .simple-card .task-card .task-todo-list {
+    
+}
+
+.tasks .simple-card .task-card .task-footer {
+    
+}
