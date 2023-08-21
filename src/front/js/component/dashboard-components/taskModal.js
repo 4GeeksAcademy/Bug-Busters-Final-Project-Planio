@@ -64,25 +64,25 @@ export const TaskModal = ({
                             <div className="task-todo-list">
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" for="flexCheckDefault">
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Todo 1
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                    <label className="form-check-label" for="flexCheckChecked">
+                                    <label className="form-check-label" htmlFor="flexCheckChecked">
                                         Todo 2
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" for="flexCheckDefault">
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Todo 3
                                     </label>
                                 </div>
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                    <label className="form-check-label" for="flexCheckChecked">
+                                    <label className="form-check-label" htmlFor="flexCheckChecked">
                                         Todo 4
                                     </label>
                                 </div>

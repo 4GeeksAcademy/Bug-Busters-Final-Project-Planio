@@ -10,13 +10,13 @@ import { UploadFile } from "../uploadFile";
 import { TaskModal } from "./taskModal";
 
 export const TaskCard = ({
-
-    tag = "tag",
-    title =" title",
-    description = "Create a design system for a hero section in 2 different variants. Create a simple presentation with these components.",
-    numberToDos = "5",
-    numberFiles = "4",
-    date = "Mar 13",
+    index,
+    tag,
+    title,
+    description,
+    todo_list,
+    numberToDos,
+    due_at,
 
 }) => {
 
@@ -55,7 +55,7 @@ export const TaskCard = ({
     };
 
     return (
-        <div className="task-card mt-3 p-4">
+        <div className="task-card mt-3 p-4" key={index}>
             <div className="hero-section d-flex justify-content-between">
                 <div className="task-tag">
                     <p>{tag}</p>
@@ -70,6 +70,22 @@ export const TaskCard = ({
             <div className="task-description">
                 <p>{description}</p>
             </div>
+            <div className="task-todo-list">
+                {todo_list && todo_list.length > 0 ? (
+                    <div className="">
+                        <ul className="p-0 d-flex flex-column align-items-start ">
+                            {todo_list.map((todo, index) => (
+                                <li key={index} className="list-body d-flex gap-2 ms-5">
+                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                    <label className="form-check-label" htmlFor="flexCheckDefault">{todo}</label>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                ) : (
+                    <p>There is no Todo's</p>
+                )}
+            </div>
             <div className="task-footer d-flex justify-content-end">
                 <div className="task-todos d-flex px-2">
                     <i className="addIcon fa-solid fa-list-check px-2"></i>
@@ -77,16 +93,16 @@ export const TaskCard = ({
                         {numberToDos}
                     </span>
                 </div>
-                <div className="task-file d-flex px-2">
+                {/* <div className="task-file d-flex px-2">
                     <i className="addIcon fa-solid fa-paperclip px-2"></i>
                     <span className="file-text">
                         {numberFiles}
                     </span>
-                </div>
+                </div> */}
                 <div className="task-date d-flex px-2">
                     <i className="addIcon fa-regular fa-calendar px-2"></i>
                     <span className="date-text">
-                        {date}
+                        {due_at}
                     </span>
                 </div>
             </div>

@@ -10,6 +10,7 @@ import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 import { TaskCard } from "../component/dashboard-components/taskCard";
+import { CreateTask } from "../component/createTask";
 
 export const Tasks = () => {
     const { store, actions } = useContext(Context);
@@ -19,7 +20,7 @@ export const Tasks = () => {
 
     const userInfo = store.user_info[0];
 
-    const project = userInfo.projects && userInfo.projects[1].title;
+    const project = userInfo.projects && userInfo.projects[0];
     console.log(userInfo)
     console.log(project)
 
@@ -51,14 +52,14 @@ export const Tasks = () => {
             <div className="tasks p-4">
                 <div className="container-fluid">
                     <div className="row">
-                        <h1>{project}</h1>
+                        <h1>{project.title}</h1>
                     </div>
                     <div className="row justify-content-between">
                         <div className="col-4 simple-card my-4 p-4">
                             <div className="task-list d-flex justify-content-between">
                                 <h2>To do</h2>
                                 <div className="d-flex">
-                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                                    <CreateTask projectId={project.id} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
                                     <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
                                 </div>
                             </div>
