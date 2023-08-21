@@ -23,7 +23,7 @@ export const Sidebar = () => {
         { path: '/dashboard', icon: 'fa-solid fa-layer-group', text: 'Dashboard' },
         { path: '/projects', icon: 'fa-solid fa-desktop', text: 'Projects' },
         { path: '/calendar', icon: 'fa-regular fa-calendar', text: 'Calendar' },
-        { path: '/tasks', icon: 'fa-solid fa-list-check', text: 'Tasks' },
+        // { path: '/tasks', icon: 'fa-solid fa-list-check', text: 'Tasks' },
         { path: '/settings', icon: 'fa-solid fa-gear', text: 'Settings' },
         // Agregar más elementos según necesites
     ];

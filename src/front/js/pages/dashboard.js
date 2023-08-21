@@ -59,7 +59,7 @@ export const Dashboard = () => {
                                 <NumberCard
                                     title={"Projects"}
                                     isProjects={true}
-                                    folderUrl={"#"}
+                                    folderUrl={"/projects"}
                                 />
                                 <NumberCard
                                     title={"Files"}
@@ -76,23 +76,42 @@ export const Dashboard = () => {
                         </div>
                     </div>
                     <div className="row mt-4">
-                        <div className="col-md-6 ">
-                            <div className="simple-card p-4">
-                                <div className="card-info d-flex justify-content-between">
-                                    <h5 className="card-title">titulo</h5>
+                        <div className="col-md-6 project-card" >
+                            <div className="simple-card p-4 my-3">
+                                <div className="card-info">
+                                    <div className="">
+                                        <h2>{'project.title'}</h2>
+                                        <p className="card-title mb-4">{'project.description'}</p>
+                                        <div className="numberOf">
+                                            <h3>Number of images and documents:</h3>
+                                            <span>{'project.files.length'}</span>
+                                        </div>
+                                        <div className="numberOf">
+                                            <h3>Total number of tasks:</h3>
+                                            <span>{'project.files.length'}</span>
+                                        </div>
 
-                                </div>
-                                <div className="card-number d-flex justify-content-between">
-                                    <p className="card-text">0</p>
-                                    <div className="card-icon d-flex">
-                                        <a href="#"><i className="viewFolder fa-regular fa-folder"></i></a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="second-card">
-                                <p>holahoalhaohaolsh</p>
+                        <div className="col-md-6 project-card" >
+                            <div className="simple-card p-4 my-3">
+                                <div className="card-info">
+                                    <div className="">
+                                        <h2>{'project.title'}</h2>
+                                        <p className="card-title mb-4">{'project.description'}</p>
+                                        <div className="numberOf">
+                                            <h3>Number of images and documents:</h3>
+                                            <span>{'project.files.length'}</span>
+                                        </div>
+                                        <div className="numberOf">
+                                            <h3>Total number of tasks:</h3>
+                                            <span>{'project.files.length'}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
