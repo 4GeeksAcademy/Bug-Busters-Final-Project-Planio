@@ -42,15 +42,15 @@ export const Navbar = () => {
 					<div className="projectSelector">
 						<div className="btn-group">
 							<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-								<p>Proyecto</p>
+								<p>Projects</p>
 								<i className="btnIcon fas fa-chevron-down"></i>
 							</button>
 							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								{userInfo.projects && userInfo.projects.map((project) => (
-                        		<li key={project.id}>
-									<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
-								</li>
-                                    ))}
+									<li key={project.id}>
+										<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
+									</li>
+								))}
 							</ul>
 						</div>
 					</div>

@@ -177,8 +177,6 @@ def protected():
     return jsonify(response), 200
 
 
-
-
 # MANIPULATE USERS ROUTES ------------------------------------------------------------------------------------------------------MANIPULATE USERS ROUTES #
 
 @api.route('/users', methods=['GET'])
@@ -339,16 +337,12 @@ def create_task():
     todo_list = request.json.get('todo_list', [])
     project_id = request.json.get('project_id')
 
-    project = Project.query.get(project_id)
-    if not project:
-        return jsonify({"message": "Project not found"}), 404
-
     task = Task(
         title=title.title(),
         description=description.capitalize(),
         due_at=due_at,
         todo_list=todo_list,
-        project_id=project.id
+        project_id=project_id
     )
 
     db.session.add(task)

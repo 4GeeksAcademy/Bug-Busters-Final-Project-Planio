@@ -18,7 +18,7 @@ export const Tasks = () => {
 
     const userInfo = store.user_info[0];
 
-    const project = userInfo.projects && userInfo.projects[2].title;
+    const project = userInfo.projects && userInfo.projects[1].title;
     console.log(userInfo)
     console.log(project)
 

@@ -3,16 +3,17 @@ import { Context } from "../store/appContext";
 import swal from "sweetalert2";
 import { TodoList } from "./todoList";
 
-export const CreateTask = ({ projectId = 1 }) => {
+export const CreateTask = ({ projectId }) => {
     const { store, actions } = useContext(Context);
+
+
 
     const [form, setForm] = useState(
         {
             title: "",
             description: "",
             due_at: "",
-            todo_list: [],
-            project_id: projectId
+            todo_list: []
         }
     )
 
@@ -28,7 +29,6 @@ export const CreateTask = ({ projectId = 1 }) => {
         const newTask = todoInput
 
         setForm((prev) => ({ ...prev, todo_list: [...prev.todo_list, newTask] }));
-
         setTodoInput("");
     }
 
@@ -42,33 +42,50 @@ export const CreateTask = ({ projectId = 1 }) => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+        console.log(form);
 
     };
+
+
+    useEffect(() => {
+        console.log('projectId changed:', projectId);
+
+    }, [projectId]);
 
     // ----- FORM SUBMISSION 
 
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        actions.createNewTask(form)
+        actions.createNewTask(form, projectId)
 
         console.log(form)
+    }
 
+    const handleDelete = () => {
+        setForm({
+            title: "",
+            description: "",
+            due_at: "",
+            todo_list: [],
+
+        })
+        console.log({ "this is delete": form });
     }
 
     return (
         <div className="mt-5">
-            <button type="button" className="form-button mb-5" data-bs-toggle="modal" data-bs-target="#taskModal">
+            <button type="button" className="form-button mb-5" data-bs-toggle="modal" data-bs-target={`#taskModal${projectId}`}>
                 Create new task
             </button>
 
 
-            <div className="modal fade" id="taskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id={`taskModal${projectId}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="staticBackdropLabel">Create new task</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={handleDelete}></button>
                         </div>
                         <div className="modal-body">
                             <form className="d-flex flex-column" onSubmit={handleSubmit}>

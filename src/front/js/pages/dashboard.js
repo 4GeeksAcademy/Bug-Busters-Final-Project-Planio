@@ -97,30 +97,6 @@ export const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-
-
-
-                {/* <h1>Your projects below:</h1>
-                {userInfo.projects && userInfo.projects.map((project) => (
-                    <div key={project.id} className="mt-5">
-                        <h2>{project.title}</h2>
-                        <h5>{project.description}</h5>
-                        <h4>Your images and documents:</h4>
-                        {project.files && project.files.length > 0 ? (
-                            <ul className="list-unstyled">
-                                {project.files.map((file, index) => (
-                                    <li key={index}>{file}</li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p>Upload your images or documents</p>
-                        )}
-                        <UploadFile projectId={project.id} />
-                    </div>
-
-                ))} */}
-                {/* <img src="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/planio-logo-png.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230808%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230808T161037Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=5c00e4dfeae0ca3e1e33ab61c5cf5f0ba51526ad286513706a47aeaef8c6f8ad" alt="Image from AWS" />
-                <div className="mt-5 mb-5"> <a href="https://bug-busters-planio-bucket-demostration.s3.amazonaws.com/4Geeks_restAPI.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAXYLU2MAGUBRWUAAP%2F20230809%2Feu-west-3%2Fs3%2Faws4_request&X-Amz-Date=20230809T170002Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4eacd9d260244d19346e56452ac1adbf099aeb86b1aba7f34c4688a98eabd4eb" target="_blank">YOUR PDF FILE</a></div> */}
             </div>
 
         );

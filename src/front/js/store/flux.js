@@ -222,12 +222,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error)
 				}
 			},
-			createNewTask: async (form) => {
+			createNewTask: async (form, projectId) => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/task`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ title: form.title, description: form.description, due_at: form.due_at, todo_list: form.todo_list, project_id: form.project_id })
+						body: JSON.stringify({ title: form.title, description: form.description, due_at: form.due_at, todo_list: form.todo_list, project_id: projectId })
 					});
 
 					if (!resp.ok) {

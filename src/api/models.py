@@ -168,7 +168,8 @@ class Task(db.Model):
             "done": self.done,
             "todo_list": self.todo_list,
             "created_at": self.created_at.strftime(
-                '%d-%m-%Y %H:%M:%S')
+                '%d-%m-%Y %H:%M:%S'),
+            "project_id": self.project_id
         }
 
         return serialized_task
