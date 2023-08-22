@@ -164,6 +164,27 @@ body {
   margin-bottom: 10px;
 }
 
+.loading-spinner {
+  border-color: var(--primary-color);
+}
+
+.red-text {
+  color: red;
+}
+
+.btn-no-border {
+  border: 0px;
+  outline: 0px;
+  background-color: #ECECEC;
+  color: var(--primary-color);
+  font-size: 30px;
+}
+
+.btn-no-border:hover {
+
+  font-size: 35px;
+}
+
 /* FONTS */
 
 @import url('https://fonts.googleapis.com/css2?family=Comic+Neue&family=Poppins:wght@400;600;700&display=swap');

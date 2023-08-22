@@ -8,6 +8,8 @@ import { CreateProject } from "../createProject";
 import { CreateTask } from "../createTask";
 import { UploadFile } from "../uploadFile";
 import { TaskModal } from "./taskModal";
+import { DeleteTaskButton } from "./deleteTaskButton";
+
 
 export const TaskCard = ({
     index,
@@ -17,28 +19,13 @@ export const TaskCard = ({
     todo_list,
     numberToDos,
     due_at,
+    task_id,
+    onDeleteCompleted
 
 }) => {
 
     const { store, actions } = useContext(Context);
     const [updatedComponent, setUpdatedComponent] = useState(false);
-
-    const userInfo = store.user_info[0];
-
-    const project = userInfo.projects && userInfo.projects.map(project => project.id);
-
-
-    useEffect(() => {
-
-        actions.getUserInfo()
-            .then((userInfo) => {
-                console.log(userInfo);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-
-    }, [updatedComponent]);
 
     const handleDelete = async (file_name, project_id) => {
         try {
@@ -51,17 +38,21 @@ export const TaskCard = ({
     }
 
     const handleUpdateComponent = () => {
-        setUpdatedComponent(!updatedComponent);
+        if (onDeleteCompleted) {
+            onDeleteCompleted();
+        }
     };
 
     return (
         <div className="task-card mt-3 p-4" key={index}>
+
             <div className="hero-section d-flex justify-content-between">
                 <div className="task-tag">
                     <p>{tag}</p>
                 </div>
-                <div className="edit-tag">
+                <div className="edit-tag d-flex gap-1">
                     <TaskModal />
+                    <DeleteTaskButton task_id={task_id} onDeleteCompleted={handleUpdateComponent} />
                 </div>
             </div>
             <div className="task-title">
@@ -83,7 +74,7 @@ export const TaskCard = ({
                         </ul>
                     </div>
                 ) : (
-                    <p>There is no Todo's</p>
+                    <p>There are no Todo's</p>
                 )}
             </div>
             <div className="task-footer d-flex justify-content-end">
