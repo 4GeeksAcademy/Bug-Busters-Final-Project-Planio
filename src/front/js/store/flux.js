@@ -140,7 +140,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (token) {
 					const decodedToken = jwtDecode(token);
 					const currentTime = Date.now() / 1000;
-					console.log('%cToken is valid!', 'color: cyan; background: black; font-size: 20px');
 					return decodedToken.exp > currentTime;
 				}
 				return false;

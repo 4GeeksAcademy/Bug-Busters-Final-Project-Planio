@@ -8,17 +8,19 @@ import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
+import { CalendarWidget } from "../component/dashboard-components/calendarWidget";
+
+
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
     const [updatedComponent, setUpdatedComponent] = useState(false);
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
-    console.log(userInfo);
-
-
 
     useEffect(() => {
 
@@ -31,8 +33,7 @@ export const Dashboard = () => {
         } else {
             actions.getUserInfo()
                 .then((userInfo) => {
-                    console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
-
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -42,6 +43,14 @@ export const Dashboard = () => {
 
     if (!validated_token) {
         return null;
+    }
+
+    if (loading) {
+        return <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="spinner-border loading-spinner" role="status">
+                <span className="sr-only loading-spinner">Loading...</span>
+            </div>
+        </div>
     }
 
     if (validated_token) {
@@ -59,7 +68,7 @@ export const Dashboard = () => {
                                 <NumberCard
                                     title={"Projects"}
                                     isProjects={true}
-                                    folderUrl={"/projects"}
+                                    folderUrl={"/projects"}  
                                 />
                                 <NumberCard
                                     title={"Files"}
@@ -71,8 +80,7 @@ export const Dashboard = () => {
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
-                                Calendario
-                            </div>
+                                Calendar                            </div>
                         </div>
                     </div>
                     <div className="row mt-4">

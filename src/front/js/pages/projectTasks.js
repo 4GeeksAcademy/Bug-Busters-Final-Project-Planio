@@ -5,13 +5,11 @@ import swal from "sweetalert2";
 import "../../styles/home.css";
 import "../../styles/dashboard.css";
 import "../../styles/tasks.css";
-import { Button } from "@prismane/core";
 import { CreateProject } from "../component/createProject";
-import { NumberCard } from "../component/dashboard-components/numberCard";
-import { UploadFile } from "../component/uploadFile";
-import { DateTime } from "../component/dateTime";
 import { CreateTask } from "../component/createTask";
 import { TaskCard } from "../component/dashboard-components/taskCard";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 
 export const ProjectTasks = () => {
@@ -102,6 +100,7 @@ export const ProjectTasks = () => {
 
 
                         </div>
+                        {/* --------------------- */}
                         <div className="col-4 simple-card my-4 p-4">
                             <div className="task-list d-flex justify-content-between">
                                 <h2>In Progress</h2>
@@ -113,6 +112,7 @@ export const ProjectTasks = () => {
 
 
                         </div>
+                        {/* ------------------------ */}
                         <div className="col-4 simple-card my-4 p-4">
                             <div className="task-list d-flex justify-content-between">
                                 <h2>Done</h2>

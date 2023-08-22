@@ -7,7 +7,7 @@ import swal from 'sweetalert2'
 
 export const DeleteTaskButton = ({ task_id, onDeleteCompleted }) => {
     const { store, actions } = useContext(Context);
-    
+
 
     const handleClick = async () => {
         const result = await swal.fire({
@@ -28,10 +28,10 @@ export const DeleteTaskButton = ({ task_id, onDeleteCompleted }) => {
 
                 if (response === 200) {
                     swal.fire({ title: 'Your task was deleted', icon: 'success', confirmButtonColor: '#fa9643' });
-                   
-                        if (onDeleteCompleted) {
-                            onDeleteCompleted();
-                        }
+
+                    if (onDeleteCompleted) {
+                        onDeleteCompleted();
+                    }
                 } else {
                     swal.fire({ title: 'Failed to delete task', text: 'An error occurred while deleting the task', icon: 'error', confirmButtonColor: '#fa9643' });
                 }
@@ -46,7 +46,7 @@ export const DeleteTaskButton = ({ task_id, onDeleteCompleted }) => {
 
 
     return (
-        <button className="primary-button" type="button" onClick={handleClick}>Delete</button>
+        <button className="primary-button" type="button" onClick={handleClick}><i className="fa-regular fa-trash-can"></i></button>
     )
 
 }
