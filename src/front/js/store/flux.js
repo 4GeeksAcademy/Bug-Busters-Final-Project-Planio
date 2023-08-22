@@ -24,8 +24,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					const usernames = data.map(user => user.username);
-					setStore(usernames);
-					console.log(usernames);
+					setStore({ users_usernames: usernames });
+					console.log(store.users_usernames);
 
 
 				} catch (error) {
@@ -241,6 +241,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error)
 				}
 			},
+			deleteTask: async (task_id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/task/${task_id}`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+					})
+					return resp.status;
+
+				} catch (error) {
+					console.error(error);
+					swal.fire({ title: "Something went wrong", text: "Please try again or refresh the page.", icon: "error", confirmButtonColor: '#fa9643' });
+				}
+			}
+
 		}
 	};
 };
