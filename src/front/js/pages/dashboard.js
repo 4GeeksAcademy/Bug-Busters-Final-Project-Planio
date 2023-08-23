@@ -8,17 +8,20 @@ import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
+import { CalendarWidget } from "../component/dashboard-components/calendarWidget";
+import { ProjectOverview } from "../component/dashboard-components/projectOverview";
+
+
 
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
     const [updatedComponent, setUpdatedComponent] = useState(false);
+    const [loading, setLoading] = useState(true);
+
     const navigate = useNavigate();
 
     const userInfo = store.user_info[0];
-    console.log(userInfo);
-
-
 
     useEffect(() => {
 
@@ -31,8 +34,7 @@ export const Dashboard = () => {
         } else {
             actions.getUserInfo()
                 .then((userInfo) => {
-                    console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
-
+                    setLoading(false);
                 })
                 .catch((error) => {
                     console.error(error);
@@ -42,6 +44,14 @@ export const Dashboard = () => {
 
     if (!validated_token) {
         return null;
+    }
+
+    if (loading) {
+        return <div className="d-flex justify-content-center align-items-center vh-100">
+            <div className="spinner-border loading-spinner" role="status">
+                <span className="sr-only loading-spinner">Loading...</span>
+            </div>
+        </div>
     }
 
     if (validated_token) {
@@ -71,49 +81,16 @@ export const Dashboard = () => {
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
-                                Calendario
-                            </div>
+                                Calendar                            </div>
                         </div>
                     </div>
                     <div className="row mt-4">
-                        <div className="col-md-6 project-card" >
-                            <div className="simple-card p-4 my-3">
-                                <div className="card-info">
-                                    <div className="">
-                                        <h2>{'project.title'}</h2>
-                                        <p className="card-title mb-4">{'project.description'}</p>
-                                        <div className="numberOf">
-                                            <h3>Number of images and documents:</h3>
-                                            <span>{'project.files.length'}</span>
-                                        </div>
-                                        <div className="numberOf">
-                                            <h3>Total number of tasks:</h3>
-                                            <span>{'project.files.length'}</span>
-                                        </div>
+                        {userInfo.projects && userInfo.projects.map((project, index) => (
+                            <ProjectOverview projectTitle={project.title} projectDescription={project.description} tasks={project.tasks} isProject={false} />
+                        ))}
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-6 project-card" >
-                            <div className="simple-card p-4 my-3">
-                                <div className="card-info">
-                                    <div className="">
-                                        <h2>{'project.title'}</h2>
-                                        <p className="card-title mb-4">{'project.description'}</p>
-                                        <div className="numberOf">
-                                            <h3>Number of images and documents:</h3>
-                                            <span>{'project.files.length'}</span>
-                                        </div>
-                                        <div className="numberOf">
-                                            <h3>Total number of tasks:</h3>
-                                            <span>{'project.files.length'}</span>
-                                        </div>
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

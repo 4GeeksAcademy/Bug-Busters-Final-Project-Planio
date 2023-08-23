@@ -41,7 +41,7 @@ export const NumberCard = ({
 
         actions.getUserInfo()
             .then((userInfo) => {
-                console.log(userInfo);
+
             })
             .catch((error) => {
                 console.error(error);
@@ -66,41 +66,41 @@ export const NumberCard = ({
     return (
         <div className="col-md-6 simple-card w49 p-4">
 
-                {
-                    isProjects &&
-                    <>
-                        <div className="card-info d-flex justify-content-between">
-                            <h5 className="card-title">{title}</h5>
-                            <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew"/>
+            {
+                isProjects &&
+                <>
+                    <div className="card-info d-flex justify-content-between">
+                        <h5 className="card-title">{title}</h5>
+                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                    </div>
+                    <div className="card-number d-flex justify-content-between">
+                        <p className="card-text">{userInfo.projects && userInfo.projects.length ? userInfo.projects.length : "0"}</p>
+                        <div className="card-icon d-flex">
+                            <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
                         </div>
-                        <div className="card-number d-flex justify-content-between">
-                            <p className="card-text">{userInfo.projects && userInfo.projects.length ? userInfo.projects.length : "0"}</p>
-                            <div className="card-icon d-flex">
-                                <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
-                            </div>
-                        </div>
-                    </>
-                        
-
-                }
-
-                {
-                    isFiles &&
-                    <>
-                        <div className="card-info d-flex justify-content-between">
-                            <h5 className="card-title">{title}</h5>
-                            <UploadFile projectId={project} onUploadComplete={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew"/>
-                        </div>
-                        <div className="card-number d-flex justify-content-between">
-                            <p className="card-text">{totalFiles}</p>
-                            <div className="card-icon d-flex">
-                                <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
-                            </div>
-                        </div>
-                    </>
+                    </div>
+                </>
 
 
-                }
+            }
+
+            {
+                isFiles &&
+                <>
+                    <div className="card-info d-flex justify-content-between">
+                        <h5 className="card-title">{title}</h5>
+                        <UploadFile projectId={project} onUploadComplete={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                    </div>
+                    <div className="card-number d-flex justify-content-between">
+                        <p className="card-text">{totalFiles}</p>
+                        <div className="card-icon d-flex">
+                            <a href={folderUrl}><i className="viewFolder fa-regular fa-folder"></i></a>
+                        </div>
+                    </div>
+                </>
+
+
+            }
 
         </div>
 

@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Context } from "../store/appContext";
-import { Column } from "../component/dragAnddrop/Column";
+import { Context } from "../../store/appContext";
+import { Column } from "./Column";
 import { DragDropContext } from "react-beautiful-dnd";
 
 
 
-export const ProjectTasks = () => {
+export const KanbanBoard = () => {
 
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
@@ -15,6 +15,10 @@ export const ProjectTasks = () => {
     const { project_id } = useParams();
     const parsedProjectId = parseInt(project_id);
     const [loading, setLoading] = useState(true);
+
+    // const [todoList, setTodoList] = useState([]);
+    // const [inProgressList, setInProgressList] = useState([]);
+    // const [doneList, setDoneList] = useState([]);
 
     const [tasksTodos, setTasksTodos] = useState([[], [], []])
 
@@ -121,13 +125,13 @@ export const ProjectTasks = () => {
                         </div>
                         <div className="row justify-content-between">
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"To-do"} projectTasks={tasksTodos[0]} projectId={project.id} id={"0"} _onCreateComplete={handleUpdateComponent} __onDeleteCompleted={handleUpdateComponent} />
+                                <Column title={"To-do"} projectTasks={tasksTodos[0]} id={"0"} />
                             </div>
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"In Progress"} projectTasks={tasksTodos[1]} projectId={project.id} id={"1"} _onCreateComplete={handleUpdateComponent} __onDeleteCompleted={handleUpdateComponent} />
+                                <Column title={"In Progress"} projectTasks={tasksTodos[1]} id={"1"} />
                             </div>
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"Done"} projectTasks={tasksTodos[2]} id={"2"} _onCreateComplete={handleUpdateComponent} __onDeleteCompleted={handleUpdateComponent} />
+                                <Column title={"Done"} projectTasks={tasksTodos[2]} id={"2"} />
                             </div>
                         </div>
                     </div>
