@@ -16,9 +16,11 @@ export const KanbanBoard = () => {
     const parsedProjectId = parseInt(project_id);
     const [loading, setLoading] = useState(true);
 
-    const [todoList, setTodoList] = useState([]);
-    const [inProgressList, setInProgressList] = useState([]);
-    const [doneList, setDoneList] = useState([]);
+    // const [todoList, setTodoList] = useState([]);
+    // const [inProgressList, setInProgressList] = useState([]);
+    // const [doneList, setDoneList] = useState([]);
+
+    const [tasksTodos, setTasksTodos] = useState([[], [], []])
 
 
     const handleUpdateComponent = () => {
@@ -42,7 +44,7 @@ export const KanbanBoard = () => {
                     return foundProject;
                 })
                 .then((foundProject) => {
-                    setTodoList(foundProject?.tasks);
+                    setTasksTodos([foundProject?.tasks, [], []]);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -88,23 +90,25 @@ export const KanbanBoard = () => {
         if (!draggedTask) {
             return;
         }
+        const origin_id = source.index
+        const destination_id = destination.index
+        const origin_column = source.droppableId
+        const destination_column = destination.droppableId
 
-        if (destination.droppableId === "1") {
-            const updatedInProgressList = inProgressList.filter(task => task.id !== draggedTask.id);
-            setInProgressList(updatedInProgressList);
 
-            setTodoList([...todoList, draggedTask]);
-        } else if (destination.droppableId === "2") {
-            const updatedTodoList = todoList.filter(task => task.id !== draggedTask.id);
-            setTodoList(updatedTodoList);
+        const updatedOrigin = [...tasksTodos[origin_column]]
+        updatedOrigin.splice(origin_id, 1)
+        const updatedDestination = origin_column === destination_column ? updatedOrigin : [...tasksTodos[destination_column]]
+        updatedDestination.splice(destination_id, 0, draggedTask)
 
-            setInProgressList([...inProgressList, draggedTask]);
-        } else if (destination.droppableId === "3") {
-            const updatedDoneList = doneList.filter(task => task.id !== draggedTask.id);
-            setDoneList(updatedDoneList);
 
-            setInProgressList([...inProgressList, draggedTask]);
-        }
+        const updatedTasksTodos = [...tasksTodos]
+        updatedTasksTodos[origin_column] = updatedOrigin
+        updatedTasksTodos[destination_column] = updatedDestination
+
+        setTasksTodos(updatedTasksTodos);
+
+
     };
 
 
@@ -121,13 +125,13 @@ export const KanbanBoard = () => {
                         </div>
                         <div className="row justify-content-between">
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"To-do"} projectTasks={todoList} id={"1"} />
+                                <Column title={"To-do"} projectTasks={tasksTodos[0]} id={"0"} />
                             </div>
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"In Progress"} projectTasks={inProgressList} id={"2"} />
+                                <Column title={"In Progress"} projectTasks={tasksTodos[1]} id={"1"} />
                             </div>
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
-                                <Column title={"Done"} projectTasks={doneList} id={"3"} />
+                                <Column title={"Done"} projectTasks={tasksTodos[2]} id={"2"} />
                             </div>
                         </div>
                     </div>

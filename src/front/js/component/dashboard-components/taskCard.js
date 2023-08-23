@@ -21,7 +21,7 @@ export const TaskCard = ({
     numberToDos,
     due_at,
     task_id,
-    onDeleteCompleted
+    _onDeleteCompleted
 
 }) => {
 
@@ -48,7 +48,7 @@ export const TaskCard = ({
 
         <Draggable draggableId={`${task_id}`} key={task_id} index={index}>
             {(provided, snapshot) => (
-                <div className="task-card mt-3 p-4" key={index} {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef} isDragging={snapshot.isDraggin}>
+                <div className="task-card mt-3 p-4" key={index} {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
 
                     <div className="hero-section d-flex justify-content-between">
                         <div className="task-tag">
@@ -56,7 +56,7 @@ export const TaskCard = ({
                         </div>
                         <div className="edit-tag d-flex gap-1">
                             <TaskModal />
-                            <DeleteTaskButton task_id={task_id} onDeleteCompleted={handleUpdateComponent} />
+                            <DeleteTaskButton task_id={task_id} onDeleteCompleted={_onDeleteCompleted} />
                         </div>
                     </div>
                     <div className="task-title">

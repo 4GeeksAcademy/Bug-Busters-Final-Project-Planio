@@ -4,13 +4,22 @@ import { CreateTask } from "../createTask";
 import { CreateProject } from "../createProject";
 import { TaskCard } from "../dashboard-components/taskCard";
 
-export const Column = ({ title, tasks, id, projectId, username, projectTasks }) => {
+export const Column = ({ title, id, projectId, username, projectTasks, _onCreateComplete, __onDeleteCompleted }) => {
+    const [updatedComponent, setUpdatedComponent] = useState(false);
+
+    const handleUpdateComponent = () => {
+        setUpdatedComponent(!updatedComponent);
+    };
+
+
+
+
     return (
         <>
             <div className="task-list d-flex justify-content-between">
                 <h2>{title}</h2>
                 <div className="d-flex">
-                    <CreateTask projectId={projectId} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                    <CreateTask projectId={projectId} onCreateComplete={_onCreateComplete} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
                     <CreateProject username={username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
                 </div>
             </div>
@@ -20,7 +29,7 @@ export const Column = ({ title, tasks, id, projectId, username, projectTasks }) 
                     <div
                         ref={provided.innerRef}
                         {...provided.droppableProps}
-                        isDraggingOver={snapshot.isDraggingOver}
+
                         className="d-flex flex-column"
                     >
                         {projectTasks ? (
@@ -35,6 +44,7 @@ export const Column = ({ title, tasks, id, projectId, username, projectTasks }) 
                                     numberToDos={task.todo_list.length}
                                     due_at={task.due_at}
                                     task_id={task.id}
+                                    _onDeleteCompleted={__onDeleteCompleted}
                                 />
                             ))
                         ) : (
