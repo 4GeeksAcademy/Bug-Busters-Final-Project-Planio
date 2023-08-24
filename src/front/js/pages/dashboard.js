@@ -81,12 +81,16 @@ export const Dashboard = () => {
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
-                                Calendar                            </div>
+                                <CalendarWidget />                            
+                            </div>
                         </div>
                     </div>
                     <div className="row mt-4">
                         {userInfo.projects && userInfo.projects.map((project, index) => (
-                            <ProjectOverview projectTitle={project.title} projectDescription={project.description} tasks={project.tasks} isProject={false} />
+                            <>
+                            <ProjectOverview projectTitle={project.title} projectDescription={project.description} tasks={project.tasks} isProject={false}  projectId={project.id}/>
+                            {console.log('PROJECT', project.id)}
+                            </>
                         ))}
 
 
