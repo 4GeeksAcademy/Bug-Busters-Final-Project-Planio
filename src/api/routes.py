@@ -349,3 +349,15 @@ def create_task():
     db.session.commit()
 
     return jsonify({"message": "Task successfully created", "task": task.serialize()}), 201
+
+
+@api.route('/task/<int:task_id>', methods=['DELETE'])
+def delete_task(task_id):
+    task_to_delete = Task.query.get(task_id)
+
+    if task_to_delete:
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return jsonify({"msg": "Task successfully deleted."}), 200
+    else:
+        return jsonify({"msg": "Task not found."}), 404

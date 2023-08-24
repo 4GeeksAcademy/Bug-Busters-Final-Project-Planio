@@ -31,7 +31,7 @@ export const Sidebar = () => {
     const getButtonContent = () => {
         const regex = /^\/project\/\d+\/tasks$/;
 
-        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
+        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/kanban-board/1' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
             return <>
                 <div className="sidebar">
                     <ul className="list-group m-4">

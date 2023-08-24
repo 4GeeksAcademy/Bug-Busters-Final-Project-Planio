@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import swal from "sweetalert2";
-import { TodoList } from "./todoList";
 
-export const CreateTask = ({ 
+export const CreateTask = ({
 
-    projectId, 
+    projectId,
     ctaText,
     butClass,
+    onCreateComplete
 
- }) => {
+}) => {
     const { store, actions } = useContext(Context);
 
 
@@ -48,13 +48,13 @@ export const CreateTask = ({
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
-        console.log(form);
+
 
     };
 
 
     useEffect(() => {
-        console.log('projectId changed:', projectId);
+
 
     }, [projectId]);
 
@@ -64,9 +64,13 @@ export const CreateTask = ({
         e.preventDefault()
 
         actions.createNewTask(form, projectId)
+            .then(() => {
+                if (onCreateComplete) {
+                    onCreateComplete();
+                }
+            })
+    };
 
-
-    }
 
     const handleDelete = () => {
         setForm({

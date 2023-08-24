@@ -65,7 +65,6 @@ export const PrivateView = () => {
 
                 <h1>Your projects below:</h1>
                 {userInfo.projects && userInfo.projects.map((project, index) => {
-                    console.log('projectId:', project.id);
                     return (
                         <div key={index} className="mt-5">
                             <h2>{project.title}</h2>

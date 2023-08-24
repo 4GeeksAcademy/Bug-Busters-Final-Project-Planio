@@ -22,6 +22,7 @@ import "../styles/sidebar.css";
 import { Tasks } from "./pages/tasks";
 import { ProjectTasks } from "./pages/projectTasks";
 import { PrivateView } from "./pages/privateView";
+import { KanbanBoard } from "./component/dragAnddrop/kanbanBoard";
 
 
 //create your first component
@@ -34,6 +35,7 @@ const Layout = () => {
 
     return (
         <div>
+            
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
@@ -55,6 +57,7 @@ const Layout = () => {
                                 <Route element={<Tasks />} path="/tasks" />
                                 <Route element={<ProjectTasks />} path="/project/:project_id/tasks" />
                                 <Route element={<PrivateView />} path="/private-view" />
+                                <Route element={<KanbanBoard />} path="/kanban-board/:project_id" />
                                 <Route element={<h1>Not found!</h1>} />
                             </Routes>
                         </div>

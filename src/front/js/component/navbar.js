@@ -12,27 +12,22 @@ export const Navbar = () => {
 	const navigate = useNavigate()
 	const { store, actions } = useContext(Context);
 
-	const userInfo = store.user_info[0];
-
 	useEffect(() => {
 
 		actions.getUserInfo()
 			.then((userInfo) => {
-				console.log(userInfo);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
 
 	}, []);
-	// const matchedPath = matchPath(location.pathname, {
-	// 	path: '/project/:project_id/tasks',
-	// 	exact: true
-	// });
+	const userInfo = store.user_info[0];
+
 	const getButtonContent = () => {
 		const regex = /^\/project\/\d+\/tasks$/;
 
-		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || location.pathname === '/project/:project_id/tasks' || regex.test(location.pathname)) {
+		if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/kanban-board' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || location.pathname === '/project/:project_id/tasks' || regex.test(location.pathname)) {
 			return <>
 				<div className="navbar-collapse">
 
@@ -53,7 +48,7 @@ export const Navbar = () => {
 							<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
 								{userInfo.projects && userInfo.projects.map((project) => (
 									<li key={project.id}>
-										<a className="dropdown-item" href={`/tasks/${project.id}`}>{project.title}</a>
+										<a className="dropdown-item" href={`/project/${project.id}/tasks`}>{project.title}</a>
 									</li>
 								))}
 							</ul>

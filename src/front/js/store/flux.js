@@ -24,8 +24,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					const usernames = data.map(user => user.username);
-					setStore(usernames);
-					console.log(usernames);
+					setStore({ users_usernames: usernames });
+					console.log(store.users_usernames);
 
 
 				} catch (error) {
@@ -140,7 +140,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (token) {
 					const decodedToken = jwtDecode(token);
 					const currentTime = Date.now() / 1000;
-					console.log('%cToken is valid!', 'color: cyan; background: black; font-size: 20px');
 					return decodedToken.exp > currentTime;
 				}
 				return false;
@@ -241,6 +240,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error)
 				}
 			},
+			deleteTask: async (task_id) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/task/${task_id}`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+					})
+					return resp.status;
+
+				} catch (error) {
+					console.error(error);
+					swal.fire({ title: "Something went wrong", text: "Please try again or refresh the page.", icon: "error", confirmButtonColor: '#fa9643' });
+				}
+			}
+
 		}
 	};
 };
