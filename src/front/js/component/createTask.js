@@ -80,7 +80,7 @@ export const CreateTask = ({
     }
 
     return (
-        <div className="mt-5">
+        <div>
             <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal${projectId}`}>
                 {ctaText}
             </button>

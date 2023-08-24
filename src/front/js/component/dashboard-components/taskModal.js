@@ -9,7 +9,7 @@ export const TaskModal = ({
     username = "",
     projectCreated,
     ctaText = "View task",
-    butClass = "primary-button",
+    butClass = "addNew",
 
 }) => {
     const { store, actions } = useContext(Context);

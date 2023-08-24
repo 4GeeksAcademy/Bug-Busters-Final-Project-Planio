@@ -20,10 +20,11 @@ export const ProjectTasks = () => {
     const params = useParams();
     const { project_id } = useParams();
     const parsedProjectId = parseInt(project_id);
+    const [loading, setLoading] = useState(true)
 
     const userInfo = store.user_info[0];
 
-    const project = userInfo.projects.find(project => project.id === parsedProjectId);
+    const project = userInfo.projects && userInfo.projects.find(project => project.id === parsedProjectId);
 
     useEffect(() => {
 
@@ -37,12 +38,17 @@ export const ProjectTasks = () => {
             actions.getUserInfo()
                 .then((userInfo) => {
                     console.log('%cUser info successfully retrieved', 'color: cyan; background: black; font-size: 20px');
+                    setLoading(false)
                 })
                 .catch((error) => {
                     console.error(error);
                 });
         }
     }, []);
+
+    if (loading) {
+        return <h1>Is loading</h1>
+    }
 
     if (!validated_token) {
         return null;
@@ -70,7 +76,7 @@ export const ProjectTasks = () => {
                             {project.tasks ? (
                                 project.tasks.map((task, index) => (
                                     <TaskCard 
-                                        index = {index}
+                                    key = {index}
                                         tag = "tag"
                                         title = {task.title}
                                         description = {task.description}
@@ -93,7 +99,21 @@ export const ProjectTasks = () => {
                                     <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
                                 </div>
                             </div>
-
+                            {project.tasks ? (
+                                project.tasks.map((task, index) => (
+                                    <TaskCard 
+                                    key = {index}
+                                        tag = "tag"
+                                        title = {task.title}
+                                        description = {task.description}
+                                        todo_list = {task.todo_list}
+                                        numberToDos = {task.todo_list.length}
+                                        due_at = {task.due_at}
+                                    />
+                                ))
+                            ) : (
+                                <p>No tasks found for this project</p>
+                            )}
 
                         </div>
                         <div className="col-4 simple-card my-4 p-4">
@@ -104,7 +124,21 @@ export const ProjectTasks = () => {
                                     <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
                                 </div>
                             </div>
-
+                            {project.tasks ? (
+                                project.tasks.map((task, index) => (
+                                    <TaskCard 
+                                        key = {index}
+                                        tag = "tag"
+                                        title = {task.title}
+                                        description = {task.description}
+                                        todo_list = {task.todo_list}
+                                        numberToDos = {task.todo_list.length}
+                                        due_at = {task.due_at}
+                                    />
+                                ))
+                            ) : (
+                                <p>No tasks found for this project</p>
+                            )}
                         </div>
                     </div>
                 </div>
