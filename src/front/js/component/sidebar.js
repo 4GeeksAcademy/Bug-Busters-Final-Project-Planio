@@ -33,7 +33,7 @@ export const Sidebar = () => {
 
         if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/kanban-board/1' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
             return <>
-                <div className="sidebar">
+                <div className="sidebar vh-100">
                     <ul className="list-group m-4">
                         {menuItems.map((item) => (
                             <li

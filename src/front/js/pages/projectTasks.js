@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Column } from "../component/dragAnddrop/Column";
 import { DragDropContext } from "react-beautiful-dnd";
+import swal from "sweetalert2";
 
 
 

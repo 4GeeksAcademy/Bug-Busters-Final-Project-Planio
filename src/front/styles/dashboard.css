@@ -52,6 +52,11 @@
     border: 0px;
 }
 
+.addNew:active {
+    border: none;
+    outline: none;
+}
+
 .dashboard .simple-card .card-info .addIcon {
     font-size: 30px;
     color: "#000000"
@@ -95,7 +100,7 @@
 
 }
 
-.dashboard .project-card .numberOf span{
+.dashboard .project-card .numberOf span {
     font-size: 1.3em;
     font-weight: 600;
     color: var(--primary-color)
