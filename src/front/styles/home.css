@@ -1,7 +1,190 @@
-/*
-    home.css: This website contains selectors only used in home.css
+:root {
+  --primary-color: #FF7C33;
+  --secondary-color: #FFECE8;
+  --light-grey-color: #efefef;
+  --medium-grey-color: #DEDEDE;
+  --dark-grey-color: #AFAFAF;
+  --light-text-color: white;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+/* HOME STYLES */
+
+.fade-in-img {
+  animation: fadeInAnimation 0.3s ease-in 0.5s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.home-title h1 {
+  font-size: 70px;
+  max-width: 800px;
+  font-weight: 800;
+  margin: 0 auto;
+}
+
+.home-title p {
+  font-size: 22px;
+  font-weight: 500;
+  max-width: 470px;
+  margin: 30px auto;
+}
+
+.home .home-button {
+  background-color: var(--primary-color);
+  text-decoration: none;
+  color: #fff;
+  height: 50px;
+  align-items: center;
+  display: inline-flex;
+  width: 250px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.home .home-button span {
+  margin: 0 auto
+}
+
+.home .home-button:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  outline: 2px solid var(--primary-color);
+}
+
+/* -------------------------------------------------------------------------------Primary button */
+
+.primary-button-container {
+  max-width: 150px;
+
+}
+
+.primary-button {
+  background-color: var(--primary-color);
+  color: var(--light-text-color);
+  border-radius: 8px;
+  border: none;
+  padding: 10px 20px;
+}
+
+.primary-button:hover {
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+  outline: 2px solid var(--primary-color);
+
+}
+
+.primary-button-label {
+  color: rgb(145, 145, 145);
+  font-size: small;
+  padding-left: 4px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+.file-link {
+
+  padding: 3px;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
+}
+
+/* -------------------------------------------------------------------------------Primary button */
+
+.secondary-button-container {
+  max-width: 150px;
+
+}
+
+.secondary-button {
+  background-color: var(--light-text-color);
+  color: var(--primary-color);
+  border-radius: 8px;
+  border: 2px solid var(--primary-color);
+  padding: 10px 20px;
+}
+
+.secondary-button:hover {
+  background-color: var(--secondary-color);
+
+}
+
+.secondary-button-label {
+  color: rgb(145, 145, 145);
+  font-size: small;
+  padding-left: 4px;
+  margin-top: 0px;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+
+/* ---------------------------------------------------DELETE FILE BUTTON */
+.delete-button {
+  background: #c63a3a;
+  border-radius: 5px;
+  box-shadow: #c63a3a 0 10px 20px -10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  /* padding: 4px 9px; */
+  border: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 5px;
+  visibility: hidden;
+}
+
+.list-body:hover .delete-button {
+  visibility: visible;
+
+}
+
+.list-body {
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+.loading-spinner {
+  border-color: var(--primary-color);
+}
+
+.red-text {
+  color: red;
+}
+
+.btn-no-border {
+  border: 0px;
+  outline: 0px;
+  background-color: #ECECEC;
+  color: var(--primary-color);
+  font-size: 30px;
+}
+
+.btn-no-border:hover {
+
+  font-size: 35px;
+}
+
+/* FONTS */
+
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue&family=Poppins:wght@400;600;700&display=swap');

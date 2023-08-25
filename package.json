@@ -73,10 +73,20 @@
 		]
 	},
 	"dependencies": {
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"@mui/material": "^5.14.5",
+		"@prismane/core": "^0.2.3",
+		"date-fns": "^2.30.0",
+		"jwt-decode": "^3.1.2",
 		"prop-types": "^15.6.1",
-		"react": "^16.8.4",
-		"react-dom": "^16.8.4",
+		"react": "^18.2.0",
+		"react-beautiful-dnd": "^13.1.1",
+		"react-day-picker": "^8.8.1",
+		"react-dom": "^18.2.0",
 		"react-polyfills": "0.0.1",
-		"react-router-dom": "^6.3.0"
+		"react-router-dom": "^6.3.0",
+		"sweetalert": "^2.1.2",
+		"sweetalert2": "^11.7.20"
 	}
 }

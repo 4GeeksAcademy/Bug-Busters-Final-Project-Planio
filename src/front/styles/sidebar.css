@@ -1,0 +1,35 @@
+.sidebar {
+    width: 300px;
+    height: 100vh;
+}
+
+.sidebar .list-group-item {
+    border: none;
+    margin: 6px;
+}
+
+.sidebar .list-group-item i {
+    padding: 10px 15px;
+}
+
+.sidebar .list-group-item a {
+    cursor: pointer;
+}
+
+.sidebar .list-group-item:hover {
+    background-color: var(--secondary-color);
+
+    border-radius: 10px;
+}
+
+.sidebar .list-group-item.active {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 10px;
+    margin-top: 6px;
+}
+
+.sidebar .list-group-item.active i{
+    color: var(--primary-color)!important;
+}
