@@ -10,6 +10,7 @@ import bcrypt
 import re
 import random
 from flask_mail import Mail, Message
+from datetime import datetime
 import os
 from api.mail import mail
 import boto3
@@ -361,3 +362,32 @@ def delete_task(task_id):
         return jsonify({"msg": "Task successfully deleted."}), 200
     else:
         return jsonify({"msg": "Task not found."}), 404
+
+
+@api.route("/task/<int:task_id>", methods=["PUT"])
+def edit_task(task_id):
+    try:
+        task = Task.query.get(task_id)
+        if not task:
+            return jsonify({"error": "Task not found"}), 404
+
+        data = request.json
+
+        if "title" in data:
+            task.title = data["title"]
+        if "description" in data:
+            task.description = data["description"]
+        if "due_at" in data:
+            task.due_at = datetime.strptime(
+                data["due_at"], "%d-%m-%Y %H:%M:%S")
+        if "done" in data:
+            task.done = data["done"]
+        if "todo_list" in data:
+            task.todo_list = data["todo_list"]
+
+        db.session.commit()
+
+        return jsonify({"message": "Task updated successfully", "task": task.serialize()}), 200
+    except Exception as exception:
+        db.session.rollback()
+        return jsonify({"error": str(exception)}), 500

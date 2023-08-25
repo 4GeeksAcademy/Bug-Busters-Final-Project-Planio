@@ -35,11 +35,11 @@ const Layout = () => {
 
     return (
         <div>
-            
+
             <BrowserRouter basename={basename}>
                 <ScrollToTop>
                     <Navbar />
-                    <div className="d-flex">
+                    <div className="d-flex ">
 
                         <Sidebar />
 

@@ -5,13 +5,6 @@ import { CreateProject } from "../createProject";
 import { TaskCard } from "../dashboard-components/taskCard";
 
 export const Column = ({ title, id, projectId, username, projectTasks, _onCreateComplete, __onDeleteCompleted }) => {
-    const [updatedComponent, setUpdatedComponent] = useState(false);
-
-    const handleUpdateComponent = () => {
-        setUpdatedComponent(!updatedComponent);
-    };
-
-
 
 
     return (

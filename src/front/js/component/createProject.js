@@ -35,6 +35,13 @@ export const CreateProject = ({
                     console.log("project created");
                 }
             })
+            .then(() => {
+                setForm({
+                    title: "",
+                    description: "",
+                    username: [username]
+                })
+            })
             .catch((error) => {
                 console.error("Error creating the project:", error);
             });

@@ -81,20 +81,31 @@ export const Dashboard = () => {
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
-                                <CalendarWidget />                            
+                                <CalendarWidget />
                             </div>
                         </div>
                     </div>
-                    <div className="row mt-4">
-                        {userInfo.projects && userInfo.projects.map((project, index) => (
-                            <>
-                            <ProjectOverview projectTitle={project.title} projectDescription={project.description} tasks={project.tasks} isProject={false}  projectId={project.id}/>
-                            {console.log('PROJECT', project.id)}
-                            </>
-                        ))}
-
-
-
+                    {userInfo.projects && userInfo.projects.length > 0 && (
+                        <>
+                            <h1 className="mt-4">Most recent</h1>
+                            <h6>Projects Overview</h6>
+                        </>
+                    )}
+                    <div className="row mt-3">
+                        {userInfo.projects &&
+                            userInfo.projects
+                                .slice()
+                                .sort((b, a) => new Date(b.created_at) - new Date(a.created_at))
+                                .slice(-2)
+                                .map((project, index) => (
+                                    <ProjectOverview
+                                        key={project.id + index}
+                                        projectTitle={project.title}
+                                        projectDescription={project.description}
+                                        tasks={project.tasks}
+                                        isProject={false}
+                                    />
+                                ))}
                     </div>
                 </div>
             </div>

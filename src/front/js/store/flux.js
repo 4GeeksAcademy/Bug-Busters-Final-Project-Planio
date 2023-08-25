@@ -252,7 +252,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 					swal.fire({ title: "Something went wrong", text: "Please try again or refresh the page.", icon: "error", confirmButtonColor: '#fa9643' });
 				}
-			}
+			},
+			updateTask: async (task_id, updatedData) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/task/${task_id}`, {
+						method: "PUT",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(updatedData)
+					});
+
+					if (!resp.ok) {
+						throw new Error("Something went wrong while updating the task.");
+					}
+
+					const data = await resp.json();
+					return data;
+				} catch (error) {
+					console.log([task_id, updatedData])
+					console.error(error);
+					throw error;
+				}
+			},
 
 		}
 	};

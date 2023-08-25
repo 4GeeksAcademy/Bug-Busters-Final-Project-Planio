@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import swal from "sweetalert2";
+
 
 export const CreateTask = ({
 
@@ -10,7 +10,7 @@ export const CreateTask = ({
     onCreateComplete
 
 }) => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
 
 
 
@@ -19,7 +19,7 @@ export const CreateTask = ({
             title: "",
             description: "",
             due_at: "",
-            todo_list: []
+            todo_list: {}
         }
     )
 
@@ -32,11 +32,14 @@ export const CreateTask = ({
     };
 
     const newTodo = () => {
-        const newTask = todoInput
-
-        setForm((prev) => ({ ...prev, todo_list: [...prev.todo_list, newTask] }));
+        const newTask = todoInput;
+        setForm(prev => ({
+            ...prev,
+            todo_list: { ...prev.todo_list, [newTask]: false }
+        }));
         setTodoInput("");
-    }
+    };
+
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -77,7 +80,7 @@ export const CreateTask = ({
             title: "",
             description: "",
             due_at: "",
-            todo_list: [],
+            todo_list: {},
 
         })
 
@@ -103,13 +106,18 @@ export const CreateTask = ({
                                 <input className="form-input" type="text" name="description" value={form.description} onChange={handleInputChange} placeholder="Description" required />
                                 <input className="form-input" type="text" name="todo_list" value={todoInput} onChange={handleInputTodoChange} onKeyDown={handleKeyDown} placeholder="Todo's" />
                                 <div>
-                                    {form.todo_list.length > 0 && <ul>
-                                        {form.todo_list.map((todo, index) => (
-                                            <li key={index}>{todo}</li>
-                                        ))}
-                                    </ul>}
+                                    {Object.keys(form.todo_list).length > 0 && (
+                                        <ul>
+                                            {Object.keys(form.todo_list).map((todo, index) => (
+                                                <li key={index}>
+                                                    {todo}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
                                 </div>
-                                <input className="form-input" type="datetime-local" name="due_at" value={form.due_at} onChange={handleInputChange} placeholder="Due date" required />
+                                <input className="form-input" type="datetime-local" name="due_at" value={form.due_at} onChange={handleInputChange} placeholder="Due date" />
+                                <label htmlFor="due_at" className="password-label">If none date is selected, the default date would be three days from creation date.</label>
                                 <button type="submit" className="form-button" data-bs-dismiss="modal">Create</button>
                             </form>
                         </div>
