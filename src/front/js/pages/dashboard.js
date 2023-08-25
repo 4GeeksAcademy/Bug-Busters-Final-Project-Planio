@@ -16,7 +16,6 @@ import { ProjectOverview } from "../component/dashboard-components/projectOvervi
 export const Dashboard = () => {
     const { store, actions } = useContext(Context);
     const validated_token = actions.is_token_valid();
-    const [updatedComponent, setUpdatedComponent] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
