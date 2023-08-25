@@ -57,6 +57,13 @@
     outline: none;
 }
 
+.addNew {
+    border: none;
+    outline: none;
+    background-color: #fff;
+
+}
+
 .dashboard .simple-card .card-info .addIcon {
     font-size: 30px;
     color: "#000000"

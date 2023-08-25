@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
-import swal from "sweetalert2";
+import "../../../styles/dashboard.css";
+import "../../../styles/home.css";
 
 
 
@@ -48,13 +49,12 @@ export const TaskModal = ({
         setForm(form => ({ ...form, username }));
     }, [username]);
 
-    return (
+    return (<>
+
+        <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal`}>
+            {ctaText}
+        </button>
         <div className="tasks">
-            <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal`}>
-                <i className="addIcon fa-solid fa-ellipsis"></i>
-            </button>
-
-
             <div className="modal fade" id="taskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
@@ -79,7 +79,7 @@ export const TaskModal = ({
                                         Todo 2
                                     </label>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div className="modal-footer">
@@ -90,6 +90,6 @@ export const TaskModal = ({
                 </div>
             </div>
         </div>
-    )
+    </>)
 
 }
