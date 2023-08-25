@@ -97,6 +97,7 @@ export const TaskCard = ({
                                 {due_at}
                             </span>
                         </div>
+                        {provided.placeholder}
                     </div>
                     {provided.placeholder}
                 </div>)}
