@@ -8,7 +8,7 @@ export const CreateProject = ({
     username = "",
     projectCreated,
     ctaText = "Create new project",
-    butClass = "primary-button",
+    butClass = "addNew",
 
 }) => {
     const { store, actions } = useContext(Context);
