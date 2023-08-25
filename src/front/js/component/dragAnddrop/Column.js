@@ -13,7 +13,7 @@ export const Column = ({ title, id, projectId, username, projectTasks, _onCreate
                 <h2>{title}</h2>
                 <div className="d-flex">
                     <CreateTask projectId={projectId} onCreateComplete={_onCreateComplete} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
-                    <CreateProject username={username} ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} butClass="addNew" />
+
                 </div>
             </div>
 

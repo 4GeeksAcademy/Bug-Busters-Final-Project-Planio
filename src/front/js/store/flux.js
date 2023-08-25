@@ -25,7 +25,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json();
 					const usernames = data.map(user => user.username);
 					setStore({ users_usernames: usernames });
-					console.log(store.users_usernames);
 
 
 				} catch (error) {
@@ -46,7 +45,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json();
 					localStorage.setItem("jwt-token", data.token);
-					console.log(data);
 
 					return data;
 
@@ -183,7 +181,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return "Success"
 				} catch (error) {
 					console.error(error);
-					console.log("there was an error this is catch block")
 				};
 
 			},
@@ -216,7 +213,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await resp.json()
-					console.log(["this is data from create new project", data])
 				} catch (error) {
 					console.error(error)
 				}
@@ -234,7 +230,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await resp.json()
-					console.log(["this is data from create new task", data])
 
 				} catch (error) {
 					console.error(error)
@@ -268,7 +263,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await resp.json();
 					return data;
 				} catch (error) {
-					console.log([task_id, updatedData])
 					console.error(error);
 					throw error;
 				}

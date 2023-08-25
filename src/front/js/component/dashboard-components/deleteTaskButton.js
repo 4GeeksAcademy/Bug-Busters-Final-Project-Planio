@@ -23,7 +23,6 @@ export const DeleteTaskButton = ({ task_id, onDeleteCompleted }) => {
 
         if (result.isConfirmed) {
             try {
-                console.log(["This is handleclick", task_id])
                 const response = await actions.deleteTask(task_id);
 
                 if (response === 200) {
