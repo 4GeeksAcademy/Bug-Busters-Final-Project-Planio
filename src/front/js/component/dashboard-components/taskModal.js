@@ -6,10 +6,12 @@ import swal from "sweetalert2";
 
 
 export const TaskModal = ({
+    taskTitle = "task title",
+    taskDescription = "task description",
     username = "",
     projectCreated,
     ctaText = "View task",
-    butClass = "primary-button",
+    butClass = "addNew",
 
 }) => {
     const { store, actions } = useContext(Context);
@@ -47,7 +49,7 @@ export const TaskModal = ({
     }, [username]);
 
     return (
-        <div>
+        <div className="tasks">
             <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal`}>
                 <i className="addIcon fa-solid fa-ellipsis"></i>
             </button>
@@ -57,10 +59,13 @@ export const TaskModal = ({
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{taskTitle}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
+                            <div className="task-description">
+                                {taskDescription}
+                            </div>
                             <div className="task-todo-list">
                                 <div className="form-check">
                                     <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
@@ -74,18 +79,7 @@ export const TaskModal = ({
                                         Todo 2
                                     </label>
                                 </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Todo 3
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                    <label className="form-check-label" htmlFor="flexCheckChecked">
-                                        Todo 4
-                                    </label>
-                                </div>
+                                
                             </div>
                         </div>
                         <div className="modal-footer">

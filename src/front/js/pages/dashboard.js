@@ -81,7 +81,8 @@ export const Dashboard = () => {
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
                             <div className="calendar p-4">
-                                Calendar                            </div>
+                                <CalendarWidget />
+                            </div>
                         </div>
                     </div>
                     {userInfo.projects && userInfo.projects.length > 0 && (

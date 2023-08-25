@@ -1,8 +1,10 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 
-export const ProjectOverview = ({ projectTitle = "Title", projectDescription = "blablabla", numberOfTodos = "0", tasks, isProject }) => {
+export const ProjectOverview = ({ projectTitle = "Title", projectDescription = "blablabla", numberOfTodos = "0", tasks, isProject, projectId }) => {
 
+    const navigate = useNavigate();
 
     return (
         <>
@@ -24,13 +26,9 @@ export const ProjectOverview = ({ projectTitle = "Title", projectDescription = "
                                 <span>0</span>
                             </div>}
 
-
-
-
-
-
                         </div>
                     </div>
+                    <button onClick={() => { navigate(`/project/${projectId}/tasks`) }} className="primary-button" style={{ marginLeft: 'auto', display: 'flex' }}>Go to this project</button>
                 </div>
             </div >
         </>
