@@ -104,6 +104,7 @@ export const Dashboard = () => {
                                         projectDescription={project.description}
                                         tasks={project.tasks}
                                         isProject={false}
+                                        projectId={project.id}
                                     />
                                 ))}
                     </div>

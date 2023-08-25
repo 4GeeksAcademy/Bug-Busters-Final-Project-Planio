@@ -71,7 +71,7 @@ export const NumberCard = ({
                 <>
                     <div className="card-info d-flex justify-content-between">
                         <h5 className="card-title">{title}</h5>
-                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="addNew" />
+                        <CreateProject username={userInfo.username} projectCreated={handleUpdateComponent} ctaText={<i className="addIcon fa-solid fa-elipse"></i>} butClass="addNew" />
                     </div>
                     <div className="card-number d-flex justify-content-between">
                         <p className="card-text">{userInfo.projects && userInfo.projects.length ? userInfo.projects.length : "0"}</p>

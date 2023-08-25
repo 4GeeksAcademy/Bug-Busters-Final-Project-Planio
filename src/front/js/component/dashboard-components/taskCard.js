@@ -48,7 +48,7 @@ export const TaskCard = ({
                             <p>{tag}</p>
                         </div>
                         <div className="edit-tag d-flex gap-1">
-                            <TaskModal />
+                            <TaskModal butClass="addNew" ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} />
                             <DeleteTaskButton task_id={task_id} onDeleteCompleted={_onDeleteCompleted} />
                         </div>
                     </div>
