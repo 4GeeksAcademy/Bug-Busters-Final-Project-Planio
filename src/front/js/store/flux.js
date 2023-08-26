@@ -6,7 +6,7 @@ import jwtDecode from 'jwt-decode';
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user_info: [{ name: "", email: "" }],
+			user_info: [{}],
 			users_usernames: [""]
 		},
 		actions: {
@@ -30,6 +30,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error(error);
 				}
+			},
+			getUserInfo: async () => {
+				const token = localStorage.getItem("jwt-token");
+				const store = getStore();
+
+				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						setStore({ user_info: [data] })
+
+						return data;
+					})
+					.catch((error) => {
+						console.error(error);
+						throw new Error("Error al obtener la información del usuario");
+					});
+			},
+			updateUser: async (form) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/${form.user_id}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ name: form.name, last_name: form.last_name, username: form.username, email: form.email })
+					});
+
+					if (!response.ok) {
+						throw new Error("There was a problem updating the user.")
+					}
+
+					const data = await response.json();
+					console.log([data.user, "this is updateUser"]);
+					return data
+				} catch (error) {
+					console.error(error);
+				};
+
+
 			},
 			signupFunction: async (form) => {
 				try {
@@ -59,7 +102,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/forgot-password`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email: emailForm.email, })
+						body: JSON.stringify({ email: emailForm.emailPassword })
 					});
 
 					if (!response.ok) {
@@ -141,28 +184,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return decodedToken.exp > currentTime;
 				}
 				return false;
-			},
-			getUserInfo: async () => {
-				const token = localStorage.getItem("jwt-token");
-				const store = getStore();
-
-				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-				})
-					.then((response) => response.json())
-					.then((data) => {
-						setStore({ user_info: [data] })
-
-						return data;
-					})
-					.catch((error) => {
-						console.error(error);
-						throw new Error("Error al obtener la información del usuario");
-					});
 			},
 			uploadFile: async (file, projectId) => {
 				const formData = new FormData();
