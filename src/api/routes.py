@@ -172,6 +172,7 @@ def protected():
         "name": user.name,
         "projects": serialized_projects,
         "username": user.username,
+        "last_name": user.last_name
 
     }
 
@@ -198,7 +199,7 @@ def get_selected_user(user_id):
     return jsonify(selected_user), 200
 
 
-@api.route('/user/<int:user_id>', methods=['PUT'])
+@api.route('/user/<int:user_id>', methods=['PATCH'])
 def edit_user(user_id):
     user = User.query.get(user_id)
     data = request.json

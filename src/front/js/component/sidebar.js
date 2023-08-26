@@ -25,13 +25,12 @@ export const Sidebar = () => {
         { path: '/calendar', icon: 'fa-regular fa-calendar', text: 'Calendar' },
         // { path: '/tasks', icon: 'fa-solid fa-list-check', text: 'Tasks' },
         { path: '/settings', icon: 'fa-solid fa-gear', text: 'Settings' },
-        // Agregar más elementos según necesites
     ];
 
     const getButtonContent = () => {
         const regex = /^\/project\/\d+\/tasks$/;
 
-        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/kanban-board/1' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
+        if (location.pathname === '/dashboard' || location.pathname === '/projects' || location.pathname === '/calendar' || location.pathname === '/tasks' || location.pathname === '/settings' || regex.test(location.pathname)) {
             return <>
                 <div className="sidebar vh-100">
                     <ul className="list-group m-4">
