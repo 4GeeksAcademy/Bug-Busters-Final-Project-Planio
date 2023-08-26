@@ -90,7 +90,7 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-expand-lg bg-body-tertiary">
 			<div className="container-fluid">
-				<a className="navbar-brand" href="#">
+				<a className="navbar-brand" href="/">
 					<img src={planioLogo} alt="Planio" />
 				</a>
 				<div className="container-fluid">
