@@ -8,6 +8,7 @@ import { UploadFile } from "../component/uploadFile";
 import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
+import { ProjectOptions } from "../component/dashboard-components/projectOptions";
 
 export const Projects = () => {
     const { store, actions } = useContext(Context);
@@ -70,7 +71,10 @@ export const Projects = () => {
                                     <div className="simple-card p-4 my-3">
                                         <div className="card-info">
                                             <div key={project.id} className="">
-                                                <h2>{project.title}</h2>
+                                                <div className="d-flex justify-content-between">
+                                                    <h2>{project.title}</h2>
+                                                    <ProjectOptions projectId={project.id} />
+                                                </div>
                                                 <p className="card-title mb-4">{project.description}</p>
                                                 <div className="numberOf">
                                                     <h3>Number of images and documents:</h3>

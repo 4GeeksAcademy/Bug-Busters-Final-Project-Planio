@@ -260,9 +260,33 @@ def get_all_projects():
 
     return jsonify(all_projects), 200
 
+
+@api.route('/project/<int:project_id>', methods=['PATCH'])
+def edit_project(project_id):
+    project = Project.query.get(project_id)
+    if not project:
+        return jsonify({"message": "Project not found"}), 404
+
+    data = request.json
+    new_title = data.get('title')
+    new_description = data.get('description')
+    new_users = data.get('users', [])
+
+    if new_title:
+        project.title = new_title.title()
+    if new_description:
+        project.description = new_description.capitalize()
+
+    if new_users:
+        users_to_add = User.query.filter(User.username.in_(new_users)).all()
+        project.users.extend(users_to_add)
+
+    db.session.commit()
+
+    return jsonify({"message": "Project updated successfully", "project": project.serialize()}), 200
+
+
 # AWS ROUTES ------------------------------------------------------------------------------------------------------AWS ROUTES #
-
-
 aws_config = Config(
     region_name='eu-west-3',
     signature_version='v4',

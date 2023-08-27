@@ -61,8 +61,48 @@
     border: none;
     outline: none;
     background-color: #fff;
+}
+
+
+.project-option-button {
+    color: black;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.project-option-button:hover {
+    color: rgb(73, 73, 73);
+}
+
+.dropdown-item:active {
+    background-color: var(--primary-color);
+}
+
+.dropdown-add-button {
+    color: black;
+    background-color: transparent;
+    border: none;
+    outline: none;
 
 }
+
+.tag-wrapper {
+    border: solid 1px var(--primary-color);
+    border-radius: 8px;
+    padding: 3px;
+    background-color: var(--secondary-color);
+}
+
+.custom-modal-footer {
+    border-top: none;
+}
+
+.custom-list-group-item-action:hover {
+    background-color: var(--secondary-color);
+}
+
+
 
 .dashboard .simple-card .card-info .addIcon {
     font-size: 30px;
