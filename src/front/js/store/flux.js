@@ -7,7 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			user_info: [{}],
-			users_usernames: [""]
+			users_list: [""]
 		},
 		actions: {
 			getAllUsers: async () => {
@@ -23,9 +23,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await response.json();
-					const usernames = data.map(user => user.username);
-					setStore({ users_usernames: usernames });
+					const usernamesAndEmails = data.map(user => ({
+						username: user.username,
+						email: user.email
+					}));
 
+					setStore({ users_list: usernamesAndEmails });
+					console.log(store.users_list);
 
 				} catch (error) {
 					console.error(error);
@@ -237,6 +241,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error(error)
 				}
+			},
+			addCollaborator: async (usernames, projectId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/project/${projectId}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ users: usernames })
+					});
+
+					if (!response.ok) {
+						throw new Error("Could not add a new collaborator.")
+					}
+
+					const data = await response.json();
+					return data
+				} catch (error) {
+					console.error(error);
+				};
+
+
 			},
 			createNewTask: async (form, projectId) => {
 				try {
