@@ -259,13 +259,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 						headers: { "Content-Type": "application/json" },
 						body: JSON.stringify({ title: form.title, description: form.description, users: [form.username] })
 					});
-
+					console.log([form, "PRUEBAAAAAA"])
 					if (!resp.ok) {
+
 						throw new Error("something went wrong while getting create project form")
 					}
 
 					const data = await resp.json()
+
 				} catch (error) {
+					console.log([form, "PRUEBAAAAAA"])
 					console.error(error)
 				}
 			},

@@ -16,7 +16,7 @@ export const CreateProject = ({
         {
             title: "",
             description: "",
-            username: [username]
+            username: username
         }
     );
 
@@ -39,7 +39,7 @@ export const CreateProject = ({
                 setForm({
                     title: "",
                     description: "",
-                    username: [username]
+                    username: username
                 })
             })
             .catch((error) => {
