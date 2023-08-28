@@ -6,8 +6,8 @@ import jwtDecode from 'jwt-decode';
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user_info: [{ name: "", email: "" }],
-			users_usernames: [""]
+			user_info: [{}],
+			users_list: [""]
 		},
 		actions: {
 			getAllUsers: async () => {
@@ -23,13 +23,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await response.json();
-					const usernames = data.map(user => user.username);
-					setStore({ users_usernames: usernames });
+					const usernamesAndEmails = data.map(user => ({
+						username: user.username,
+						email: user.email
+					}));
 
+					setStore({ users_list: usernamesAndEmails });
+					console.log(store.users_list);
 
 				} catch (error) {
 					console.error(error);
 				}
+			},
+			getUserInfo: async () => {
+				const token = localStorage.getItem("jwt-token");
+				const store = getStore();
+
+				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${token}`,
+					},
+				})
+					.then((response) => response.json())
+					.then((data) => {
+						setStore({ user_info: [data] })
+
+						return data;
+					})
+					.catch((error) => {
+						console.error(error);
+						throw new Error("Error al obtener la información del usuario");
+					});
+			},
+			updateUser: async (form) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/${form.user_id}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ name: form.name, last_name: form.last_name, username: form.username, email: form.email })
+					});
+
+					if (!response.ok) {
+						throw new Error("There was a problem updating the user.")
+					}
+
+					const data = await response.json();
+					console.log([data.user, "this is updateUser"]);
+					return data
+				} catch (error) {
+					console.error(error);
+				};
+
+
 			},
 			signupFunction: async (form) => {
 				try {
@@ -59,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/forgot-password`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email: emailForm.email, })
+						body: JSON.stringify({ email: emailForm.emailPassword })
 					});
 
 					if (!response.ok) {
@@ -142,28 +189,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
-			getUserInfo: async () => {
-				const token = localStorage.getItem("jwt-token");
-				const store = getStore();
-
-				return fetch(`${process.env.BACKEND_URL}/api/protected`, {
-					method: "GET",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${token}`,
-					},
-				})
-					.then((response) => response.json())
-					.then((data) => {
-						setStore({ user_info: [data] })
-
-						return data;
-					})
-					.catch((error) => {
-						console.error(error);
-						throw new Error("Error al obtener la información del usuario");
-					});
-			},
 			uploadFile: async (file, projectId) => {
 				const formData = new FormData();
 				formData.append("file", file);
@@ -216,6 +241,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.error(error)
 				}
+			},
+			addCollaborator: async (usernames, projectId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/project/${projectId}`, {
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ users: usernames })
+					});
+
+					if (!response.ok) {
+						throw new Error("Could not add a new collaborator.")
+					}
+
+					const data = await response.json();
+					return data
+				} catch (error) {
+					console.error(error);
+				};
+
+
 			},
 			createNewTask: async (form, projectId) => {
 				try {
