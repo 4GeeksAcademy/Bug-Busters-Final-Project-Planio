@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import { Column } from "../component/dragAnddrop/Column";
 import { DragDropContext } from "react-beautiful-dnd";
 import swal from "sweetalert2";
+import { UploadFile } from "../component/uploadFile";
 
 
 
@@ -69,7 +70,6 @@ export const ProjectTasks = () => {
     }
 
 
-
     const handleDragEnd = (result) => {
         const { destination, source, draggableId } = result;
 
@@ -117,8 +117,22 @@ export const ProjectTasks = () => {
             <DragDropContext onDragEnd={handleDragEnd}>
                 <div className="tasks p-4">
                     <div className="container-fluid">
-                        <div className="row">
+                        <div className="row d-flex justify-content-end">
                             {project ? <h1>{project?.title}</h1> : <p>Project not found or doesn't exist</p>}
+                            <div className="d-flex justify-content-end">
+                                <div className="">
+                                    <h5 className="p-2">Number of images and documents:</h5>
+                                </div>
+                                    <h5 className="p-2">{project.files.length > 0 ? project.files.length : 0}</h5>
+                                {project ? 
+                                    <UploadFile
+                                        projectId={project.id}
+                                        onUploadComplete={handleUpdateComponent}
+                                        ctaText={"Upload file"}
+                                        butClass={"primary-button"}
+                                    /> 
+                                : ""}
+                            </div>
                         </div>
                         <div className="row justify-content-between">
                             <div className="col-6 simple-card my-4 p-4 overflow-hidden text-break">
