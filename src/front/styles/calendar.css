@@ -1,5 +1,5 @@
 .rdp {
-    --rdp-cell-size: 4em;
+    --rdp-cell-size: 2.5em;
     --rdp-caption-font-size: 1em;
     --rdp-accent-color: #0000ff;
     --rdp-background-color: #FFECE8;
@@ -107,7 +107,7 @@
 }
 
 .rdp-with_weeknumber .rdp-table {
-    max-width: calc(var(--rdp-cell-size) * 8);
+    max-width: (var(--rdp-cell-size) * 5);
     border-collapse: collapse;
 }
 
@@ -266,8 +266,8 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    width: var(--rdp-cell-size);
-    max-width: var(--rdp-cell-size);
+    /* width: 50px; */
+    max-width: 50px;
     height: var(--rdp-cell-size);
     margin: 0;
     border: 2px solid transparent;
