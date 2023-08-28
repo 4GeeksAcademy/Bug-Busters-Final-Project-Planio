@@ -74,6 +74,7 @@
 	},
 	"dependencies": {
 		"@prismane/core": "^0.2.3",
+		"bootstrap": "^5.3.1",
 		"jwt-decode": "^3.1.2",
 		"prop-types": "^15.6.1",
 		"react": "^18.2.0",

@@ -7,7 +7,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			user_info: [{ name: "", email: "" }],
-			users_usernames: [""]
+			users_usernames: [""],
+			tasks: ["Hola", "by", "Planio",]
 		},
 		actions: {
 			getAllUsers: async () => {
