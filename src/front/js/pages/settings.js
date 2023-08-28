@@ -116,6 +116,8 @@ export const Settings = () => {
                 title: 'Enter your password',
                 input: 'password',
                 inputLabel: 'Password',
+                confirmButtonColor: '#cc0202',
+                confirmButtonText: "Delete Account",
                 inputPlaceholder: 'Enter your password',
                 inputAttributes: {
                     maxlength: 10,
