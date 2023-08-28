@@ -16,7 +16,7 @@ export const Settings = () => {
     const [isDisabled, setIsDisabled] = useState(true)
     const [emailForm, setEmailForm] = useState(
         {
-            emailPassword: ""
+            email: ""
         }
     );
 
@@ -168,8 +168,8 @@ export const Settings = () => {
 
                         <div>
                             <h2>Change Password</h2>
-                            <input className="form-input" type="email" name="emailPassword" onChange={handleInputEmailChange} value={emailForm.email} placeholder="Email" required />
-                            <label htmlFor="emailPassword" className="password-label"> A recovery token will be send to the provided email.</label>
+                            <input className="form-input" type="email" name="email" onChange={handleInputEmailChange} value={emailForm.email} placeholder="Email" required />
+                            <label htmlFor="email" className="password-label"> A recovery token will be send to the provided email.</label>
                         </div>
 
 

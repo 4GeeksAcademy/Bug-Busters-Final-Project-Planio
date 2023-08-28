@@ -32,7 +32,6 @@ export const CreateProject = ({
             .then(() => {
                 if (projectCreated) {
                     projectCreated();
-                    console.log("project created");
                 }
             })
             .then(() => {
