@@ -30,7 +30,6 @@ export const Column = ({ title, id, projectId, username, projectTasks, _onCreate
                                 <TaskCard
                                     key={index + task.id}
                                     index={index}
-                                    tag="tag"
                                     title={task.title}
                                     description={task.description}
                                     todo_list={task.todo_list}
