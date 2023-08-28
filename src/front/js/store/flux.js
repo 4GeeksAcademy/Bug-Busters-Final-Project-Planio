@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 
 
+
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
@@ -10,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			users_list: [""]
 		},
 		actions: {
+			// -----USERS FUNCTIONS -----------------------------USER FUNCTIONS //
 			getAllUsers: async () => {
 				const store = getStore();
 
@@ -78,6 +80,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			},
+			deleteUser: async (user_id, password) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/${user_id}`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({ password: password })
+					})
+
+					if (!response.ok) {
+						throw new Error("There was an error trying to delete the user.");
+					}
+					const data = await response.json();
+					localStorage.removeItem("jwt-token");
+					return data
+
+
+				} catch (error) {
+					swal.fire({ title: 'Whoops!', text: 'An error occurred while trying to delete the account.\n Please, make sure your password is right.', icon: 'error', confirmButtonColor: '#fa9643' });
+
+					console.error(error);
+				}
+			},
+			// ---- AUTH & SECURITY FUNCTIONS --------------------- AUTH & SECURITY FUNCTIONS //
 			signupFunction: async (form) => {
 				try {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/signup`, {
@@ -189,6 +214,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 				return false;
 			},
+			// ---- AWS FUNCTIONS --------------------------------- AWS FUNCTIONS //
 			uploadFile: async (file, projectId) => {
 				const formData = new FormData();
 				formData.append("file", file);
@@ -225,6 +251,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}
 			},
+			// ----PROJECT FUNCTIONS--------------------------------PROJECT FUNCTIONS //
 			createNewProject: async (form) => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/create-new-project`, {
@@ -262,6 +289,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			},
+			deleteProject: async (projectId) => {
+				try {
+					const resp = await fetch(`${process.env.BACKEND_URL}/api/project/${projectId}`, {
+						method: "DELETE",
+						headers: { "Content-Type": "application/json" },
+					})
+					return resp.status;
+
+				} catch (error) {
+					console.error(error);
+					swal.fire({ title: "Something went wrong", text: "Please try again or refresh the page.", icon: "error", confirmButtonColor: '#fa9643' });
+				}
+
+
+			},
+			//  ---- TASKS FUNCTIONS -------------------------------- TASKS FUNCTIONS //
 			createNewTask: async (form, projectId) => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/task`, {

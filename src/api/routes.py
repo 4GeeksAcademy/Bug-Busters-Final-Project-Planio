@@ -36,10 +36,10 @@ def login():
         password)
 
     if user is None:
-        return abort(404, description='User does not exist')
+        return abort(404, message='User does not exist')
 
     if not validated_password:
-        return abort(404, description='Something went wrong')
+        return abort(404, message='Something went wrong')
 
     token = create_access_token(identity=user.id)
     return jsonify({"token": token, "user_id": user.id}), 200
@@ -81,7 +81,6 @@ def sign_up_user():
         "token": token
     }
     return jsonify(response_body), 201
-
 
 # PASSWORD ROUTES ------------------------------------------------------------------------------------------------------PASSWORD ROUTES #
 
@@ -221,13 +220,22 @@ def edit_user(user_id):
 @api.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     user_to_delete = User.query.get(user_id)
+    password = request.json.get('password')
+    validated_password = user_to_delete.check_password(
+        password)
 
-    if user_to_delete:
+    if user_to_delete is None:
+        return jsonify({"msg": "User not found."}), 400
+
+    if not validated_password:
+        return jsonify({"msg": "Wrong Password, please try again."}), 400
+
+    if user_to_delete and validated_password:
+
+        user_to_delete.projects.clear()
         db.session.delete(user_to_delete)
         db.session.commit()
         return jsonify({"msg": "User successfully deleted."}), 200
-    else:
-        return jsonify({"msg": "User not found."}), 404
 
 
 # PROJECT ROUTES ------------------------------------------------------------------------------------------------------PROJECT ROUTES #
@@ -284,6 +292,23 @@ def edit_project(project_id):
     db.session.commit()
 
     return jsonify({"message": "Project updated successfully", "project": project.serialize()}), 200
+
+
+@api.route("/project/<int:project_id>", methods=["DELETE"])
+def delete_project(project_id):
+    project = Project.query.get(project_id)
+    if project is None:
+        return jsonify({"message": "Project not found"}), 404
+
+    project.users.clear()
+
+    for task in project.tasks:
+        db.session.delete(task)
+
+    db.session.delete(project)
+    db.session.commit()
+
+    return jsonify({"message": "Project deleted successfully"}), 200
 
 
 # AWS ROUTES ------------------------------------------------------------------------------------------------------AWS ROUTES #
