@@ -1,7 +1,7 @@
 .settings-wrapper {
-    border-radius: 8px;
+    border-radius: 30px;
     background-color: white;
-    padding: 15px;
+    padding: 1.5rem;
     max-width: 450px;
 }
 
@@ -39,4 +39,8 @@
     outline: none;
     padding: 10px 20px;
     border-radius: 8px;
+}
+
+.swal2-actions button:focus {
+    box-shadow: none !important;
 }

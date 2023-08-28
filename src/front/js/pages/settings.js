@@ -16,7 +16,7 @@ export const Settings = () => {
     const [isDisabled, setIsDisabled] = useState(true)
     const [emailForm, setEmailForm] = useState(
         {
-            emailPassword: ""
+            email: ""
         }
     );
 
@@ -144,49 +144,55 @@ export const Settings = () => {
     return (<>
         <div className="tasks p-4">
             <h1>Account Settings</h1>
-            <div className="d-flex flex-column justify-content-center gap-2">
-                <section className="mt-5 settings-wrapper">
+            <div className="d-flex justify-content-center gap-2">
+                <section className="mt-5 settings-wrapper col-4">
                     <h2>Profile</h2>
-                    <div className="row">
-                        <div className="col">
-                            <form className="d-flex flex-column" onSubmit={handleSubmit}>
-                                <input className="form-input" type="text" name="name" value={form.name} onChange={handleInputChange} placeholder="Name" required disabled={isDisabled} />
-                                <input className="form-input" type="text" name="last_name" value={form.last_name} onChange={handleInputChange} placeholder="Last name" required disabled={isDisabled} />
-                                <input className="form-input" type="text" name="username" value={form.username} onChange={handleInputChange} placeholder="Username" required disabled={isDisabled} />
-                                <input className="form-input" type="email" name="email" value={form.email} onChange={handleInputChange} placeholder="Email" required disabled={isDisabled} />
-                                <div className="d-flex gap-3">
-                                    <button type="submit" className={`${isDisabled ? "disabled-button" : "primary-button"}`} disabled={isDisabled}>Save</button>
-                                    <button type="button" className="primary-button" onClick={handleDisabled}>{isDisabled ? "Edit Profile" : "Cancel"}</button>
-                                </div>
-                            </form>
+
+                    <form className="d-flex flex-column" onSubmit={handleSubmit}>
+                        <input className="form-input" type="text" name="name" value={form.name} onChange={handleInputChange} placeholder="Name" required disabled={isDisabled} />
+                        <input className="form-input" type="text" name="last_name" value={form.last_name} onChange={handleInputChange} placeholder="Last name" required disabled={isDisabled} />
+                        <input className="form-input" type="text" name="username" value={form.username} onChange={handleInputChange} placeholder="Username" required disabled={isDisabled} />
+                        <input className="form-input" type="email" name="email" value={form.email} onChange={handleInputChange} placeholder="Email" required disabled={isDisabled} />
+                        <div className="d-flex gap-3">
+                            <button type="submit" className={`${isDisabled ? "disabled-button" : "primary-button"}`} disabled={isDisabled}>Save</button>
+                            <button type="button" className="primary-button" onClick={handleDisabled}>{isDisabled ? "Edit Profile" : "Cancel"}</button>
                         </div>
-                    </div>
+                    </form>
+
                 </section>
 
-                <section className="mt-5 settings-wrapper">
-                    <h2>Change Password</h2>
-                    <div className="row">
-                        <div className="col">
-                            <form className="d-flex flex-column" onSubmit={handleSubmitPassword}>
-                                <input className="form-input" type="email" name="emailPassword" onChange={handleInputEmailChange} value={emailForm.email} placeholder="Email" required />
-                                <label htmlFor="emailPassword" className="password-label"> A recovery token will be send to the provided email.</label>
+                <section className="mt-5 settings-wrapper col-4">
 
 
-                                <button className="form-button w-50" type="submit">Send recovery token</button>
-                            </form>
+                    <form className="d-flex flex-column justify-content-between h-100" onSubmit={handleSubmitPassword}>
+
+                        <div>
+                            <h2>Change Password</h2>
+                            <input className="form-input" type="email" name="email" onChange={handleInputEmailChange} value={emailForm.email} placeholder="Email" required />
+                            <label htmlFor="email" className="password-label"> A recovery token will be send to the provided email.</label>
                         </div>
-                    </div>
+
+
+                        <button className="form-button w-50 align-bottom" type="submit">Send recovery token</button>
+                    </form>
+
                 </section>
 
-                <section className="mt-5 settings-wrapper">
-                    <h2 className="d-flex justify-content-between">
-                        Delete Account
-                        <i className="fa-solid fa-triangle-exclamation danger-color"></i>
-                    </h2>
-                    <p className="warning-message">
-                        <strong>Warning:</strong> Deleting your account will permanently remove all your data and cannot be undone.
-                    </p>
-                    <button className="danger-color-btn" type="button" onClick={handleDeleteAccount}>Delete Account</button>
+                <section className="mt-5 settings-wrapper col-4 ">
+                    <div className="d-flex flex-column justify-content-between h-100">
+                        <div className="justify-content-between">
+                            <h2 className="d-flex justify-content-between">
+                                Delete Account
+                                <i className="fa-solid fa-triangle-exclamation danger-color"></i>
+                            </h2>
+                            <p className="warning-message">
+                                <strong>Warning:</strong> Deleting your account will permanently remove all your data and cannot be undone.
+                            </p>
+                        </div>
+
+                        <button className="danger-color-btn w-50" type="button" onClick={handleDeleteAccount}>Delete Account</button>
+                    </div>
+
                 </section>
             </div>
 

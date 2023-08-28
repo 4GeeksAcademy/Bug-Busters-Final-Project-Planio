@@ -10,6 +10,8 @@ export const TaskModal = ({
     taskTitle = "task title",
     taskDescription = "task description",
     username = "",
+    todoList,
+    taskId,
     projectCreated,
     ctaText = "View task",
     butClass = "addNew",
@@ -22,6 +24,7 @@ export const TaskModal = ({
             username: [username]
         }
     );
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,17 +48,31 @@ export const TaskModal = ({
 
     }
 
+    const handleTodoToggle = async (task, checked) => {
+        const updatedTodoList = {
+            ...todoListState,
+            [task]: checked
+        };
+
+        try {
+            await actions.updateTask(task_id, { todo_list: updatedTodoList });
+            setTodoListState(updatedTodoList);
+        } catch (error) {
+            console.error("Error updating task:", error);
+        }
+    };
+
     useEffect(() => {
         setForm(form => ({ ...form, username }));
     }, [username]);
 
     return (<>
 
-        <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal`}>
+        <button type="button" className={butClass} data-bs-toggle="modal" data-bs-target={`#taskModal${taskId}`}>
             {ctaText}
         </button>
         <div className="tasks">
-            <div className="modal fade" id="taskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div className="modal fade" id={`taskModal${taskId}`} data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -67,24 +84,28 @@ export const TaskModal = ({
                                 {taskDescription}
                             </div>
                             <div className="task-todo-list">
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Todo 1
-                                    </label>
-                                </div>
-                                <div className="form-check">
-                                    <input className="form-check-input" type="checkbox" value="" id="flexCheckChecked" />
-                                    <label className="form-check-label" htmlFor="flexCheckChecked">
-                                        Todo 2
-                                    </label>
-                                </div>
+                                {todoList && Object.keys(todoList).length > 0 ? (
+                                    <div className="">
+                                        {Object.keys(todoList).map((todo, index) => (
+
+                                            <div key={index+100} className="form-check">
+                                                <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                                <label className="form-check-label" htmlFor="flexCheckDefault">
+                                                    {todo}
+                                                </label>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p>There are no Todo's</p>
+                                )}
+
 
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="secondary-button" onClick={handleTodoToggle}>Edit</button>
+                            <button type="button" className="primary-button">Save changes</button>
                         </div>
                     </div>
                 </div>

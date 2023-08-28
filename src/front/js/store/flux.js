@@ -131,7 +131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch(`${process.env.BACKEND_URL}/api/forgot-password`, {
 						method: "POST",
 						headers: { "Content-Type": "application/json" },
-						body: JSON.stringify({ email: emailForm.emailPassword })
+						body: JSON.stringify({ email: emailForm.email })
 					});
 
 					if (!response.ok) {
@@ -261,11 +261,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 
 					if (!resp.ok) {
+
 						throw new Error("something went wrong while getting create project form")
 					}
 
 					const data = await resp.json()
+
 				} catch (error) {
+
 					console.error(error)
 				}
 			},

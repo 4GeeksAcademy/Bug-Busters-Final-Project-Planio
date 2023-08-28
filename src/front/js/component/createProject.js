@@ -16,7 +16,7 @@ export const CreateProject = ({
         {
             title: "",
             description: "",
-            username: [username]
+            username: username
         }
     );
 
@@ -32,14 +32,13 @@ export const CreateProject = ({
             .then(() => {
                 if (projectCreated) {
                     projectCreated();
-                    console.log("project created");
                 }
             })
             .then(() => {
                 setForm({
                     title: "",
                     description: "",
-                    username: [username]
+                    username: username
                 })
             })
             .catch((error) => {
