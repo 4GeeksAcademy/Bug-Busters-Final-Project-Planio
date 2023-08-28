@@ -12,6 +12,7 @@ export const SearchBarUser = ({ onSearch }) => {
     return (
         <div>
             <input
+                className="form-input container-fluid"
                 type="text"
                 placeholder="Search by email or username"
                 value={searchTerm}

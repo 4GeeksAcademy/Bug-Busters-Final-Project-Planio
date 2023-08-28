@@ -167,3 +167,12 @@
     font-size: 1em;
     font-weight: 600;
 }
+
+.delete-project-button {
+    background-color: transparent;
+    color: rgb(203, 0, 0);
+    border: none;
+    outline: none;
+    margin-left: 0px;
+    padding: 0%;
+}

@@ -73,7 +73,7 @@ export const Projects = () => {
                                             <div key={project.id} className="">
                                                 <div className="d-flex justify-content-between">
                                                     <h2>{project.title}</h2>
-                                                    <ProjectOptions projectId={project.id} />
+                                                    <ProjectOptions projectId={project.id} onDeleteCompleted={handleUpdateComponent} />
                                                 </div>
                                                 <p className="card-title mb-4">{project.description}</p>
                                                 <div className="numberOf">
@@ -104,7 +104,7 @@ export const Projects = () => {
                                 <h2>Nothing here...</h2>
                                 <div className="d-flex gap-2">
                                     <h3 className="pt-2">Create your first project</h3>
-                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="btn-no-border" />
+                                    <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="btn-no-border" projectCreated={handleUpdateComponent} />
                                 </div>
                             </div>
                         )}

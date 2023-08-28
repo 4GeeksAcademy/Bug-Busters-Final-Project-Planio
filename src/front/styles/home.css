@@ -5,6 +5,7 @@
   --medium-grey-color: #DEDEDE;
   --dark-grey-color: #AFAFAF;
   --light-text-color: white;
+  --danger-button-color: rgb(204, 2, 2);
 }
 
 body {
@@ -138,9 +139,9 @@ body {
 
 /* ---------------------------------------------------DELETE FILE BUTTON */
 .delete-button {
-  background: #c63a3a;
+  background: var(--danger-button-color);
   border-radius: 5px;
-  box-shadow: #c63a3a 0 10px 20px -10px;
+  box-shadow: var(--danger-button-color) 0 10px 20px -10px;
   box-sizing: border-box;
   color: #FFFFFF;
   font-size: 10px;
