@@ -48,6 +48,20 @@ export const TaskModal = ({
 
     }
 
+    const handleTodoToggle = async (task, checked) => {
+        const updatedTodoList = {
+            ...todoListState,
+            [task]: checked
+        };
+
+        try {
+            await actions.updateTask(task_id, { todo_list: updatedTodoList });
+            setTodoListState(updatedTodoList);
+        } catch (error) {
+            console.error("Error updating task:", error);
+        }
+    };
+
     useEffect(() => {
         setForm(form => ({ ...form, username }));
     }, [username]);
@@ -90,7 +104,7 @@ export const TaskModal = ({
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="secondary-button" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="secondary-button" onClick={handleTodoToggle}>Edit</button>
                             <button type="button" className="primary-button">Save changes</button>
                         </div>
                     </div>

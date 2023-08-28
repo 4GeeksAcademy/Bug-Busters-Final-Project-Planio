@@ -44,9 +44,10 @@ export const TaskCard = ({
                 <div className="task-card mt-3 p-4" key={index} {...provided.dragHandleProps} {...provided.draggableProps} ref={provided.innerRef}>
 
                     <div className="hero-section d-flex justify-content-between">
-                        <div className="task-tag">
+                        {/* <div className="task-tag">
                             <p>{tag}</p>
-                        </div>
+                        </div> */}
+                        <div></div>
                         <div className="edit-tag d-flex gap-1">
                             <TaskModal butClass="addNewButton" ctaText={<i className="addIcon fa-solid fa-ellipsis"></i>} taskTitle={title} taskDescription={description} todoList={todoListState} taskId={task_id} />
                             <DeleteTaskButton task_id={task_id} onDeleteCompleted={_onDeleteCompleted} />
