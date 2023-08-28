@@ -2,10 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../../store/appContext";
 import "../../../styles/dashboard.css";
 import { AddCollaborator } from "./addCollaborator"; // Asegúrate de proporcionar la ruta correcta
+import { DeleteProjectButton } from "./deleteProjectButton";
 
-export const ProjectOptions = ({ projectId }) => {
+export const ProjectOptions = ({ projectId, onDeleteCompleted }) => {
     const { store, actions } = useContext(Context);
-
+    const [updatedComponent, setUpdatedComponent] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
 
@@ -36,7 +37,7 @@ export const ProjectOptions = ({ projectId }) => {
                         Add Collaborator
                     </li>
                     <li className="dropdown-item text-danger">
-                        <strong>Delete</strong>
+                        <DeleteProjectButton projectId={projectId} onDeleteCompleted={onDeleteCompleted} />
                     </li>
                 </ul>
             </div>

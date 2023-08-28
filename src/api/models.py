@@ -8,16 +8,6 @@ from datetime import datetime, timedelta
 
 db = SQLAlchemy()
 
-
-# class ProjectCollaborator(db.Model):
-#     __tablename__ = 'projects_Collaborators'
-#     id = db.Column(db.Integer, primary_key=True)
-
-#     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-#     project_id = db.Column(db.Integer, db.ForeignKey(
-#         'projects.id'), nullable=False)
-
-
 projectCollaborator = db.Table('projects_collaborators',
                                db.Column('users_id', db.Integer, db.ForeignKey(
                                    'users.id'), primary_key=True),

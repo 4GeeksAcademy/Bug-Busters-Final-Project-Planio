@@ -4,3 +4,39 @@
     padding: 15px;
     max-width: 450px;
 }
+
+.danger-color-btn {
+    background-color: var(--danger-button-color);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+}
+
+.danger-color-btn:hover {
+    color: white;
+    border: none;
+    outline: 2px solid var(--danger-button-color);
+    background-color: rgb(255, 55, 55);
+}
+
+
+.danger-color-btn:focus,
+.danger-color-btn:active {
+    border: none;
+    outline: 2px solid var(--danger-button-color);
+}
+
+.danger-color {
+    color: var(--danger-button-color);
+}
+
+.disabled-button {
+    background-color: rgb(199, 199, 199);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
