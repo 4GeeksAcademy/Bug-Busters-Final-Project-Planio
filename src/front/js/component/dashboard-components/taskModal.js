@@ -90,8 +90,8 @@ export const TaskModal = ({
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="secondary-button" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="primary-button">Save changes</button>
                         </div>
                     </div>
                 </div>
