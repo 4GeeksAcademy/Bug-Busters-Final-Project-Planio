@@ -70,8 +70,10 @@ export const CreateTask = ({
             .then(() => {
                 if (onCreateComplete) {
                     onCreateComplete();
+                    handleDelete();
                 }
             })
+
     };
 
 

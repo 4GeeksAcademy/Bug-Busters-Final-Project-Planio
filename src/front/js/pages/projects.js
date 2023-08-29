@@ -9,6 +9,8 @@ import { DateTime } from "../component/dateTime";
 import { CreateProject } from "../component/createProject";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 import { ProjectOptions } from "../component/dashboard-components/projectOptions";
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+
 
 export const Projects = () => {
     const { store, actions } = useContext(Context);
@@ -43,6 +45,12 @@ export const Projects = () => {
         setUpdatedComponent(!updatedComponent);
     };
 
+    const tooltip = (
+        <Tooltip id="tooltip">
+            Add a new project
+        </Tooltip>
+    );
+
     if (!validated_token) {
         return null;
     }
@@ -64,6 +72,11 @@ export const Projects = () => {
                     <div className="row">
                         <h1>These are your projects, {userInfo.name}</h1>
                     </div>
+                    <OverlayTrigger placement="right" overlay={tooltip}>
+                        <div style={{ display: "inline-block" }}>
+                            <CreateProject username={userInfo.username} ctaText={<i className="addIcon fa-solid fa-plus"></i>} butClass="btn-no-border" projectCreated={handleUpdateComponent} />
+                        </div>
+                    </OverlayTrigger>
                     <div className="row">
                         {userInfo.projects && userInfo.projects.length > 0 ? (
                             userInfo.projects.map((project, index) => (
@@ -83,6 +96,11 @@ export const Projects = () => {
                                                 <div className="numberOf">
                                                     <h3>Total number of tasks:</h3>
                                                     <span>{project.tasks && project.tasks.length > 0 ? project.tasks.length : 0}</span>
+                                                </div>
+                                                <div className="d-flex gap-1">
+                                                    {project.users_usernames.length > 1 ? (project.users_usernames.map((username, index) => (
+                                                        <p key={index} className="tag-wrapper2">{username}</p>
+                                                    ))) : ("")}
                                                 </div>
                                             </div>
 

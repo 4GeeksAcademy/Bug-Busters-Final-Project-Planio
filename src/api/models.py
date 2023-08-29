@@ -103,6 +103,7 @@ class Project(db.Model):
             "title": self.title,
             "description": self.description,
             "user_ids": [user.id for user in self.users],
+            "users_usernames": [user.username for user in self.users],
             "files": [file.name for file in self.files],
             "state": self.state
         }
