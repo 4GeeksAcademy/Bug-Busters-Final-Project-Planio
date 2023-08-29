@@ -121,6 +121,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return data;
 
 				} catch (error) {
+					swal.fire({ title: "There was an error!", text: "Username or email is already registered.", icon: "error", confirmButtonColor: '#fa9643' });
+
 					console.error(error);
 
 
