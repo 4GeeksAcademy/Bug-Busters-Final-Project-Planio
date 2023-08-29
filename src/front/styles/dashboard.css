@@ -195,3 +195,54 @@
     margin-left: 0px;
     padding: 0%;
 }
+
+
+/* --------ACCORDION COMPONENT-------------------------ACCORDION COMPONENT------- */
+
+
+.accordion-button {
+    background-color: white;
+    outline: none;
+    color: black;
+}
+
+.accordion-button:focus {
+    background-color: white;
+    outline: none;
+    border: none;
+}
+
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--secondary-color);
+    outline: none;
+    color: black;
+}
+
+accordion-button:focus:not(:focus-visible) {
+    border: none;
+    outline: none;
+}
+
+.accordion-wrapper::-webkit-scrollbar {
+    width: 0.5em;
+    background-color: transparent;
+}
+
+.accordion-wrapper::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.accordion-wrapper::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.file-url {
+    color: black;
+}
+
+.file-list {
+    margin-bottom: 5px;
+
+
+}

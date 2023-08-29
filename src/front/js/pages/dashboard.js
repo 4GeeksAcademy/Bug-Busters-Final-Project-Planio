@@ -9,6 +9,7 @@ import { DateTime } from "../component/dateTime";
 import { NumberCard } from "../component/dashboard-components/numberCard";
 import { CalendarWidget } from "../component/dashboard-components/calendarWidget";
 import { ProjectOverview } from "../component/dashboard-components/projectOverview";
+import { FilesAccordion } from "../component/dashboard-components/filesAccordion";
 
 
 
@@ -69,12 +70,13 @@ export const Dashboard = () => {
                                     isProjects={true}
                                     folderUrl={"/projects"}
                                 />
-                                <NumberCard
+                                {/* <NumberCard
                                     title={"Files"}
                                     isFiles={true}
                                     folderUrl={"#"}
                                     butClass={"addNew"}
-                                />
+                                /> */}
+                                <FilesAccordion projects={userInfo?.projects} />
                             </div>
                         </div>
                         <div className="col-md-4 d-flex justify-content-end">
