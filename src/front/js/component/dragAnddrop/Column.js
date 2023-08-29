@@ -28,7 +28,7 @@ export const Column = ({ title, id, projectId, username, projectTasks, _onCreate
                         {projectTasks ? (
                             projectTasks.map((task, index) => (
                                 <TaskCard
-                                    key={index + task.id}
+                                    key={task.id}
                                     index={index}
                                     title={task.title}
                                     description={task.description}

@@ -31,7 +31,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}));
 
 					setStore({ users_list: usernamesAndEmails });
-					console.log(store.users_list);
 
 				} catch (error) {
 					console.error(error);

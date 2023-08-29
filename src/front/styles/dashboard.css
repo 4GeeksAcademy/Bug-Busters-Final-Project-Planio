@@ -94,6 +94,17 @@
     background-color: var(--secondary-color);
 }
 
+.tag-wrapper2 {
+    font-size: small;
+    color: rgb(83, 83, 83);
+    border: solid 1px var(--primary-color);
+    border-radius: 8px;
+    padding: 3px;
+    height: fit-content;
+    background-color: var(--secondary-color);
+    opacity: 0.9;
+}
+
 .custom-modal-footer {
     border-top: none;
 }
@@ -121,6 +132,14 @@
     background-color: #fff;
     border-radius: 30px;
 
+}
+
+.addIcon {
+    transition: transform 0.2s;
+}
+
+.addIcon:hover {
+    transform: scale(1.1);
 }
 
 
