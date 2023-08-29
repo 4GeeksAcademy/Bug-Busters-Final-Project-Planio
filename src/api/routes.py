@@ -221,23 +221,23 @@ def edit_user(user_id):
 def delete_user(user_id):
     user_to_delete = User.query.get(user_id)
     password = request.json.get('password')
-    validated_password = user_to_delete.check_password(
-        password)
+    validated_password = user_to_delete.check_password(password)
 
     if user_to_delete is None:
         return jsonify({"msg": "User not found."}), 400
 
-    if not validated_password:
-        return jsonify({"msg": "Wrong Password, please try again."}), 400
+    if user_to_delete:
+        if not validated_password:
+            return jsonify({"msg": "Wrong Password, please try again."}), 400
 
-    if user_to_delete and validated_password:
-
-        user_to_delete.projects.clear()
-        db.session.delete(user_to_delete)
-        db.session.commit()
-        return jsonify({"msg": "User successfully deleted."}), 200
-
-
+        for project in user_to_delete.projects:
+            if len(project.users) == 1:
+                db.session.delete(project)
+    user_to_delete.projects.clear()
+    db.session.refresh(user_to_delete)
+    db.session.delete(user_to_delete)
+    db.session.commit()
+    return jsonify({"msg": "User successfully deleted."}), 200
 # PROJECT ROUTES ------------------------------------------------------------------------------------------------------PROJECT ROUTES #
 
 

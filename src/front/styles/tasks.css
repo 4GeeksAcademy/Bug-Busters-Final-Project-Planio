@@ -62,7 +62,7 @@
     margin-bottom: 20px;
 }
 
-.tasks .simple-card .task-card .task-todo-list {}
+/* .tasks .simple-card .task-card .task-todo-list {} */
 
 .tasks .simple-card .task-card .task-footer {
     color: var(--dark-grey-color);

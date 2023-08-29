@@ -104,6 +104,7 @@ export const ProjectTasks = () => {
         updatedTasksTodos[destination_column] = updatedDestination
 
         setTasksTodos(updatedTasksTodos);
+        console.log(updatedTasksTodos);
 
 
     };
@@ -118,20 +119,29 @@ export const ProjectTasks = () => {
                 <div className="tasks p-4">
                     <div className="container-fluid">
                         <div className="row d-flex justify-content-end">
-                            {project ? <h1>{project?.title}</h1> : <p>Project not found or doesn't exist</p>}
+                            <div className="d-flex gap-3">
+                                {project ? <h1>{project?.title}</h1> : <p>Project not found or doesn't exist</p>}
+
+                                <div className="d-flex gap-1">
+                                    {project.users_usernames.map((username, index) => (
+                                        <p key={index} className="tag-wrapper2">{username}</p>
+                                    ))}
+                                </div>
+
+                            </div>
                             <div className="d-flex justify-content-end">
                                 <div className="">
                                     <h5 className="p-2">Number of images and documents:</h5>
                                 </div>
-                                    <h5 className="p-2">{project.files.length > 0 ? project.files.length : 0}</h5>
-                                {project ? 
+                                <h5 className="p-2">{project.files.length > 0 ? project.files.length : 0}</h5>
+                                {project ?
                                     <UploadFile
                                         projectId={project.id}
                                         onUploadComplete={handleUpdateComponent}
                                         ctaText={"Upload file"}
                                         butClass={"primary-button"}
-                                    /> 
-                                : ""}
+                                    />
+                                    : ""}
                             </div>
                         </div>
                         <div className="row justify-content-between">
