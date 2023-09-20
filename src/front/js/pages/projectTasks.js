@@ -42,7 +42,13 @@ export const ProjectTasks = () => {
                     return foundProject;
                 })
                 .then((foundProject) => {
-                    setTasksTodos([foundProject?.tasks, [], []]);
+                    const tasks = foundProject?.tasks || [];
+
+                    const todos = tasks.filter(task => task.column === 'to do');
+                    const progress = tasks.filter(task => task.column === 'progress');
+                    const done = tasks.filter(task => task.column === 'done');
+
+                    setTasksTodos([todos, progress, done]);
                     setLoading(false);
                 })
                 .catch((error) => {
@@ -70,6 +76,26 @@ export const ProjectTasks = () => {
     }
 
 
+    const setColumn = (taskId, dropId) => {
+        switch (dropId) {
+            case '0':
+                actions.updateTask(taskId, { "column": "to do" })
+                break;
+            case '1':
+                actions.updateTask(taskId, { "column": "progress" })
+
+                break;
+            case '2':
+                actions.updateTask(taskId, { "column": "done" })
+
+                break;
+            default:
+                console.log('nothing happened while moving your task')
+                break;
+        }
+    };
+
+
     const handleDragEnd = (result) => {
         const { destination, source, draggableId } = result;
 
@@ -83,7 +109,6 @@ export const ProjectTasks = () => {
 
 
         const draggedTask = project?.tasks.find(task => task.id.toString() === draggableId);
-
         if (!draggedTask) {
             return;
         }
@@ -91,6 +116,10 @@ export const ProjectTasks = () => {
         const destination_id = destination.index
         const origin_column = source.droppableId
         const destination_column = destination.droppableId
+
+        const parsedDraggableId = parseInt(draggableId)
+        console.log(parsedDraggableId);
+        setColumn(parsedDraggableId, destination_column);
 
 
         const updatedOrigin = [...tasksTodos[origin_column]]
@@ -104,7 +133,6 @@ export const ProjectTasks = () => {
         updatedTasksTodos[destination_column] = updatedDestination
 
         setTasksTodos(updatedTasksTodos);
-        console.log(updatedTasksTodos);
 
 
     };

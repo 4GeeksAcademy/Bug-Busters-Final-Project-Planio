@@ -139,7 +139,7 @@ class Task(db.Model):
     description = db.Column(db.String, nullable=True)
     due_at = db.Column(
         db.DateTime, default=lambda: datetime.utcnow() + timedelta(days=3))
-    done = db.Column(db.Boolean, nullable=False, default=False)
+    column = db.Column(db.String, nullable=False, default='to do')
     todo_list = db.Column(db.JSON, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
@@ -156,7 +156,7 @@ class Task(db.Model):
             "description": self.description,
             "due_at": self.due_at.strftime(
                 '%d-%m-%Y %H:%M:%S'),
-            "done": self.done,
+            "column": self.column,
             "todo_list": self.todo_list,
             "created_at": self.created_at.strftime(
                 '%d-%m-%Y %H:%M:%S'),

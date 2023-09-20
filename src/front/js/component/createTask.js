@@ -18,7 +18,7 @@ export const CreateTask = ({
         {
             title: "",
             description: "",
-            due_at: "",
+
             todo_list: {}
         }
     )
@@ -81,7 +81,7 @@ export const CreateTask = ({
         setForm({
             title: "",
             description: "",
-            due_at: "",
+
             todo_list: {},
 
         })
