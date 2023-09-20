@@ -435,8 +435,8 @@ def edit_task(task_id):
         if "due_at" in data:
             task.due_at = datetime.strptime(
                 data["due_at"], "%d-%m-%Y %H:%M:%S")
-        if "done" in data:
-            task.done = data["done"]
+        if "column" in data:
+            task.column = data["column"]
         if "todo_list" in data:
             task.todo_list = data["todo_list"]
 
